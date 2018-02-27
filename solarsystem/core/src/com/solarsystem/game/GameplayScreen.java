@@ -56,6 +56,8 @@ public class GameplayScreen extends AbstractScreen{
 		
 	}
 	
+
+	
 	public NaveActor getNave() {
 		return nave;
 	}
@@ -64,6 +66,8 @@ public class GameplayScreen extends AbstractScreen{
 		this.nave = nave;
 	}
 
+	private boolean paused;
+	
 	private ControladorVirtual controlador;
 	private Stage stage;
 	public NaveActor nave;
@@ -86,6 +90,7 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerBlue3;
 	private float timerBlue4;
 	private float timerEnemigoBlue;
+	private float timerGameOver;
 	private List<EnemigoActor> enemigos;
 	private List<EnemigoActor> enemigosBlue;
 	private List<LaserActor> lasers;
@@ -183,6 +188,10 @@ public class GameplayScreen extends AbstractScreen{
 	private ShieldActor shield;
 	private boolean dropShield;
 	
+	private Image pause;
+	private Image resume;
+	private Image pauseText;
+	
 	public GameplayScreen(Solarsystem game) {
 		super(game);		
 
@@ -203,6 +212,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerEnemigo = 10;
 		timerStage1 = 2;
 		timerFin = 5;
+		timerGameOver = 10000;
 		disparo1 = true;
 		disparo2 = false;
 		disparo3 = false;
@@ -231,15 +241,20 @@ public class GameplayScreen extends AbstractScreen{
 		booleans.add(false);
 		booleans.add(true);
 		
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
 		booleans2.add(true);
 		
 		stage = new Stage(new ScreenViewport());
@@ -270,6 +285,12 @@ public class GameplayScreen extends AbstractScreen{
 		nave.getBb().setX(nave.getX());
 		nave.getBb().setY(nave.getY());
 		stage.addActor(nave);
+		
+		pause = new Image(new Texture("shadedLight14.png"));
+		pause.setPosition(stage.getWidth()-pause.getWidth()-20, 
+				stage.getHeight()-pause.getTop()-20);
+		stage.addActor(pause);
+//		pause.addListener(new InputPauseListener());
 		
 		ufo = new UfoActor();
 		
@@ -393,6 +414,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerBlue3 -= delta;
 		timerBlue4 -= delta;
 		timerEnemigoBlue -= delta;
+		timerGameOver -= delta;
 		
 		if(timerFin<=4){
 			timerFin -= delta;
@@ -418,6 +440,9 @@ public class GameplayScreen extends AbstractScreen{
 				}
 				if(timerStage2<0){
 					stage.getActors().removeValue(stage2, false);
+				}
+				if(timerGameOver < 0){
+					game.setScreen(game.gameoverScreen);
 				}
 			}
 		}
@@ -469,9 +494,14 @@ public class GameplayScreen extends AbstractScreen{
 		if(timerLaserUfo < 0 && stage.getActors().contains(ufo, true)){
 			dispararLaserUfo();
 		}
+		if(timerGameOver < 0){
+			game.setScreen(game.gameoverScreen);
+		}
+		
 		comprobarListas();
-
-		comprobarColisiones();
+		if(timerGameOver > 2){
+			comprobarColisiones();
+		}
 		stage.draw();
 	}
 	
@@ -552,7 +582,12 @@ public class GameplayScreen extends AbstractScreen{
 				enemigos.remove(i);
 				game.hitSound.play();
 				game.ufoSound.stop();
-				game.setScreen(game.gameoverScreen);
+				BoomActor boom = new BoomActor();
+				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				nave.remove();
+				stage.addActor(boom);
+				timerGameOver = 0.4f;
 			}else{
 				for(int j = 0; j < lasers.size(); j++){
 					laser = lasers.get(j);
@@ -620,8 +655,12 @@ public class GameplayScreen extends AbstractScreen{
 				laserEnemigos.remove(k);
 				game.hitSound.play();
 				game.ufoSound.stop();
-				nave.dispose();
-				game.setScreen(game.gameoverScreen);
+				BoomActor boom = new BoomActor();
+				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				nave.remove();
+				stage.addActor(boom);
+				timerGameOver = 0.4f;
 			}else if(stage.getActors().contains(shield, false)&&
 					laserEnemigo.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
@@ -652,7 +691,12 @@ public class GameplayScreen extends AbstractScreen{
 				meteoritos.remove(k);
 				game.hitSound.play();
 				game.ufoSound.stop();
-				game.setScreen(game.gameoverScreen);
+				BoomActor boom = new BoomActor();
+				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				nave.remove();
+				stage.addActor(boom);
+				timerGameOver = 0.4f;
 			}else if(stage.getActors().contains(shield, false)&&
 					meteorito.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
@@ -740,7 +784,12 @@ public class GameplayScreen extends AbstractScreen{
 				laserUfos.remove(k);
 				game.hitSound.play();
 				game.ufoSound.stop();
-				game.setScreen(game.gameoverScreen);
+				BoomActor boom = new BoomActor();
+				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				nave.remove();
+				stage.addActor(boom);
+				timerGameOver = 0.4f;
 			}else if(stage.getActors().contains(shield, false)&&
 					laserUfo.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
@@ -806,7 +855,12 @@ public class GameplayScreen extends AbstractScreen{
 				enemigosBlue.remove(i);
 				game.hitSound.play();
 				game.ufoSound.stop();
-				game.setScreen(game.gameoverScreen);
+				BoomActor boom = new BoomActor();
+				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				nave.remove();
+				stage.addActor(boom);
+				timerGameOver = 0.4f;
 			}else{
 				for(int j = 0; j < lasers.size(); j++){
 					laser = lasers.get(j);
@@ -816,7 +870,7 @@ public class GameplayScreen extends AbstractScreen{
 						lasers.remove(j);
 						game.explosionSound.play();
 						enemigoBlue.setContador(enemigoBlue.getContador()+1);
-						if(enemigoBlue.getContador()==7){
+						if(enemigoBlue.getContador()==8){
 							enemigosBlue.get(i).remove();
 							enemigosBlue.remove(i);
 							BoomActor boom = new BoomActor();
