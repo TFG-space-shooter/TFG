@@ -6,8 +6,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Colors;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -91,8 +90,11 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerBlue4;
 	private float timerEnemigoBlue;
 	private float timerGameOver;
+	private float timerGreen;
+	private float timerFin2;
 	private List<EnemigoActor> enemigos;
 	private List<EnemigoActor> enemigosBlue;
+	private List<EnemigoActor> enemigosGreen;
 	private List<LaserActor> lasers;
 	private List<LaserEnemigoActor> laserEnemigos;
 	private List<MeteoritoActor> meteoritos;
@@ -175,6 +177,8 @@ public class GameplayScreen extends AbstractScreen{
 	private EnemigoActor enemigoBlue19;
 	private EnemigoActor enemigoBlue20;
 	
+	
+	
 	private Image planeta1;
 	
 	private Image stage1;
@@ -212,6 +216,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerEnemigo = 10;
 		timerStage1 = 2;
 		timerFin = 5;
+		timerFin2 = 5;
 		timerGameOver = 10000;
 		disparo1 = true;
 		disparo2 = false;
@@ -221,6 +226,7 @@ public class GameplayScreen extends AbstractScreen{
 		dropShield = true;
 		enemigos = new ArrayList<EnemigoActor>();
 		enemigosBlue = new ArrayList<EnemigoActor>();
+		enemigosGreen = new ArrayList<EnemigoActor>();
 		lasers = new ArrayList<LaserActor>();
 		laserEnemigos = new ArrayList<LaserEnemigoActor>();
 		meteoritos = new ArrayList<MeteoritoActor>();
@@ -241,20 +247,20 @@ public class GameplayScreen extends AbstractScreen{
 		booleans.add(false);
 		booleans.add(true);
 		
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
+//		booleans2.add(false);
 		booleans2.add(true);
 		
 		stage = new Stage(new ScreenViewport());
@@ -385,6 +391,35 @@ public class GameplayScreen extends AbstractScreen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		stage.act();
+
+		//Codigo solo para probar el juego
+		if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_1)){
+			for(int i = 0; i<enemigos.size(); i++){
+				enemigos.get(i).setContador(4);
+				enemigos.get(i).remove();
+				enemigos.remove(i);
+			}
+			stage.getActors().removeValue(ufo, false);
+			timerFin = 3;
+			timerUfo = 10000;
+			timerBlue = 8;
+			timerBlue2 = 8.5f;
+			timerBlue3 = 9;
+			timerBlue4 = 9.5f;
+			timerEnemigoBlue = 10;
+			timerStage2 = 5;
+		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_2)){
+			for(int i = 0; i<enemigosBlue.size(); i++){
+				enemigosBlue.get(i).setContador(8);
+				enemigosBlue.get(i).remove();
+				enemigosBlue.remove(i);
+			}
+			stage.getActors().removeValue(ufo, false);
+			timerFin = 3;
+			timerFin2 = 3;
+			timerUfo = 1000;
+			timerGreen = 8;
+		}
 		
 		puntuacion.toFront();
 		puntuacionTexto.toFront();
@@ -415,6 +450,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerBlue4 -= delta;
 		timerEnemigoBlue -= delta;
 		timerGameOver -= delta;
+		timerGreen -= delta;
 		
 		if(timerFin<=4){
 			timerFin -= delta;
@@ -443,6 +479,15 @@ public class GameplayScreen extends AbstractScreen{
 				}
 				if(timerGameOver < 0){
 					game.setScreen(game.gameoverScreen);
+				}
+				
+				if(timerFin2<=4){
+					timerFin2 -= delta;
+					if(timerFin2 < 0){
+						if(timerGreen < 0){
+							spawnEnemigosGreen();
+						}
+					}
 				}
 			}
 		}
@@ -560,12 +605,20 @@ public class GameplayScreen extends AbstractScreen{
 				escudos.remove(i);
 			}
 		}
+		
+		for(int i = 0; i < enemigosGreen.size(); i++){
+			if(enemigosGreen.get(i).getY() < -enemigosGreen.get(i).getHeight()){
+				enemigosGreen.get(i).remove();
+				enemigosGreen.remove(i);
+			}
+		}
 
 	}
 
 	private void comprobarColisiones() {
 		EnemigoActor enemigo;
 		EnemigoActor enemigoBlue;
+		EnemigoActor enemigoGreen;
 		LaserActor laser;
 		LaserEnemigoActor laserEnemigo;
 		MeteoritoActor meteorito;
@@ -576,7 +629,8 @@ public class GameplayScreen extends AbstractScreen{
 
 		for(int i = 0; i < enemigos.size(); i++){
 			enemigo = enemigos.get(i);
-			if(enemigo.getBb().overlaps(nave.getBb())){
+			if(enemigo.getBb().overlaps(nave.getBb())&&
+					!stage.getActors().contains(shield, false)){
 				// Colisión enemigo-nave
 				enemigos.get(i).remove();
 				enemigos.remove(i);
@@ -588,7 +642,32 @@ public class GameplayScreen extends AbstractScreen{
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
-			}else{
+			}else if(stage.getActors().contains(shield, false)&&
+					enemigo.getBb().overlaps(nave.getBb())&&
+					shield.getTipo()==2){
+				enemigos.get(i).remove();
+				enemigos.remove(i);
+				BoomActor boom = new BoomActor();
+				boom.setPosition(enemigo.getX()+enemigo.getWidth()/2-boom.getWidth()/2,
+						enemigo.getY()+enemigo.getHeight()/2-boom.getHeight()/2);
+				stage.addActor(boom);
+				stage.getActors().removeValue(shield, false);
+				shield = new ShieldActor(new Texture("shield1.png"), 1);
+				stage.addActor(shield);
+				game.hitSound.play();
+			}else if(stage.getActors().contains(shield, false)&&
+					enemigo.getBb().overlaps(nave.getBb())&&
+					shield.getTipo()==1){
+				enemigos.get(i).remove();
+				enemigos.remove(i);
+				BoomActor boom = new BoomActor();
+				boom.setPosition(enemigo.getX()+enemigo.getWidth()/2-boom.getWidth()/2,
+						enemigo.getY()+enemigo.getHeight()/2-boom.getHeight()/2);
+				stage.addActor(boom);
+				stage.getActors().removeValue(shield, false);
+				game.hitSound.play();
+				dropShield = true;
+			}
 				for(int j = 0; j < lasers.size(); j++){
 					laser = lasers.get(j);
 					if(laser.getBb().overlaps(enemigo.getBb())){
@@ -645,7 +724,7 @@ public class GameplayScreen extends AbstractScreen{
 					}
 				}
 			}
-		}
+		
 		for(int k = 0; k < laserEnemigos.size(); k++){
 			laserEnemigo = laserEnemigos.get(k);
 			if(laserEnemigo.getBb().overlaps(nave.getBb())&&
@@ -886,9 +965,58 @@ public class GameplayScreen extends AbstractScreen{
 										stage.getHeight()/2 - clear.getHeight()/2);
 								stage.addActor(clear);
 								timerFin = 3;
+								timerFin2 = 3;
 								timerUfo = 1000;
-//								timerBlue = 8;
+								timerGreen = 8;
 							}
+						}
+					}
+				}
+			}
+		}
+		for(int i = 0; i < enemigosGreen.size(); i++){
+			enemigoGreen = enemigosGreen.get(i);
+			if(enemigoGreen.getBb().overlaps(nave.getBb())){
+				// Colisión enemigo-nave
+				enemigosGreen.get(i).remove();
+				enemigosGreen.remove(i);
+				game.hitSound.play();
+				game.ufoSound.stop();
+				BoomActor boom = new BoomActor();
+				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				nave.remove();
+				stage.addActor(boom);
+				timerGameOver = 0.4f;
+			}else{
+				for(int j = 0; j < lasers.size(); j++){
+					laser = lasers.get(j);
+					if(laser.getBb().overlaps(enemigoGreen.getBb())){
+						// Colisión enemigo-láser
+						lasers.get(j).remove();
+						lasers.remove(j);
+						game.explosionSound.play();
+						enemigoGreen.setContador(enemigoGreen.getContador()+1);
+						if(enemigoGreen.getContador()==8){
+							enemigosGreen.get(i).remove();
+							enemigosGreen.remove(i);
+							BoomActor boom = new BoomActor();
+							boom.setPosition(enemigoGreen.getX()+
+									enemigoGreen.getWidth()/2-boom.getWidth()/2,
+									enemigoGreen.getY()+enemigoGreen.getHeight()/2-boom.getHeight()/2);
+							stage.addActor(boom);
+							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
+//							if(enemigosBlue.isEmpty()){
+//								stage.getActors().removeValue(ufo, false);
+//								clear = new Image(new Texture("clear.png"));
+//								clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
+//										stage.getHeight()/2 - clear.getHeight()/2);
+//								stage.addActor(clear);
+//								timerFin = 3;
+//								timerFin2 = 3;
+//								timerUfo = 1000;
+//								timerGreen = 8;
+//							}
 						}
 					}
 				}
@@ -1350,6 +1478,41 @@ public class GameplayScreen extends AbstractScreen{
 						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
 		
 		timerBlue4 = 10000;
+	}
+	
+	private void spawnEnemigosGreen(){
+		EnemigoActor enemigoGreen1 = new EnemigoActor(new Texture("enemyGreen1.png"));
+		EnemigoActor enemigoGreen2 = new EnemigoActor(new Texture("enemyGreen2.png"));
+		EnemigoActor enemigoGreen3 = new EnemigoActor(new Texture("enemyGreen3.png"));
+		EnemigoActor enemigoGreen4 = new EnemigoActor(new Texture("enemyGreen4.png"));
+		EnemigoActor enemigoGreen5 = new EnemigoActor(new Texture("enemyGreen5.png"));
+		
+		List<EnemigoActor> enemigosGreen1 = new ArrayList<EnemigoActor>();
+		enemigosGreen1.add(enemigoGreen1);
+		enemigosGreen1.add(enemigoGreen2);
+		enemigosGreen1.add(enemigoGreen3);
+		enemigosGreen1.add(enemigoGreen4);
+		enemigosGreen1.add(enemigoGreen5);
+		
+		Random random = new Random();
+	    int index = random.nextInt(enemigosGreen1.size());
+	    EnemigoActor e = enemigosGreen1.get(index);
+	    
+	    e.setPosition((float) ((stage.getWidth()-e.getWidth())*Math.random()), stage.getHeight());
+	    enemigosGreen.add(e);
+	    
+	    stage.addActor(e);
+	    
+	    List<Integer> velocidades = new ArrayList<Integer>();
+	    velocidades.add(-5);
+	    velocidades.add(-10);
+	    Random random2 = new Random();
+	    int index2 = random2.nextInt(velocidades.size());
+	    Integer i = velocidades.get(index2);
+	    e.addAction(Actions.forever(Actions.moveBy(0, i)));
+	    
+	    timerGreen = 0.5f;
+		
 	}
 	
 	private void dropMunicion(EnemigoActor enemigoRandom, Texture textureMunicion, int tipo){
