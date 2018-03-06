@@ -245,22 +245,34 @@ public class GameplayScreen extends AbstractScreen{
 		booleans.add(false);
 		booleans.add(false);
 		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
 		booleans.add(true);
 		
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
-//		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
+		booleans2.add(false);
 		booleans2.add(true);
 		
 		stage = new Stage(new ScreenViewport());
@@ -928,7 +940,8 @@ public class GameplayScreen extends AbstractScreen{
 		
 		for(int i = 0; i < enemigosBlue.size(); i++){
 			enemigoBlue = enemigosBlue.get(i);
-			if(enemigoBlue.getBb().overlaps(nave.getBb())){
+			if(enemigoBlue.getBb().overlaps(nave.getBb())&&
+					!stage.getActors().contains(shield, false)){
 				// Colisión enemigo-nave
 				enemigosBlue.get(i).remove();
 				enemigosBlue.remove(i);
@@ -940,7 +953,34 @@ public class GameplayScreen extends AbstractScreen{
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
-			}else{
+			}else if(stage.getActors().contains(shield, false)&&
+					enemigoBlue.getBb().overlaps(nave.getBb())&&
+					shield.getTipo()==2){
+				enemigosBlue.get(i).remove();
+				enemigosBlue.remove(i);
+				BoomActor boom = new BoomActor();
+				boom.setPosition(enemigoBlue.getX()+enemigoBlue.getWidth()/2-boom.getWidth()/2,
+						enemigoBlue.getY()+enemigoBlue.getHeight()/2-boom.getHeight()/2);
+				stage.addActor(boom);
+				stage.getActors().removeValue(shield, false);
+				shield = new ShieldActor(new Texture("shield1.png"), 1);
+				stage.addActor(shield);
+				game.hitSound.play();
+			}else if(stage.getActors().contains(shield, false)&&
+					enemigoBlue.getBb().overlaps(nave.getBb())&&
+					shield.getTipo()==1){
+				enemigosBlue.get(i).remove();
+				enemigosBlue.remove(i);
+				BoomActor boom = new BoomActor();
+				boom.setPosition(enemigoBlue.getX()+enemigoBlue.getWidth()/2-boom.getWidth()/2,
+						enemigoBlue.getY()+enemigoBlue.getHeight()/2-boom.getHeight()/2);
+				stage.addActor(boom);
+				stage.getActors().removeValue(shield, false);
+				game.hitSound.play();
+				dropShield = true;
+			
+	
+			}
 				for(int j = 0; j < lasers.size(); j++){
 					laser = lasers.get(j);
 					if(laser.getBb().overlaps(enemigoBlue.getBb())){
@@ -950,6 +990,27 @@ public class GameplayScreen extends AbstractScreen{
 						game.explosionSound.play();
 						enemigoBlue.setContador(enemigoBlue.getContador()+1);
 						if(enemigoBlue.getContador()==8){
+							Random random = new Random();
+						    int index = random.nextInt(booleans.size());
+						    Boolean m = booleans.get(index);
+						    if(m){
+						    	if(energia.getEnergia()==0 && drop){
+						    		dropMunicion(enemigoBlue, municion1, 1);
+						    	}else if(energia.getEnergia()==1 && drop){
+						    		dropMunicion(enemigoBlue, municion2, 2);
+						    	}
+//						    	}else if(energia.getEnergia()==2){
+//						    		dropMunicion(enemigoBlue, municion3, 3);
+//						    	}
+						    }
+						    Random random2 = new Random();
+						    int index2 = random2.nextInt(booleans2.size());
+						    Boolean e = booleans2.get(index2);
+						    if(e&&dropShield){
+						    	dropEscudo(enemigoBlue);
+						    	dropShield = false;
+						    }
+						    
 							enemigosBlue.get(i).remove();
 							enemigosBlue.remove(i);
 							BoomActor boom = new BoomActor();
@@ -973,10 +1034,11 @@ public class GameplayScreen extends AbstractScreen{
 					}
 				}
 			}
-		}
+		
 		for(int i = 0; i < enemigosGreen.size(); i++){
 			enemigoGreen = enemigosGreen.get(i);
-			if(enemigoGreen.getBb().overlaps(nave.getBb())){
+			if(enemigoGreen.getBb().overlaps(nave.getBb())&&
+					!stage.getActors().contains(shield, false)){
 				// Colisión enemigo-nave
 				enemigosGreen.get(i).remove();
 				enemigosGreen.remove(i);
@@ -988,7 +1050,35 @@ public class GameplayScreen extends AbstractScreen{
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
-			}else{
+			}else if(stage.getActors().contains(shield, false)&&
+					enemigoGreen.getBb().overlaps(nave.getBb())&&
+					shield.getTipo()==2){
+				enemigosGreen.get(i).remove();
+				enemigosGreen.remove(i);
+				BoomActor boom = new BoomActor();
+				boom.setPosition(enemigoGreen.getX()+enemigoGreen.getWidth()/2-boom.getWidth()/2,
+						enemigoGreen.getY()+enemigoGreen.getHeight()/2-boom.getHeight()/2);
+				stage.addActor(boom);
+				stage.getActors().removeValue(shield, false);
+				shield = new ShieldActor(new Texture("shield1.png"), 1);
+				stage.addActor(shield);
+				game.hitSound.play();
+			}else if(stage.getActors().contains(shield, false)&&
+					enemigoGreen.getBb().overlaps(nave.getBb())&&
+					shield.getTipo()==1){
+				enemigosGreen.get(i).remove();
+				enemigosGreen.remove(i);
+				BoomActor boom = new BoomActor();
+				boom.setPosition(enemigoGreen.getX()+enemigoGreen.getWidth()/2-boom.getWidth()/2,
+						enemigoGreen.getY()+enemigoGreen.getHeight()/2-boom.getHeight()/2);
+				stage.addActor(boom);
+				stage.getActors().removeValue(shield, false);
+				game.hitSound.play();
+				dropShield = true;
+			
+	
+			}
+	
 				for(int j = 0; j < lasers.size(); j++){
 					laser = lasers.get(j);
 					if(laser.getBb().overlaps(enemigoGreen.getBb())){
@@ -998,6 +1088,27 @@ public class GameplayScreen extends AbstractScreen{
 						game.explosionSound.play();
 						enemigoGreen.setContador(enemigoGreen.getContador()+1);
 						if(enemigoGreen.getContador()==8){
+							Random random = new Random();
+						    int index = random.nextInt(booleans.size());
+						    Boolean m = booleans.get(index);
+						    if(m){
+						    	if(energia.getEnergia()==0 && drop){
+						    		dropMunicion(enemigoGreen, municion1, 1);
+						    	}else if(energia.getEnergia()==1 && drop){
+						    		dropMunicion(enemigoGreen, municion2, 2);
+						    	}
+//						    	}else if(energia.getEnergia()==2){
+//						    		dropMunicion(enemigoGreen, municion3, 3);
+//						    	}
+						    }
+						    Random random2 = new Random();
+						    int index2 = random2.nextInt(booleans2.size());
+						    Boolean e = booleans2.get(index2);
+						    if(e&&dropShield){
+						    	dropEscudo(enemigoGreen);
+						    	dropShield = false;
+						    }
+							
 							enemigosGreen.get(i).remove();
 							enemigosGreen.remove(i);
 							BoomActor boom = new BoomActor();
@@ -1023,7 +1134,7 @@ public class GameplayScreen extends AbstractScreen{
 			}
 		}
 
-	}
+
 
 
 	public void ir(){
@@ -1504,8 +1615,10 @@ public class GameplayScreen extends AbstractScreen{
 	    stage.addActor(e);
 	    
 	    List<Integer> velocidades = new ArrayList<Integer>();
+	    velocidades.add(-3);
+	    velocidades.add(-4);
 	    velocidades.add(-5);
-	    velocidades.add(-10);
+	    velocidades.add(-6);
 	    Random random2 = new Random();
 	    int index2 = random2.nextInt(velocidades.size());
 	    Integer i = velocidades.get(index2);
