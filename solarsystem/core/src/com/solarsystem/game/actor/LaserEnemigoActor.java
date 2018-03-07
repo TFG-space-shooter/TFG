@@ -39,7 +39,6 @@ public class LaserEnemigoActor extends Actor implements Disposable{
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		moveBy(0, -350 * delta);
 		getBb().setX(getX());
 		getBb().setY(getY());
 		getBb().setWidth(getWidth());

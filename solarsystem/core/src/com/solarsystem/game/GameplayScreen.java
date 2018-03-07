@@ -83,6 +83,7 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerDisparar;
 	private float timerStage1;
 	private float timerStage2;
+	private float timerStage3;
 	private float timerFin;
 	private float timerBlue;
 	private float timerBlue2;
@@ -92,6 +93,8 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerGameOver;
 	private float timerGreen;
 	private float timerFin2;
+	private float timerFin3;
+	private float greenDead;
 	private List<EnemigoActor> enemigos;
 	private List<EnemigoActor> enemigosBlue;
 	private List<EnemigoActor> enemigosGreen;
@@ -183,6 +186,7 @@ public class GameplayScreen extends AbstractScreen{
 	
 	private Image stage1;
 	private Image stage2;
+	private Image stage3;
 	private Image clear;
 	private boolean disparo1;
 	private boolean disparo2;
@@ -217,7 +221,9 @@ public class GameplayScreen extends AbstractScreen{
 		timerStage1 = 2;
 		timerFin = 5;
 		timerFin2 = 5;
+		timerFin3 = 5;
 		timerGameOver = 10000;
+		greenDead = 0;
 		disparo1 = true;
 		disparo2 = false;
 		disparo3 = false;
@@ -428,9 +434,10 @@ public class GameplayScreen extends AbstractScreen{
 			}
 			stage.getActors().removeValue(ufo, false);
 			timerFin = 3;
-			timerFin2 = 3;
+			timerFin2 = 0;
 			timerUfo = 1000;
 			timerGreen = 8;
+			timerStage3 = 5;
 		}
 		
 		puntuacion.toFront();
@@ -456,6 +463,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerEnemigo -= delta;
 		timerStage1 -= delta;
 		timerStage2 -= delta;
+		timerStage3 -= delta;
 		timerBlue -= delta;
 		timerBlue2 -= delta;
 		timerBlue3 -= delta;
@@ -493,16 +501,24 @@ public class GameplayScreen extends AbstractScreen{
 					game.setScreen(game.gameoverScreen);
 				}
 				
-				if(timerFin2<=4){
-					timerFin2 -= delta;
-					if(timerFin2 < 0){
+//				if(timerFin2<=4){
+//					timerFin2 -= delta;
+					if(timerFin2 == 0){
+						if(timerStage3<2){
+							stage3();
+						}
 						if(timerGreen < 0){
 							spawnEnemigosGreen();
+						}
+						if(timerFin3 == 0){
+//							if(timerStage4<2){
+//								stage4();
+//							}
 						}
 					}
 				}
 			}
-		}
+//		}
 		
 		if(timerStage1<0){
 			stage.getActors().removeValue(stage1, false);
@@ -1026,9 +1042,10 @@ public class GameplayScreen extends AbstractScreen{
 										stage.getHeight()/2 - clear.getHeight()/2);
 								stage.addActor(clear);
 								timerFin = 3;
-								timerFin2 = 3;
+								timerFin2 = 0;
 								timerUfo = 1000;
 								timerGreen = 8;
+								timerStage3 = 5;
 							}
 						}
 					}
@@ -1117,17 +1134,30 @@ public class GameplayScreen extends AbstractScreen{
 									enemigoGreen.getY()+enemigoGreen.getHeight()/2-boom.getHeight()/2);
 							stage.addActor(boom);
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
-//							if(enemigosBlue.isEmpty()){
-//								stage.getActors().removeValue(ufo, false);
-//								clear = new Image(new Texture("clear.png"));
-//								clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-//										stage.getHeight()/2 - clear.getHeight()/2);
-//								stage.addActor(clear);
-//								timerFin = 3;
+							greenDead++;
+							if(greenDead == 10){
+								timerGreen = 10000;
+								for(int g = 0; g<enemigosGreen.size(); g++){
+									BoomActor boomGreen = new BoomActor();
+									boomGreen.setPosition(enemigosGreen.get(g).getX()+
+											enemigosGreen.get(g).getWidth()/2-boomGreen.getWidth()/2,
+											enemigosGreen.get(g).getY()+
+											enemigosGreen.get(g).getHeight()/2-boomGreen.getHeight()/2);
+									enemigosGreen.get(g).remove();
+									enemigosGreen.remove(g);
+									stage.addActor(boomGreen);
+								}
+								stage.getActors().removeValue(ufo, false);
+								clear = new Image(new Texture("clear.png"));
+								clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
+										stage.getHeight()/2 - clear.getHeight()/2);
+								stage.addActor(clear);
+								timerFin = 3;
 //								timerFin2 = 3;
-//								timerUfo = 1000;
+								timerFin3 = 0;
+								timerUfo = 1000;
 //								timerGreen = 8;
-//							}
+							}
 						}
 					}
 				}
@@ -1373,29 +1403,29 @@ public class GameplayScreen extends AbstractScreen{
 		
 		enemigoBlue1.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(2.5f), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						 Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue5.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(2.5f), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue9.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(2.5f), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						 Actions.moveBy(0, -50, 1), 
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue13.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(2.5f), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue17.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(2.5f), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		
 		timerBlue = 10000;
 		timerUfo = 15;
@@ -1438,29 +1468,29 @@ public class GameplayScreen extends AbstractScreen{
 		
 		enemigoBlue2.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(2), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue6.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(2), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue10.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(2), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1), 
+						Actions.moveBy(50, 0, 1),  
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue14.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(2), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue18.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(2), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		
 		timerBlue2 = 10000;
 	}
@@ -1501,29 +1531,29 @@ public class GameplayScreen extends AbstractScreen{
 		
 		enemigoBlue3.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(1.5f), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue7.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(1.5f), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue11.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(1.5f), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue15.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(1.5f), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1), 
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue19.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(1.5f), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1), 
+						Actions.moveBy(50, 0, 1),  
+						Actions.moveBy(0, 50, 1)))));
 		
 		timerBlue3 = 10000;
 	}
@@ -1564,29 +1594,29 @@ public class GameplayScreen extends AbstractScreen{
 		
 		enemigoBlue4.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(1), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1),  
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue8.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(1), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1), 
+						Actions.moveBy(50, 0, 1),  
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue12.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(1), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue16.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(1), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		enemigoBlue20.addAction(Actions.sequence(Actions.moveBy(0, -462, 1.5f), Actions.delay(1), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-						Actions.delay(0.5f), Actions.moveBy(0, -50, 1), Actions.delay(0.5f),
-						Actions.moveBy(50, 0, 1), Actions.delay(0.5f), 
-						Actions.moveBy(0, 50, 1), Actions.delay(0.5f)))));
+						Actions.moveBy(0, -50, 1),
+						Actions.moveBy(50, 0, 1), 
+						Actions.moveBy(0, 50, 1)))));
 		
 		timerBlue4 = 10000;
 	}
@@ -1610,6 +1640,9 @@ public class GameplayScreen extends AbstractScreen{
 	    EnemigoActor e = enemigosGreen1.get(index);
 	    
 	    e.setPosition((float) ((stage.getWidth()-e.getWidth())*Math.random()), stage.getHeight());
+	    e.getBb().setX(e.getX());
+		e.getBb().setY(e.getY());
+		
 	    enemigosGreen.add(e);
 	    
 	    stage.addActor(e);
@@ -1624,7 +1657,7 @@ public class GameplayScreen extends AbstractScreen{
 	    Integer i = velocidades.get(index2);
 	    e.addAction(Actions.forever(Actions.moveBy(0, i)));
 	    
-	    timerGreen = 0.5f;
+	    timerGreen = 0.8f;
 		
 	}
 	
@@ -1725,6 +1758,8 @@ public class GameplayScreen extends AbstractScreen{
 		laserEnemigo.getBb().setY(laserEnemigo.getY());
 		stage.addActor(laserEnemigo);
 		laserEnemigos.add(laserEnemigo);
+		laserEnemigo.addAction(Actions.forever(
+				Actions.moveBy(0, -350 * Gdx.graphics.getDeltaTime())));
 		timerEnemigo = (float) (0.5 + Math.random());
 		game.laserSound.play();
 	}
@@ -1740,6 +1775,8 @@ public class GameplayScreen extends AbstractScreen{
 		laserEnemigo.getBb().setY(laserEnemigo.getY());
 		stage.addActor(laserEnemigo);
 		laserEnemigos.add(laserEnemigo);
+		laserEnemigo.addAction(Actions.forever(
+				Actions.moveBy(0, -450 * Gdx.graphics.getDeltaTime())));
 		timerEnemigoBlue = (float) (0.5 + Math.random());
 		game.laserSound.play();
 	}
@@ -1814,6 +1851,15 @@ public class GameplayScreen extends AbstractScreen{
 		stage.addActor(stage2);
 		timerStage2 = 10000;
 		stage2.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
+	}
+	
+	private void stage3(){
+		stage3 = new Image(new Texture("stage3.png"));
+		stage3.setPosition(stage.getWidth()/2 - stage3.getWidth()/2,
+				stage.getHeight()/2 - stage3.getHeight()/2);
+		stage.addActor(stage3);
+		timerStage3 = 10000;
+		stage3.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
 	}
 	
 
