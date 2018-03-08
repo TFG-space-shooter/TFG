@@ -1,6 +1,7 @@
 package com.solarsystem.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,6 +19,7 @@ public class StartScreen extends AbstractScreen{
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
 			game.setScreen(game.gameplayScreen);
+			musicaPrincipal.stop();
 			return true;
 		}
 	}
@@ -27,9 +29,12 @@ public class StartScreen extends AbstractScreen{
 	private Image solarsystem;
 	private Image start;
 
+    private Music musicaPrincipal;	
+
 
 	public StartScreen(Solarsystem game) {
 		super(game);
+		initSons();
 		stage = new Stage(new ScreenViewport());
 		solarsystem = new Image(new Texture("solarsystem2.png"));
 		start = new Image(new Texture("retry.png"));
@@ -69,11 +74,18 @@ public class StartScreen extends AbstractScreen{
 	@Override
 	public void dispose() {
 		stage.dispose();
+		musicaPrincipal.dispose();
 	}
 	
 	@Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height, true);
 	}
+	
+    private void initSons() {
+        musicaPrincipal = Gdx.audio.newMusic(Gdx.files.internal("sounds/bonus-background.mp3"));
+        musicaPrincipal.setLooping(true);
+        musicaPrincipal.play();
+    }
 
 }

@@ -7,6 +7,7 @@ import java.util.Random;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -66,7 +67,9 @@ public class GameplayScreen extends AbstractScreen{
 	}
 
 	private boolean paused;
-	
+
+    private Music musicaFundo;	
+    
 	private ControladorVirtual controlador;
 	private Stage stage;
 	public NaveActor nave;
@@ -84,7 +87,10 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerStage1;
 	private float timerStage2;
 	private float timerStage3;
+	private float timerStage4;
 	private float timerFin;
+	private float timerFin2;
+	private float timerFin3;
 	private float timerBlue;
 	private float timerBlue2;
 	private float timerBlue3;
@@ -92,8 +98,6 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerEnemigoBlue;
 	private float timerGameOver;
 	private float timerGreen;
-	private float timerFin2;
-	private float timerFin3;
 	private float greenDead;
 	private List<EnemigoActor> enemigos;
 	private List<EnemigoActor> enemigosBlue;
@@ -187,6 +191,7 @@ public class GameplayScreen extends AbstractScreen{
 	private Image stage1;
 	private Image stage2;
 	private Image stage3;
+	private Image stage4;
 	private Image clear;
 	private boolean disparo1;
 	private boolean disparo2;
@@ -300,6 +305,7 @@ public class GameplayScreen extends AbstractScreen{
 //		planeta1.addAction(Actions.forever(Actions.parallel(Actions.moveBy(0, -3),
 //				Actions.rotateBy(1))));
 		
+        initSons();
 		stage1 = new Image(new Texture("stage1.png"));
 		stage1.setPosition(stage.getWidth()/2 - stage1.getWidth()/2,
 				stage.getHeight()/2 - stage1.getHeight()/2);
@@ -437,7 +443,6 @@ public class GameplayScreen extends AbstractScreen{
 			timerFin2 = 0;
 			timerUfo = 1000;
 			timerGreen = 8;
-			timerStage3 = 5;
 		}
 		
 		puntuacion.toFront();
@@ -464,6 +469,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerStage1 -= delta;
 		timerStage2 -= delta;
 		timerStage3 -= delta;
+		timerStage4 -= delta;
 		timerBlue -= delta;
 		timerBlue2 -= delta;
 		timerBlue3 -= delta;
@@ -510,10 +516,11 @@ public class GameplayScreen extends AbstractScreen{
 						if(timerGreen < 0){
 							spawnEnemigosGreen();
 						}
-						if(timerFin3 == 0){
-//							if(timerStage4<2){
-//								stage4();
-//							}
+						
+						if(timerFin3<=4){
+							if(timerStage4 < 2){
+								stage4();
+							}
 						}
 					}
 				}
@@ -569,6 +576,7 @@ public class GameplayScreen extends AbstractScreen{
 		}
 		if(timerGameOver < 0){
 			game.setScreen(game.gameoverScreen);
+			musicaFundo.stop();
 		}
 		
 		comprobarListas();
@@ -662,8 +670,11 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión enemigo-nave
 				enemigos.get(i).remove();
 				enemigos.remove(i);
-				game.hitSound.play();
+				
+				game.explosion.play();
 				game.ufoSound.stop();
+				
+				
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
@@ -760,7 +771,7 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión nave-láser enemigo
 				laserEnemigos.get(k).remove();
 				laserEnemigos.remove(k);
-				game.hitSound.play();
+				game.explosion.play();
 				game.ufoSound.stop();
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -796,14 +807,16 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión nave-meteorito
 				meteoritos.get(k).remove();
 				meteoritos.remove(k);
-				game.hitSound.play();
+				game.explosion.play();
 				game.ufoSound.stop();
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
 				nave.remove();
 				stage.addActor(boom);
+				
 				timerGameOver = 0.4f;
+				
 			}else if(stage.getActors().contains(shield, false)&&
 					meteorito.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
@@ -889,7 +902,7 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión nave-láser ufo
 				laserUfos.get(k).remove();
 				laserUfos.remove(k);
-				game.hitSound.play();
+				game.explosion.play();
 				game.ufoSound.stop();
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -961,7 +974,7 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión enemigo-nave
 				enemigosBlue.get(i).remove();
 				enemigosBlue.remove(i);
-				game.hitSound.play();
+				game.explosion.play();
 				game.ufoSound.stop();
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -1059,7 +1072,7 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión enemigo-nave
 				enemigosGreen.get(i).remove();
 				enemigosGreen.remove(i);
-				game.hitSound.play();
+				game.explosion.play();
 				game.ufoSound.stop();
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -1157,6 +1170,8 @@ public class GameplayScreen extends AbstractScreen{
 								timerFin3 = 0;
 								timerUfo = 1000;
 //								timerGreen = 8;
+
+								timerStage4 = 5;
 							}
 						}
 					}
@@ -1861,6 +1876,14 @@ public class GameplayScreen extends AbstractScreen{
 		timerStage3 = 10000;
 		stage3.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
 	}
+	private void stage4(){
+		stage4 = new Image(new Texture("stage4.png"));
+		stage4.setPosition(stage.getWidth()/2 - stage4.getWidth()/2,
+				stage.getHeight()/2 - stage4.getHeight()/2);
+		stage.addActor(stage4);
+		timerStage4 = 10000;
+		stage4.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
+	}
 	
 
 	@Override
@@ -1868,7 +1891,7 @@ public class GameplayScreen extends AbstractScreen{
 		fondo.dispose();
 		nave.dispose();
 		stage.dispose();
-		
+        musicaFundo.dispose();
 	}
 	
 	@Override
@@ -1881,5 +1904,20 @@ public class GameplayScreen extends AbstractScreen{
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height, true);
 	}
+
+	
+    private void initSons() {
+        musicaFundo = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
+        musicaFundo.setLooping(true);
+        musicaFundo.play();
+    }
+
+  
+    
+    private void atualizarSons() {
+            if (!musicaFundo.isPlaying()) {
+                musicaFundo.play();
+            }
+    }
 
 }
