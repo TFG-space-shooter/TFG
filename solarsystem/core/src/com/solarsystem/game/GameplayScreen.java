@@ -1910,6 +1910,7 @@ public class GameplayScreen extends AbstractScreen{
         musicaFundo = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
         musicaFundo.setLooping(true);
         musicaFundo.play();
+        musicaFundo.setVolume((float) 0.3);
     }
 
   
