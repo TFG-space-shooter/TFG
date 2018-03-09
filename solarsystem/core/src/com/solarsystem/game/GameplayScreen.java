@@ -73,6 +73,8 @@ public class GameplayScreen extends AbstractScreen{
 	private ControladorVirtual controlador;
 	private Stage stage;
 	public NaveActor nave;
+	private float timerMusicaFondo;
+	
 	private float timer;
 	private float timer2;
 	private float timer3;
@@ -214,6 +216,7 @@ public class GameplayScreen extends AbstractScreen{
 	public void show() {	
 		controlador = new ControladorVirtual();
 		timer = 5;
+		timerMusicaFondo =5;
 		timer2 = 5.5f;
 		timer3 = 6;
 		timer4 = 6.5f;
@@ -305,7 +308,6 @@ public class GameplayScreen extends AbstractScreen{
 //		planeta1.addAction(Actions.forever(Actions.parallel(Actions.moveBy(0, -3),
 //				Actions.rotateBy(1))));
 		
-        initSons();
 		stage1 = new Image(new Texture("stage1.png"));
 		stage1.setPosition(stage.getWidth()/2 - stage1.getWidth()/2,
 				stage.getHeight()/2 - stage1.getHeight()/2);
@@ -443,6 +445,13 @@ public class GameplayScreen extends AbstractScreen{
 			timerFin2 = 0;
 			timerUfo = 1000;
 			timerGreen = 8;
+		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)){
+			greenDead = 40;
+			
+			timerFin3 = 0;
+			timerUfo = 1000;
+			timerStage4 = 5;
+			
 		}
 		
 		puntuacion.toFront();
@@ -456,6 +465,7 @@ public class GameplayScreen extends AbstractScreen{
 //		}
 
 		timer -= delta;
+		timerMusicaFondo -= delta;
 		timer2 -= delta;
 		timer3 -= delta;
 		timer4 -= delta;
@@ -535,6 +545,12 @@ public class GameplayScreen extends AbstractScreen{
 		if(timer<0){
 			spawnEnemigos();
 		}
+		
+
+    	if(timerMusicaFondo<3){
+    		initSons();
+    	}
+    	
 		if(timer2<0){
 			spawnEnemigos2();
 		}
@@ -1148,7 +1164,7 @@ public class GameplayScreen extends AbstractScreen{
 							stage.addActor(boom);
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 							greenDead++;
-							if(greenDead == 10){
+							if(greenDead > 39 ){
 								timerGreen = 10000;
 								for(int g = 0; g<enemigosGreen.size(); g++){
 									BoomActor boomGreen = new BoomActor();
@@ -1911,6 +1927,10 @@ public class GameplayScreen extends AbstractScreen{
         musicaFundo.setLooping(true);
         musicaFundo.play();
         musicaFundo.setVolume((float) 0.3);
+        
+
+    	timerMusicaFondo = 1000000;
+    	
     }
 
   

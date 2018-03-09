@@ -24,7 +24,7 @@ public class Solarsystem extends Game {
 	public Box2DScreen box2DScreen;
 	public GameScreen gameScreen;
 	public SpriteBatch batch;
-	public Sound laserSound, hitSound, explosionSound, pillSound, ufoSound, explosion;
+	public Sound laserSound, hitSound, explosionSound, pillSound, ufoSound, explosion, lanzamiento;
 	
 	@Override
 	public void create () {
@@ -49,6 +49,7 @@ public class Solarsystem extends Game {
 		laserSound = Gdx.audio.newSound(Gdx.files.internal("laser4.mp3"));
 		hitSound = Gdx.audio.newSound(Gdx.files.internal("twoTone1.mp3"));
 		explosion = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
+		lanzamiento = Gdx.audio.newSound(Gdx.files.internal("sounds/lanzamiento.mp3"));
 		explosionSound = Gdx.audio.newSound(Gdx.files.internal("phaserDown1.mp3"));
 		pillSound = Gdx.audio.newSound(Gdx.files.internal("phaseJump3.mp3"));
 		ufoSound = Gdx.audio.newSound(Gdx.files.internal("pepSound3.mp3"));

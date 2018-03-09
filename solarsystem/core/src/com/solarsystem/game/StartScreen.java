@@ -20,6 +20,8 @@ public class StartScreen extends AbstractScreen{
 				int pointer, int button) {
 			game.setScreen(game.gameplayScreen);
 			musicaPrincipal.stop();
+
+			game.lanzamiento.play();
 			return true;
 		}
 	}

@@ -1,6 +1,7 @@
 package com.solarsystem.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -20,6 +21,9 @@ public class GameOverScreen extends AbstractScreen{
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
 			game.setScreen(game.gameplayScreen);
+			musicaGameOver.stop();
+
+			game.lanzamiento.play();
 			return true;
 		}
 	}
@@ -28,6 +32,8 @@ public class GameOverScreen extends AbstractScreen{
 	private FondoActor fondo;
 	private Image gameover;
 	private Image retry;
+	
+    private Music musicaGameOver;	
 
 	public GameOverScreen(final Solarsystem game) {
 		super(game);
@@ -51,6 +57,8 @@ public class GameOverScreen extends AbstractScreen{
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+
+		initSons();
 	}
 	
 	@Override
@@ -76,5 +84,10 @@ public class GameOverScreen extends AbstractScreen{
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height, true);
 	}
-
+	
+	private void initSons() {
+	        musicaGameOver = Gdx.audio.newMusic(Gdx.files.internal("sounds/gameover.mp3"));
+	        musicaGameOver.setLooping(false);
+	        musicaGameOver.play();
+	}
 }
