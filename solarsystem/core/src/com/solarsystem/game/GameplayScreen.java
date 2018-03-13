@@ -865,7 +865,8 @@ public class GameplayScreen extends AbstractScreen{
 					lasers.remove(j);
 					game.explosionSound.play();
 					meteorito.setContador(meteorito.getContador()+1);
-					if(meteorito.getWidth()>=89&&meteorito.getContador()==60){
+					if(meteorito.getWidth()>=89&&meteorito.getContador()==40){
+						this.rompeMeteoritoGrande(meteorito);
 						meteoritos.get(k).remove();
 						meteoritos.remove(k);
 						BoomActor boom = new BoomActor();
@@ -873,7 +874,7 @@ public class GameplayScreen extends AbstractScreen{
 								meteorito.getY()+meteorito.getHeight()/2-boom.getHeight()/2);
 						stage.addActor(boom);
 						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+500);
-					}else if(meteorito.getWidth()==43&&meteorito.getContador()==30){
+					}else if(meteorito.getWidth()==43&&meteorito.getContador()==20){
 						meteoritos.get(k).remove();
 						meteoritos.remove(k);
 						BoomActor boom = new BoomActor();
@@ -881,7 +882,7 @@ public class GameplayScreen extends AbstractScreen{
 								meteorito.getY()+meteorito.getHeight()/2-boom.getHeight()/2);
 						stage.addActor(boom);
 						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+250);
-					}else if(meteorito.getWidth()==29&&meteorito.getContador()==15){
+					}else if(meteorito.getWidth()==29&&meteorito.getContador()==10){
 						meteoritos.get(k).remove();
 						meteoritos.remove(k);
 						BoomActor boom = new BoomActor();
@@ -1851,6 +1852,7 @@ public class GameplayScreen extends AbstractScreen{
 		MeteoritoActor meteor6 = new MeteoritoActor(textureMeteorito5);
 		MeteoritoActor meteor7 = new MeteoritoActor(textureMeteorito5);
 		List<MeteoritoActor> meteoritosSpawn = new ArrayList<MeteoritoActor>();
+		float delta = Gdx.graphics.getDeltaTime();
 		
 		meteoritosSpawn.add(meteor1);
 		meteoritosSpawn.add(meteor2);
@@ -1864,6 +1866,20 @@ public class GameplayScreen extends AbstractScreen{
 	    int index = random.nextInt(meteoritosSpawn.size());
 	    meteorito = meteoritosSpawn.get(index);
 	    
+	    List<Integer> v = new ArrayList<Integer>();
+	    v.add(-50);
+	    v.add(50);
+	    Random random2 = new Random();
+	    int index2 = random2.nextInt(v.size());
+	    int vx = v.get(index2);
+	    
+	    List<Integer> r = new ArrayList<Integer>();
+	    r.add(-1);
+	    r.add(1);
+	    Random random3 = new Random();
+	    int index3 = random3.nextInt(r.size());
+	    int rx = r.get(index3);
+	    
 	    meteorito.setPosition((float) ((stage.getWidth()-meteorito.getWidth())
 				* Math.random()), stage.getHeight());
 	    meteorito.getBb().setX(meteorito.getX());
@@ -1871,9 +1887,37 @@ public class GameplayScreen extends AbstractScreen{
 		
 		stage.addActor(meteorito);
 		meteoritos.add(meteorito);
+		meteorito.addAction(Actions.forever(Actions.parallel(
+				Actions.moveBy(vx*delta, -100*delta),Actions.rotateBy(rx))));
 
 		timerMeteor = (float) (5 + Math.random());
 	}
+	
+	private void rompeMeteoritoGrande(MeteoritoActor m){
+		MeteoritoActor m1 = new MeteoritoActor(new Texture("meteorBrown_med1.png"));
+		MeteoritoActor m2 = new MeteoritoActor(new Texture("meteorBrown_med1.png"));
+		float delta = Gdx.graphics.getDeltaTime();
+		
+		m1.setPosition(m.getX()+m.getWidth()/2-m1.getWidth()/2,
+				m.getY()+m.getHeight()/2-m1.getHeight()/2);
+		m2.setPosition(m.getX()+m.getWidth()/2-m2.getWidth()/2,
+				m.getY()+m.getHeight()/2-m2.getHeight()/2);
+		m1.getBb().setX(m1.getX());
+	    m1.getBb().setY(m1.getY());
+	    m2.getBb().setX(m2.getX());
+	    m2.getBb().setY(m2.getY());
+	    
+	    stage.addActor(m1);
+	    stage.addActor(m2);	    
+	    meteoritos.add(m1);
+	    meteoritos.add(m2);
+	    
+	    m1.addAction(Actions.forever(Actions.parallel(
+	    		Actions.moveBy(-50*delta, -100*delta),Actions.rotateBy(1))));
+	    m2.addAction(Actions.forever(Actions.parallel(
+	    		Actions.moveBy(50*delta, -100*delta),Actions.rotateBy(-1))));
+	}
+	
 	
 	private void stage2(){
 		stage2 = new Image(new Texture("stage2.png"));

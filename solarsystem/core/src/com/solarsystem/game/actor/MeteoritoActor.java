@@ -11,7 +11,6 @@ public class MeteoritoActor extends Actor implements Disposable{
 
 	private Texture meteorito;
 	private TextureRegion miMeteorito;
-	private int spin = 0;
 	private Rectangle bb;
 	private Integer contador = 0;
 
@@ -48,20 +47,13 @@ public class MeteoritoActor extends Actor implements Disposable{
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		spin+=1;
 		batch.draw(miMeteorito, getX(), getY(), getOriginX()+getWidth()/2, getOriginY()+getHeight()/2,
-				getWidth(), getHeight(), getScaleX(), getScaleY(), spin);
+				getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 	}
 	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		if(getMeteorito().getWidth()==101||getMeteorito().getWidth()==89||
-				getMeteorito().getWidth()==43){
-			moveBy(-50 * delta, -100 * delta);
-		}else{
-			moveBy(50 * delta, -100 * delta);
-		}
 		getBb().setX(getX());
 		getBb().setY(getY());
 		getBb().setWidth(getWidth());

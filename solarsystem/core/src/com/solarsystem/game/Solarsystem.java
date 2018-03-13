@@ -50,7 +50,7 @@ public class Solarsystem extends Game {
 		hitSound = Gdx.audio.newSound(Gdx.files.internal("twoTone1.mp3"));
 		explosion = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
 		lanzamiento = Gdx.audio.newSound(Gdx.files.internal("sounds/lanzamiento.mp3"));
-		explosionSound = Gdx.audio.newSound(Gdx.files.internal("phaserDown1.mp3"));
+		explosionSound = Gdx.audio.newSound(Gdx.files.internal("phaserUp4.mp3"));
 		pillSound = Gdx.audio.newSound(Gdx.files.internal("phaseJump3.mp3"));
 		ufoSound = Gdx.audio.newSound(Gdx.files.internal("pepSound3.mp3"));
 		gameplayScreen = new GameplayScreen(this);
