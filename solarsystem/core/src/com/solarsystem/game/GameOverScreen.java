@@ -47,7 +47,6 @@ public class GameOverScreen extends AbstractScreen{
 		fondo = new FondoActor();
 		stage.addActor(fondo);
 		mayorPuntuacion = new PuntuacionActor(new BitmapFont());
-		mayorPuntuacion.setPuntuacion(Preferencias.getMayorPuntuacion());
 		
 		gameover.setPosition(stage.getWidth()/2 - gameover.getWidth()/2,
 				stage.getHeight()/2 + 100);
@@ -67,6 +66,7 @@ public class GameOverScreen extends AbstractScreen{
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+		mayorPuntuacion.setPuntuacion(Preferencias.getMayorPuntuacion());
 
 		initSons();
 	}
