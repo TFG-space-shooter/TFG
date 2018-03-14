@@ -7,6 +7,7 @@ import java.util.Random;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -34,6 +35,7 @@ import com.solarsystem.game.actor.PuntuacionTextoActor;
 import com.solarsystem.game.actor.ShieldActor;
 import com.solarsystem.game.actor.UfoActor;
 import com.solarsystem.game.inputhandler.ControladorVirtual;
+import com.solarsystem.game.util.Preferencias;
 
 public class GameplayScreen extends AbstractScreen{
 
@@ -66,6 +68,7 @@ public class GameplayScreen extends AbstractScreen{
 		this.nave = nave;
 	}
 
+	
 	private boolean paused;
 
     private Music musicaFundo;	
@@ -213,7 +216,8 @@ public class GameplayScreen extends AbstractScreen{
 	}
 	
 	@Override
-	public void show() {	
+	public void show() {	    
+
 		controlador = new ControladorVirtual();
 		timer = 5;
 		timerMusicaFondo =5;
@@ -684,6 +688,7 @@ public class GameplayScreen extends AbstractScreen{
 			if(enemigo.getBb().overlaps(nave.getBb())&&
 					!stage.getActors().contains(shield, false)){
 				// Colisión enemigo-nave
+				
 				enemigos.get(i).remove();
 				enemigos.remove(i);
 				
@@ -697,6 +702,10 @@ public class GameplayScreen extends AbstractScreen{
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
+				int prueba =  Preferencias.getMayorPuntuacion();
+				if (puntuacion.getPuntuacion() > prueba){
+					Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+				}
 			}else if(stage.getActors().contains(shield, false)&&
 					enemigo.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
@@ -795,6 +804,9 @@ public class GameplayScreen extends AbstractScreen{
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
+				if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
+					Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+				}
 			}else if(stage.getActors().contains(shield, false)&&
 					laserEnemigo.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
@@ -832,7 +844,9 @@ public class GameplayScreen extends AbstractScreen{
 				stage.addActor(boom);
 				
 				timerGameOver = 0.4f;
-				
+				if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
+					Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+				}
 			}else if(stage.getActors().contains(shield, false)&&
 					meteorito.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
@@ -927,6 +941,9 @@ public class GameplayScreen extends AbstractScreen{
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
+				if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
+					Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+				}
 			}else if(stage.getActors().contains(shield, false)&&
 					laserUfo.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
@@ -999,6 +1016,9 @@ public class GameplayScreen extends AbstractScreen{
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
+				if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
+					Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+				}
 			}else if(stage.getActors().contains(shield, false)&&
 					enemigoBlue.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
@@ -1097,6 +1117,9 @@ public class GameplayScreen extends AbstractScreen{
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
+				if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
+					Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+				}
 			}else if(stage.getActors().contains(shield, false)&&
 					enemigoGreen.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
@@ -1984,5 +2007,9 @@ public class GameplayScreen extends AbstractScreen{
                 musicaFundo.play();
             }
     }
+    
 
+    
+
+    
 }

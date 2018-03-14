@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -13,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.solarsystem.game.actor.FondoActor;
+import com.solarsystem.game.actor.PuntuacionActor;
+import com.solarsystem.game.util.Preferencias;
 
 public class GameOverScreen extends AbstractScreen{
 	
@@ -32,6 +35,7 @@ public class GameOverScreen extends AbstractScreen{
 	private FondoActor fondo;
 	private Image gameover;
 	private Image retry;
+	private PuntuacionActor mayorPuntuacion;
 	
     private Music musicaGameOver;	
 
@@ -42,16 +46,22 @@ public class GameOverScreen extends AbstractScreen{
 		retry = new Image(new Texture("retry.png"));
 		fondo = new FondoActor();
 		stage.addActor(fondo);
+		mayorPuntuacion = new PuntuacionActor(new BitmapFont());
+		mayorPuntuacion.setPuntuacion(Preferencias.getMayorPuntuacion());
 		
 		gameover.setPosition(stage.getWidth()/2 - gameover.getWidth()/2,
 				stage.getHeight()/2 + 100);
 		retry.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
 				stage.getHeight()/2 - 200);
 		
+		mayorPuntuacion.setPosition(stage.getWidth()/2 - mayorPuntuacion.getWidth()/2,
+				stage.getHeight()/2 - 300);	
+		
 		retry.addListener(new InputTouchToStartListener());
 		
 		stage.addActor(gameover);
 		stage.addActor(retry);
+		stage.addActor(mayorPuntuacion);
 	}
 	
 	@Override
