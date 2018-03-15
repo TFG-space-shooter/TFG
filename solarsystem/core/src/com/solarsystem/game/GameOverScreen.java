@@ -68,10 +68,14 @@ public class GameOverScreen extends AbstractScreen{
 		stage.addActor(mayorPuntuacion);
 	}
     private void initLabels() {
+    	if(lbPuntuacion != null){
+    		stage.getActors().removeValue(lbPuntuacion, false);
+    	}
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
         lbPuntuacion = new Label("High Score: " + Format.format(Preferencias.getMayorPuntuacion()), labelStyle);
+        lbPuntuacion.setPosition(stage.getWidth()/2-lbPuntuacion.getWidth()/2, 200);
         stage.addActor(lbPuntuacion);
     }
     private void initFonts() {

@@ -75,6 +75,7 @@ public class StartScreen extends AbstractScreen{
         String prueba = Format.format(Preferencias.getMayorPuntuacion());
         
         lbPuntuacion = new Label("High Score: " + prueba, labelStyle);
+        lbPuntuacion.setPosition(stage.getWidth()/2-lbPuntuacion.getWidth()/2, 150);
         stage.addActor(lbPuntuacion);
     }
     private void initFonts() {
@@ -106,7 +107,7 @@ public class StartScreen extends AbstractScreen{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        atualizarBotones();
+//        atualizarBotones();
 		stage.act();
 		stage.draw();
 		
@@ -131,12 +132,12 @@ public class StartScreen extends AbstractScreen{
     }
 
     
-    private void atualizarBotones() {
-    	 
-
-        lbPuntuacion.setPosition(stage.getWidth()/3 - mayorPuntuacion.getWidth()/2,
-				stage.getHeight()/2 - 350);
-
-    }
+//    private void atualizarBotones() {
+//    	 
+//
+//        lbPuntuacion.setPosition(stage.getWidth()/3 - mayorPuntuacion.getWidth()/2,
+//				stage.getHeight()/2 - 350);
+//
+//    }
 
 }
