@@ -2,19 +2,21 @@ package com.solarsystem.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.solarsystem.game.actor.FondoActor;
 import com.solarsystem.game.actor.PuntuacionActor;
+import com.solarsystem.game.util.Format;
 import com.solarsystem.game.util.Preferencias;
 
 public class GameOverScreen extends AbstractScreen{
@@ -39,6 +41,10 @@ public class GameOverScreen extends AbstractScreen{
 	
     private Music musicaGameOver;	
 
+    private BitmapFont fontBotoes;
+    private Label lbPuntuacion;
+
+    
 	public GameOverScreen(final Solarsystem game) {
 		super(game);
 		stage = new Stage(new ScreenViewport());
@@ -48,26 +54,48 @@ public class GameOverScreen extends AbstractScreen{
 		stage.addActor(fondo);
 		mayorPuntuacion = new PuntuacionActor(new BitmapFont());
 		
+
+		
 		gameover.setPosition(stage.getWidth()/2 - gameover.getWidth()/2,
 				stage.getHeight()/2 + 100);
 		retry.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
-				stage.getHeight()/2 - 200);
-		
-		mayorPuntuacion.setPosition(stage.getWidth()/2 - mayorPuntuacion.getWidth()/2,
-				stage.getHeight()/2 - 300);	
-		
+				stage.getHeight()/2 - 150);
+	
 		retry.addListener(new InputTouchToStartListener());
 		
 		stage.addActor(gameover);
 		stage.addActor(retry);
 		stage.addActor(mayorPuntuacion);
 	}
-	
+    private void initLabels() {
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle = new Label.LabelStyle();
+        labelStyle.font = fontBotoes;
+        lbPuntuacion = new Label("High Score: " + Format.format(Preferencias.getMayorPuntuacion()), labelStyle);
+        stage.addActor(lbPuntuacion);
+    }
+    private void initFonts() {
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/roboto.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        params.size = MathUtils.roundPositive(32 * Gdx.graphics.getDensity());
+        params.color = Color.WHITE;
+        fontBotoes = generator.generateFont(params);
+
+        generator.dispose();
+    }
+  
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
 		mayorPuntuacion.setPuntuacion(Preferencias.getMayorPuntuacion());
 
+
+        initFonts();
+        initLabels();
+
+  //      atualizarBotones();
+  
+		
 		initSons();
 	}
 	
@@ -80,6 +108,7 @@ public class GameOverScreen extends AbstractScreen{
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		
 		stage.act();
 		stage.draw();
@@ -88,6 +117,7 @@ public class GameOverScreen extends AbstractScreen{
 	@Override
 	public void dispose() {
 		stage.dispose();
+	
 	}
 	
 	@Override
@@ -100,4 +130,13 @@ public class GameOverScreen extends AbstractScreen{
 	        musicaGameOver.setLooping(false);
 	        musicaGameOver.play();
 	}
+	
+
+//    private void atualizarBotones() {
+// 
+//
+//        lbPuntuacion.setPosition(stage.getWidth()/3 - mayorPuntuacion.getWidth()/2,
+//				stage.getHeight()/2 - 350);
+//
+//    }
 }
