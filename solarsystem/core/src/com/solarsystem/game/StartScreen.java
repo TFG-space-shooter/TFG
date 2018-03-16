@@ -90,7 +90,7 @@ public class StartScreen extends AbstractScreen{
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
-
+	//	Preferencias.setMayorPuntuacion(0);
 		mayorPuntuacion.setPuntuacion(Preferencias.getMayorPuntuacion());		
         initFonts();
         initLabels();

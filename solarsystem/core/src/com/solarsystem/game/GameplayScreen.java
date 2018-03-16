@@ -80,6 +80,7 @@ public class GameplayScreen extends AbstractScreen{
 	
 	private float timer;
 	private float timer2;
+	private float timerYellow;
 	private float timer3;
 	private float timer4;
 	private float timerIzq;
@@ -107,6 +108,7 @@ public class GameplayScreen extends AbstractScreen{
 	private List<EnemigoActor> enemigos;
 	private List<EnemigoActor> enemigosBlue;
 	private List<EnemigoActor> enemigosGreen;
+	private List<EnemigoActor> enemigosYellow;
 	private List<LaserActor> lasers;
 	private List<LaserEnemigoActor> laserEnemigos;
 	private List<MeteoritoActor> meteoritos;
@@ -245,6 +247,7 @@ public class GameplayScreen extends AbstractScreen{
 		enemigos = new ArrayList<EnemigoActor>();
 		enemigosBlue = new ArrayList<EnemigoActor>();
 		enemigosGreen = new ArrayList<EnemigoActor>();
+		enemigosYellow = new ArrayList<EnemigoActor>();
 		lasers = new ArrayList<LaserActor>();
 		laserEnemigos = new ArrayList<LaserEnemigoActor>();
 		meteoritos = new ArrayList<MeteoritoActor>();
@@ -491,6 +494,11 @@ public class GameplayScreen extends AbstractScreen{
 		timerEnemigoBlue -= delta;
 		timerGameOver -= delta;
 		timerGreen -= delta;
+		timerYellow -= delta;
+		
+		
+		
+
 		
 		if(timerFin<=4){
 			timerFin -= delta;
@@ -521,9 +529,9 @@ public class GameplayScreen extends AbstractScreen{
 					game.setScreen(game.gameoverScreen);
 				}
 				
-//				if(timerFin2<=4){
-//					timerFin2 -= delta;
-					if(timerFin2 == 0){
+				if(timerFin2<=4){
+					timerFin2 -= delta;
+					if(timerFin2<0){
 						if(timerStage3<2){
 							stage3();
 						}
@@ -532,14 +540,20 @@ public class GameplayScreen extends AbstractScreen{
 						}
 						
 						if(timerFin3<=4){
-							if(timerStage4 < 2){
+							timerFin3 -= delta;
+							if(timerFin3<0){
+								if(timerStage4 < 2){
 								stage4();
+								}
+								if(timerYellow < 0){
+									spawnEnemigosYellow();
+								}
 							}
 						}
 					}
 				}
 			}
-//		}
+		}
 		
 		if(timerStage1<0){
 			stage.getActors().removeValue(stage1, false);
@@ -666,6 +680,7 @@ public class GameplayScreen extends AbstractScreen{
 			if(enemigosGreen.get(i).getY() < -enemigosGreen.get(i).getHeight()){
 				enemigosGreen.get(i).remove();
 				enemigosGreen.remove(i);
+				puntuacion.setPuntuacion(puntuacion.getPuntuacion()-100);
 			}
 		}
 
@@ -1093,9 +1108,10 @@ public class GameplayScreen extends AbstractScreen{
 								stage.addActor(clear);
 								timerFin = 3;
 								timerFin2 = 0;
-								timerUfo = 1000;
+								timerUfo = 10000;
 								timerGreen = 8;
 								timerStage3 = 5;
+								
 							}
 						}
 					}
@@ -1188,7 +1204,7 @@ public class GameplayScreen extends AbstractScreen{
 							stage.addActor(boom);
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 							greenDead++;
-							if(greenDead > 39 ){
+							if(greenDead > 3 ){
 								timerGreen = 10000;
 								for(int g = 0; g<enemigosGreen.size(); g++){
 									BoomActor boomGreen = new BoomActor();
@@ -1206,12 +1222,12 @@ public class GameplayScreen extends AbstractScreen{
 										stage.getHeight()/2 - clear.getHeight()/2);
 								stage.addActor(clear);
 								timerFin = 3;
-//								timerFin2 = 3;
+								timerFin2 = 0;
 								timerFin3 = 0;
-								timerUfo = 1000;
-//								timerGreen = 8;
-
+								timerUfo = 10000;
+								timerYellow = 8;
 								timerStage4 = 5;
+								
 							}
 						}
 					}
@@ -1714,6 +1730,55 @@ public class GameplayScreen extends AbstractScreen{
 	    
 	    timerGreen = 0.8f;
 		
+	}
+	
+	private void spawnEnemigosYellow(){
+		EnemigoActor enemigoYellow1 = new EnemigoActor(new Texture("enemyRed1.png"));
+		
+		enemigoYellow1.setPosition(-enemigoYellow1.getWidth(), stage.getHeight()-358);
+		enemigoYellow1.getBb().setX(enemigoYellow1.getX());
+		enemigoYellow1.getBb().setY(enemigoYellow1.getY());
+//		enemigo9.setPosition(enemigo4.getX()-enemigo9.getWidth()-20, stage.getHeight()-358);
+//		enemigo9.getBb().setX(enemigo9.getX());
+//		enemigo9.getBb().setY(enemigo9.getY());
+//		enemigo14.setPosition(enemigo9.getX()-enemigo14.getWidth()-20, stage.getHeight()-358);
+//		enemigo14.getBb().setX(enemigo14.getX());
+//		enemigo14.getBb().setY(enemigo14.getY());
+//		enemigo19.setPosition(enemigo14.getX()-enemigo19.getWidth()-20, stage.getHeight()-358);
+//		enemigo19.getBb().setX(enemigo19.getX());
+//		enemigo19.getBb().setY(enemigo19.getY());
+//		enemigo24.setPosition(enemigo19.getX()-enemigo24.getWidth()-20, stage.getHeight()-358);
+//		enemigo24.getBb().setX(enemigo24.getX());
+//		enemigo24.getBb().setY(enemigo24.getY());
+		
+		stage.addActor(enemigoYellow1);
+		enemigosYellow.add(enemigoYellow1);
+//		stage.addActor(enemigo9);
+//		enemigos.add(enemigo9);
+//		stage.addActor(enemigo14);
+//		enemigos.add(enemigo14);
+//		stage.addActor(enemigo19);
+//		enemigos.add(enemigo19);
+//		stage.addActor(enemigo24);
+//		enemigos.add(enemigo24);
+		
+		enemigoYellow1.addAction(Actions.sequence(Actions.moveBy(720-75, 0, 1.5f), Actions.delay(2), 
+				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
+						Actions.delay(1), Actions.moveBy(50, 0, 1), Actions.delay(1)))));
+//		enemigo9.addAction(Actions.sequence(Actions.moveBy(720-75, 0, 1.5f), Actions.delay(2), 
+//				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
+//						Actions.delay(1), Actions.moveBy(50, 0, 1), Actions.delay(1)))));
+//		enemigo14.addAction(Actions.sequence(Actions.moveBy(720-75, 0, 1.5f), Actions.delay(2), 
+//				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
+//						Actions.delay(1), Actions.moveBy(50, 0, 1), Actions.delay(1)))));
+//		enemigo19.addAction(Actions.sequence(Actions.moveBy(720-75, 0, 1.5f), Actions.delay(2), 
+//				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
+//						Actions.delay(1), Actions.moveBy(50, 0, 1), Actions.delay(1)))));
+//		enemigo24.addAction(Actions.sequence(Actions.moveBy(720-75, 0, 1.5f), Actions.delay(2), 
+//				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
+//						Actions.delay(1), Actions.moveBy(50, 0, 1), Actions.delay(1)))));
+
+		timerYellow = 10000;
 	}
 	
 	private void dropMunicion(EnemigoActor enemigoRandom, Texture textureMunicion, int tipo){
