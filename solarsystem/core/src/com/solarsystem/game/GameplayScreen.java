@@ -450,15 +450,18 @@ public class GameplayScreen extends AbstractScreen{
 			stage.getActors().removeValue(ufo, false);
 			timerFin = 3;
 			timerFin2 = 0;
-			timerUfo = 1000;
+			timerUfo = 10000;
 			timerGreen = 8;
+			timerStage3 = 5;
 		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)){
 			greenDead = 40;
 			
+			timerFin = 3;
+			timerFin2 = 0;
 			timerFin3 = 0;
-			timerUfo = 1000;
+			timerUfo = 10000;
+			timerYellow = 8;
 			timerStage4 = 5;
-			
 		}
 		
 		puntuacion.toFront();
@@ -532,6 +535,7 @@ public class GameplayScreen extends AbstractScreen{
 				if(timerFin2<=4){
 					timerFin2 -= delta;
 					if(timerFin2<0){
+						stage.getActors().removeValue(clear, false);
 						if(timerStage3<2){
 							stage3();
 						}
@@ -542,6 +546,7 @@ public class GameplayScreen extends AbstractScreen{
 						if(timerFin3<=4){
 							timerFin3 -= delta;
 							if(timerFin3<0){
+								stage.getActors().removeValue(clear, false);
 								if(timerStage4 < 2){
 								stage4();
 								}
@@ -1204,7 +1209,7 @@ public class GameplayScreen extends AbstractScreen{
 							stage.addActor(boom);
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 							greenDead++;
-							if(greenDead > 3 ){
+							if(greenDead == 3 ){
 								timerGreen = 10000;
 								for(int g = 0; g<enemigosGreen.size(); g++){
 									BoomActor boomGreen = new BoomActor();
