@@ -454,7 +454,8 @@ public class GameplayScreen extends AbstractScreen{
 			timerGreen = 8;
 			timerStage3 = 5;
 		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)){
-			greenDead = 40;
+			greenDead = 39;
+			timerGreen = 10000;
 			
 			timerFin = 3;
 			timerFin2 = 0;
@@ -1210,7 +1211,7 @@ public class GameplayScreen extends AbstractScreen{
 							stage.addActor(boom);
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 							greenDead++;
-							if(greenDead == 3 ){
+							if(greenDead == 39 ){
 								timerGreen = 10000;
 								for(int g = 0; g<enemigosGreen.size(); g++){
 									BoomActor boomGreen = new BoomActor();
@@ -1326,7 +1327,7 @@ public class GameplayScreen extends AbstractScreen{
 								stage.addActor(boom);
 								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 								greenDead++;
-								if(greenDead == 3 ){
+								if(greenDead == 39 ){
 									timerGreen = 10000;
 									for(int g = 0; g<enemigosYellow.size(); g++){
 										BoomActor boomGreen = new BoomActor();
@@ -1856,10 +1857,14 @@ public class GameplayScreen extends AbstractScreen{
 	
 	private void spawnEnemigosYellow(){
 		EnemigoActor enemigoYellow1 = new EnemigoActor(new Texture("enemyRed1.png"));
+		EnemigoActor enemigoYellow2 = new EnemigoActor(new Texture("enemyRed1.png"));
 		
 		enemigoYellow1.setPosition(-enemigoYellow1.getWidth(), stage.getHeight()-358);
 		enemigoYellow1.getBb().setX(enemigoYellow1.getX());
 		enemigoYellow1.getBb().setY(enemigoYellow1.getY());
+		enemigoYellow2.setPosition(enemigoYellow1.getX()-enemigoYellow2.getWidth()-20, stage.getHeight()-358);
+		enemigoYellow2.getBb().setX(enemigoYellow2.getX());
+		enemigoYellow2.getBb().setY(enemigoYellow2.getY());
 //		enemigo9.setPosition(enemigo4.getX()-enemigo9.getWidth()-20, stage.getHeight()-358);
 //		enemigo9.getBb().setX(enemigo9.getX());
 //		enemigo9.getBb().setY(enemigo9.getY());
@@ -1872,9 +1877,11 @@ public class GameplayScreen extends AbstractScreen{
 //		enemigo24.setPosition(enemigo19.getX()-enemigo24.getWidth()-20, stage.getHeight()-358);
 //		enemigo24.getBb().setX(enemigo24.getX());
 //		enemigo24.getBb().setY(enemigo24.getY());
-		
+
 		stage.addActor(enemigoYellow1);
+		stage.addActor(enemigoYellow2);
 		enemigosYellow.add(enemigoYellow1);
+		enemigosYellow.add(enemigoYellow2);
 //		stage.addActor(enemigo9);
 //		enemigos.add(enemigo9);
 //		stage.addActor(enemigo14);
@@ -1887,9 +1894,9 @@ public class GameplayScreen extends AbstractScreen{
 		enemigoYellow1.addAction(Actions.sequence(Actions.moveBy(720-75, 0, 1.5f), Actions.delay(2), 
 				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
 						Actions.delay(1), Actions.moveBy(50, 0, 1), Actions.delay(1)))));
-//		enemigo9.addAction(Actions.sequence(Actions.moveBy(720-75, 0, 1.5f), Actions.delay(2), 
-//				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
-//						Actions.delay(1), Actions.moveBy(50, 0, 1), Actions.delay(1)))));
+		enemigoYellow2.addAction(Actions.sequence(Actions.moveBy(720-75, 0, 1.5f), Actions.delay(2), 
+				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
+						Actions.delay(1), Actions.moveBy(50, 0, 1), Actions.delay(1)))));
 //		enemigo14.addAction(Actions.sequence(Actions.moveBy(720-75, 0, 1.5f), Actions.delay(2), 
 //				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
 //						Actions.delay(1), Actions.moveBy(50, 0, 1), Actions.delay(1)))));
