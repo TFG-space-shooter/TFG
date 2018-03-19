@@ -695,6 +695,7 @@ public class GameplayScreen extends AbstractScreen{
 		EnemigoActor enemigo;
 		EnemigoActor enemigoBlue;
 		EnemigoActor enemigoGreen;
+		EnemigoActor enemigoYellow;
 		LaserActor laser;
 		LaserEnemigoActor laserEnemigo;
 		MeteoritoActor meteorito;
@@ -1238,7 +1239,123 @@ public class GameplayScreen extends AbstractScreen{
 					}
 				}
 			}
-		}
+			
+			for(int i = 0; i < enemigosYellow.size(); i++){
+				enemigoYellow = enemigosYellow.get(i);
+				if(enemigoYellow.getBb().overlaps(nave.getBb())&&
+						!stage.getActors().contains(shield, false)){
+					// Colisión enemigo-nave
+					enemigosYellow.get(i).remove();
+					enemigosYellow.remove(i);
+					game.explosion.play();
+					game.ufoSound.stop();
+					BoomActor boom = new BoomActor();
+					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+							nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+					nave.remove();
+					stage.addActor(boom);
+					timerGameOver = 0.4f;
+					if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
+						Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+					}
+				}else if(stage.getActors().contains(shield, false)&&
+						enemigoYellow.getBb().overlaps(nave.getBb())&&
+						shield.getTipo()==2){
+					enemigosYellow.get(i).remove();
+					enemigosYellow.remove(i);
+					BoomActor boom = new BoomActor();
+					boom.setPosition(enemigoYellow.getX()+enemigoYellow.getWidth()/2-boom.getWidth()/2,
+							enemigoYellow.getY()+enemigoYellow.getHeight()/2-boom.getHeight()/2);
+					stage.addActor(boom);
+					stage.getActors().removeValue(shield, false);
+					shield = new ShieldActor(new Texture("shield1.png"), 1);
+					stage.addActor(shield);
+					game.hitSound.play();
+				}else if(stage.getActors().contains(shield, false)&&
+						enemigoYellow.getBb().overlaps(nave.getBb())&&
+						shield.getTipo()==1){
+					enemigosYellow.get(i).remove();
+					enemigosYellow.remove(i);
+					BoomActor boom = new BoomActor();
+					boom.setPosition(enemigoYellow.getX()+enemigoYellow.getWidth()/2-boom.getWidth()/2,
+							enemigoYellow.getY()+enemigoYellow.getHeight()/2-boom.getHeight()/2);
+					stage.addActor(boom);
+					stage.getActors().removeValue(shield, false);
+					game.hitSound.play();
+					dropShield = true;
+				
+		
+				}
+		
+					for(int j = 0; j < lasers.size(); j++){
+						laser = lasers.get(j);
+						if(laser.getBb().overlaps(enemigoYellow.getBb())){
+							// Colisión enemigo-láser
+							lasers.get(j).remove();
+							lasers.remove(j);
+							game.explosionSound.play();
+							enemigoYellow.setContador(enemigoYellow.getContador()+1);
+							if(enemigoYellow.getContador()==15){
+								Random random = new Random();
+							    int index = random.nextInt(booleans.size());
+							    Boolean m = booleans.get(index);
+							    if(m){
+							    	if(energia.getEnergia()==0 && drop){
+							    		dropMunicion(enemigoYellow, municion1, 1);
+							    	}else if(energia.getEnergia()==1 && drop){
+							    		dropMunicion(enemigoYellow, municion2, 2);
+							    	}
+//							    	}else if(energia.getEnergia()==2){
+//							    		dropMunicion(enemigoYellow, municion3, 3);
+//							    	}
+							    }
+							    Random random2 = new Random();
+							    int index2 = random2.nextInt(booleans2.size());
+							    Boolean e = booleans2.get(index2);
+							    if(e&&dropShield){
+							    	dropEscudo(enemigoYellow);
+							    	dropShield = false;
+							    }
+								
+								enemigosYellow.get(i).remove();
+								enemigosYellow.remove(i);
+								BoomActor boom = new BoomActor();
+								boom.setPosition(enemigoYellow.getX()+
+										enemigoYellow.getWidth()/2-boom.getWidth()/2,
+										enemigoYellow.getY()+enemigoYellow.getHeight()/2-boom.getHeight()/2);
+								stage.addActor(boom);
+								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
+								greenDead++;
+								if(greenDead == 3 ){
+									timerGreen = 10000;
+									for(int g = 0; g<enemigosYellow.size(); g++){
+										BoomActor boomGreen = new BoomActor();
+										boomGreen.setPosition(enemigosYellow.get(g).getX()+
+												enemigosYellow.get(g).getWidth()/2-boomGreen.getWidth()/2,
+												enemigosYellow.get(g).getY()+
+												enemigosYellow.get(g).getHeight()/2-boomGreen.getHeight()/2);
+										enemigosYellow.get(g).remove();
+										enemigosYellow.remove(g);
+										stage.addActor(boomGreen);
+									}
+									stage.getActors().removeValue(ufo, false);
+									clear = new Image(new Texture("clear.png"));
+									clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
+											stage.getHeight()/2 - clear.getHeight()/2);
+									stage.addActor(clear);
+									timerFin = 3;
+									timerFin2 = 0;
+									timerFin3 = 0;
+									timerUfo = 10000;
+									timerYellow = 8;
+									timerStage4 = 5;
+									
+								}
+							}
+						}
+					}
+				}
+			}
 
 
 
