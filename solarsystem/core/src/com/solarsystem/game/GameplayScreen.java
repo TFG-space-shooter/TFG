@@ -689,6 +689,14 @@ public class GameplayScreen extends AbstractScreen{
 				puntuacion.setPuntuacion(puntuacion.getPuntuacion()-100);
 			}
 		}
+		
+		for(int i = 0; i < enemigosYellow.size(); i++){
+			if(enemigosYellow.get(i).getY() < -enemigosYellow.get(i).getHeight()){
+				enemigosYellow.get(i).remove();
+				enemigosYellow.remove(i);
+				puntuacion.setPuntuacion(puntuacion.getPuntuacion()-100);
+			}
+		}
 
 	}
 
