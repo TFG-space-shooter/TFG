@@ -1857,14 +1857,14 @@ public class GameplayScreen extends AbstractScreen{
 	
 	private void spawnEnemigosYellow(){
 		EnemigoActor enemigoYellow1 = new EnemigoActor(new Texture("enemyRed1.png"));
-		EnemigoActor enemigoYellow2 = new EnemigoActor(new Texture("enemyRed1.png"));
+		EnemigoActor enemigoYellow2 = new EnemigoActor(new Texture("enemyRed2.png"));
 		
 		enemigoYellow1.setPosition(-enemigoYellow1.getWidth(), stage.getHeight()-150);
 		enemigoYellow1.getBb().setX(enemigoYellow1.getX());
 		enemigoYellow1.getBb().setY(enemigoYellow1.getY());
-//		enemigoYellow2.setPosition(enemigoYellow1.getX()-enemigoYellow2.getWidth()-20, stage.getHeight()-358);
-//		enemigoYellow2.getBb().setX(enemigoYellow2.getX());
-//		enemigoYellow2.getBb().setY(enemigoYellow2.getY());
+		enemigoYellow2.setPosition(-enemigoYellow2.getX(), stage.getHeight()-150);
+		enemigoYellow2.getBb().setX(enemigoYellow2.getX());
+		enemigoYellow2.getBb().setY(enemigoYellow2.getY());
 //		enemigo9.setPosition(enemigo4.getX()-enemigo9.getWidth()-20, stage.getHeight()-358);
 //		enemigo9.getBb().setX(enemigo9.getX());
 //		enemigo9.getBb().setY(enemigo9.getY());
@@ -1879,9 +1879,9 @@ public class GameplayScreen extends AbstractScreen{
 //		enemigo24.getBb().setY(enemigo24.getY());
 
 		stage.addActor(enemigoYellow1);
-//		stage.addActor(enemigoYellow2);
+		stage.addActor(enemigoYellow2);
 		enemigosYellow.add(enemigoYellow1);
-//		enemigosYellow.add(enemigoYellow2);
+		enemigosYellow.add(enemigoYellow2);
 //		stage.addActor(enemigo9);
 //		enemigos.add(enemigo9);
 //		stage.addActor(enemigo14);
@@ -1894,7 +1894,11 @@ public class GameplayScreen extends AbstractScreen{
 		enemigoYellow1.addAction(Actions.sequence(Actions.moveBy(720,0,1.2f),
 				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.2f),
 				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.2f)))));
-				
+
+		enemigoYellow2.addAction(Actions.sequence(Actions.delay(0.25f), Actions.moveBy(720,0,1.2f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.2f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.2f)))));
+	
 				
 //		enemigoYellow2.addAction(Actions.sequence(Actions.moveBy(720-75, 0, 1.5f), Actions.delay(2), 
 //				Actions.forever(Actions.sequence(Actions.moveBy(-50, 0, 1), 
