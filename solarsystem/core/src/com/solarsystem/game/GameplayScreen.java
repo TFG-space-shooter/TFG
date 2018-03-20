@@ -1862,7 +1862,7 @@ public class GameplayScreen extends AbstractScreen{
 		enemigoYellow1.setPosition(-enemigoYellow1.getWidth(), stage.getHeight()-150);
 		enemigoYellow1.getBb().setX(enemigoYellow1.getX());
 		enemigoYellow1.getBb().setY(enemigoYellow1.getY());
-		enemigoYellow2.setPosition(-enemigoYellow2.getX(), stage.getHeight()-150);
+		enemigoYellow2.setPosition(-enemigoYellow2.getWidth(), stage.getHeight()-150);
 		enemigoYellow2.getBb().setX(enemigoYellow2.getX());
 		enemigoYellow2.getBb().setY(enemigoYellow2.getY());
 //		enemigo9.setPosition(enemigo4.getX()-enemigo9.getWidth()-20, stage.getHeight()-358);
