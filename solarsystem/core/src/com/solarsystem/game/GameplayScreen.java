@@ -202,6 +202,7 @@ public class GameplayScreen extends AbstractScreen{
 	private Image stage2;
 	private Image stage3;
 	private Image stage4;
+	private Image stage5;
 	private Image clear;
 	private boolean disparo1;
 	private boolean disparo2;
@@ -508,6 +509,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerStage2 -= delta;
 		timerStage3 -= delta;
 		timerStage4 -= delta;
+		timerStage5 -= delta;
 		timerBlue -= delta;
 		timerBlue2 -= delta;
 		timerBlue3 -= delta;
@@ -579,6 +581,9 @@ public class GameplayScreen extends AbstractScreen{
 									timerFin4 -= delta;
 									if(timerFin4<0){
 										stage.getActors().removeValue(clear, false);
+										if(timerStage5 < 2){
+											stage5();
+											}
 									}
 								}
 								
@@ -2374,7 +2379,14 @@ public class GameplayScreen extends AbstractScreen{
 		stage4.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
 	}
 	
-
+	private void stage5(){
+		stage5 = new Image(new Texture("stage5.png"));
+		stage5.setPosition(stage.getWidth()/2 - stage5.getWidth()/2,
+				stage.getHeight()/2 - stage5.getHeight()/2);
+		stage.addActor(stage5);
+		timerStage5 = 10000;
+		stage5.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
+	}
 	@Override
 	public void dispose() {
 		fondo.dispose();
