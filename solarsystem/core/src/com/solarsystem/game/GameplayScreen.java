@@ -95,6 +95,7 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerStage3;
 	private float timerStage4;
 	private float timerStage5;
+	private float timerFase4;
 	private float timerFin;
 	private float timerFin2;
 	private float timerFin3;
@@ -242,6 +243,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerFin3 = 5;
 		timerFin4 = 5;
 		timerGameOver = 10000;
+		timerFase4 = 30;
 		greenDead = 0;
 		disparo1 = true;
 		disparo2 = false;
@@ -461,7 +463,6 @@ public class GameplayScreen extends AbstractScreen{
 		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)){
 			greenDead = 39;
 			timerGreen = 10000;
-			
 			timerFin = 3;
 			timerFin2 = 0;
 			timerFin3 = 0;
@@ -566,6 +567,7 @@ public class GameplayScreen extends AbstractScreen{
 						
 						if(timerFin3<=4){
 							timerFin3 -= delta;
+							timerFase4 -= delta;
 							if(timerFin3<0){
 								stage.getActors().removeValue(clear, false);
 								if(timerStage4 < 2){
@@ -725,6 +727,7 @@ public class GameplayScreen extends AbstractScreen{
 		
 		for(int i = 0; i < enemigosYellow.size(); i++){
 			if(enemigosYellow.get(i).getY() < -enemigosYellow.get(i).getHeight()){
+				enemigosYellow.get(i).setContador(15);
 				enemigosYellow.get(i).remove();
 				enemigosYellow.remove(i);
 				puntuacion.setPuntuacion(puntuacion.getPuntuacion()-100);
@@ -1221,7 +1224,7 @@ public class GameplayScreen extends AbstractScreen{
 						lasers.remove(j);
 						game.explosionSound.play();
 						enemigoGreen.setContador(enemigoGreen.getContador()+1);
-						if(enemigoGreen.getContador()==8){
+						if(enemigoGreen.getContador()==10){
 							Random random = new Random();
 						    int index = random.nextInt(booleans.size());
 						    Boolean m = booleans.get(index);
@@ -1368,7 +1371,7 @@ public class GameplayScreen extends AbstractScreen{
 										enemigoYellow.getY()+enemigoYellow.getHeight()/2-boom.getHeight()/2);
 								stage.addActor(boom);
 								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
-								if(enemigosYellow.isEmpty()){
+								if(timerFase4<0){
 									stage.getActors().removeValue(ufo, false);
 									clear = new Image(new Texture("clear.png"));
 									clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
@@ -1380,6 +1383,7 @@ public class GameplayScreen extends AbstractScreen{
 									timerFin4 = 0;
 									timerUfo = 10000;
 									timerStage5 = 5;
+									timerFase4 = 10000;
 									
 								}
 							}
