@@ -108,11 +108,13 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerEnemigoYellow;
 	private float timerGameOver;
 	private float timerGreen;
+	private float timerRed;
 	private float greenDead;
 	private List<EnemigoActor> enemigos;
 	private List<EnemigoActor> enemigosBlue;
 	private List<EnemigoActor> enemigosGreen;
 	private List<EnemigoActor> enemigosYellow;
+	private List<EnemigoActor> enemigosRed;
 	private List<LaserActor> lasers;
 	private List<LaserEnemigoActor> laserEnemigos;
 	private List<MeteoritoActor> meteoritos;
@@ -255,6 +257,7 @@ public class GameplayScreen extends AbstractScreen{
 		enemigosBlue = new ArrayList<EnemigoActor>();
 		enemigosGreen = new ArrayList<EnemigoActor>();
 		enemigosYellow = new ArrayList<EnemigoActor>();
+		enemigosRed = new ArrayList<EnemigoActor>();
 		lasers = new ArrayList<LaserActor>();
 		laserEnemigos = new ArrayList<LaserEnemigoActor>();
 		meteoritos = new ArrayList<MeteoritoActor>();
@@ -482,6 +485,8 @@ public class GameplayScreen extends AbstractScreen{
 			timerFin4 = 0;
 			timerUfo = 10000;
 			timerStage5 = 5;
+			timerFase4 = 10000;
+			timerRed = 8;
 		}
 		
 		puntuacion.toFront();
@@ -520,11 +525,9 @@ public class GameplayScreen extends AbstractScreen{
 		timerGameOver -= delta;
 		timerGreen -= delta;
 		timerYellow -= delta;
-		
-		
+		timerRed -= delta;
 		
 
-		
 		if(timerFin<=4){
 			timerFin -= delta;
 			if(timerFin<0){
@@ -581,6 +584,7 @@ public class GameplayScreen extends AbstractScreen{
 								timerUfo = 10000;
 								timerStage5 = 5;
 								timerFase4 = 10000;
+								timerRed = 8;
 								
 							}
 							if(timerFin3<0){
@@ -600,10 +604,13 @@ public class GameplayScreen extends AbstractScreen{
 										stage.getActors().removeValue(clear, false);
 										if(timerStage5 < 2){
 											stage5();
-											}
+										}
+										if(timerRed < 0){
+											spawnEnemigosRed();
+										}
 									}
 								}
-								
+
 							}
 						}
 					}
@@ -745,6 +752,15 @@ public class GameplayScreen extends AbstractScreen{
 				enemigosYellow.get(i).setContador(15);
 				enemigosYellow.get(i).remove();
 				enemigosYellow.remove(i);
+				puntuacion.setPuntuacion(puntuacion.getPuntuacion()-100);
+			}
+		}
+		
+		for(int i = 0; i < enemigosRed.size(); i++){
+			if(enemigosRed.get(i).getY() < -enemigosRed.get(i).getHeight()){
+				enemigosRed.get(i).setContador(15);
+				enemigosRed.get(i).remove();
+				enemigosRed.remove(i);
 				puntuacion.setPuntuacion(puntuacion.getPuntuacion()-100);
 			}
 		}
@@ -2115,6 +2131,47 @@ public class GameplayScreen extends AbstractScreen{
 				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1)))));
 
 		timerYellow = 10000;
+	}
+	
+	private void spawnEnemigosRed(){
+		EnemigoActor enemigoRed1 = new EnemigoActor(new Texture("spaceShips_004.png"));
+		EnemigoActor enemigoRed2 = new EnemigoActor(new Texture("spaceShips_005.png"));
+		EnemigoActor enemigoRed3 = new EnemigoActor(new Texture("spaceShips_006.png"));
+		EnemigoActor enemigoRed4 = new EnemigoActor(new Texture("spaceShips_007.png"));
+		EnemigoActor enemigoRed5 = new EnemigoActor(new Texture("spaceShips_009.png"));
+		
+		List<EnemigoActor> enemigosRed1 = new ArrayList<EnemigoActor>();
+		enemigosRed1.add(enemigoRed1);
+		enemigosRed1.add(enemigoRed2);
+		enemigosRed1.add(enemigoRed3);
+		enemigosRed1.add(enemigoRed4);
+		enemigosRed1.add(enemigoRed5);
+		
+		Random random = new Random();
+	    int index = random.nextInt(enemigosRed1.size());
+	    EnemigoActor e = enemigosRed1.get(index);
+	    
+	    e.setPosition((float) ((stage.getWidth()-e.getWidth())*Math.random()), stage.getHeight());
+	    e.getBb().setX(e.getX());
+		e.getBb().setY(e.getY());
+		
+	    enemigosRed.add(e);
+	    
+	    stage.addActor(e);
+	    
+//	    List<Integer> velocidades = new ArrayList<Integer>();
+//	    velocidades.add(-3);
+//	    velocidades.add(-4);
+//	    velocidades.add(-5);
+//	    velocidades.add(-6);
+//	    Random random2 = new Random();
+//	    int index2 = random2.nextInt(velocidades.size());
+//	    Integer i = velocidades.get(index2);
+	    e.addAction(Actions.sequence(Actions.moveTo(nave.getRight()/2, nave.getTop()/2, 3),
+	    		Actions.forever(Actions.moveBy(0, -6))));
+	    
+	    timerRed = 1;
+		
 	}
 	
 	private void dropMunicion(EnemigoActor enemigoRandom, Texture textureMunicion, int tipo){
