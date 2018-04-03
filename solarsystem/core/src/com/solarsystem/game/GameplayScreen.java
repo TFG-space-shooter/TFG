@@ -243,7 +243,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerFin3 = 5;
 		timerFin4 = 5;
 		timerGameOver = 10000;
-		timerFase4 = 30;
+		timerFase4 = 40;
 		greenDead = 0;
 		disparo1 = true;
 		disparo2 = false;
@@ -568,6 +568,21 @@ public class GameplayScreen extends AbstractScreen{
 						if(timerFin3<=4){
 							timerFin3 -= delta;
 							timerFase4 -= delta;
+							if(timerFase4<0){
+								stage.getActors().removeValue(ufo, false);
+								clear = new Image(new Texture("clear.png"));
+								clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
+										stage.getHeight()/2 - clear.getHeight()/2);
+								stage.addActor(clear);
+								timerFin = 3;
+								timerFin2 = 0;
+								timerFin3 = 0;
+								timerFin4 = 0;
+								timerUfo = 10000;
+								timerStage5 = 5;
+								timerFase4 = 10000;
+								
+							}
 							if(timerFin3<0){
 								stage.getActors().removeValue(clear, false);
 								if(timerStage4 < 2){
@@ -1371,22 +1386,9 @@ public class GameplayScreen extends AbstractScreen{
 										enemigoYellow.getY()+enemigoYellow.getHeight()/2-boom.getHeight()/2);
 								stage.addActor(boom);
 								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
-								if(timerFase4<0){
-									stage.getActors().removeValue(ufo, false);
-									clear = new Image(new Texture("clear.png"));
-									clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-											stage.getHeight()/2 - clear.getHeight()/2);
-									stage.addActor(clear);
-									timerFin = 3;
-									timerFin2 = 0;
-									timerFin3 = 0;
-									timerFin4 = 0;
-									timerUfo = 10000;
-									timerStage5 = 5;
-									timerFase4 = 10000;
-									
-								}
+								
 							}
+							
 						}
 					}
 				}
