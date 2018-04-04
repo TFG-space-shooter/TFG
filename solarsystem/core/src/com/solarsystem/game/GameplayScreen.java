@@ -622,6 +622,7 @@ public class GameplayScreen extends AbstractScreen{
 												if(timerStage6 < 2){
 													stage6();
 												}}}
+										
 									}
 								}
 
