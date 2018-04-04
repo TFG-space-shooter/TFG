@@ -588,6 +588,7 @@ public class GameplayScreen extends AbstractScreen{
 								timerFin2 = 0;
 								timerFin3 = 0;
 								timerFin4 = 0;
+								timerFin5 = 0;
 								timerUfo = 10000;
 								timerStage5 = 5;
 								timerFase4 = 10000;
