@@ -108,6 +108,7 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerBlue4;
 	private float timerEnemigoBlue;
 	private float timerEnemigoYellow;
+	private float timerEnemigoRed;
 	private float timerGameOver;
 	private float timerGreen;
 	private float timerRed;
@@ -493,6 +494,7 @@ public class GameplayScreen extends AbstractScreen{
 			timerStage5 = 5;
 			timerFase4 = 10000;
 			timerRed = 8;
+			timerEnemigoRed = 7;
 		}
 		
 		puntuacion.toFront();
@@ -529,6 +531,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerBlue4 -= delta;
 		timerEnemigoBlue -= delta;
 		timerEnemigoYellow -= delta;
+		timerEnemigoRed -= delta;
 		timerGameOver -= delta;
 		timerGreen -= delta;
 		timerYellow -= delta;
@@ -588,11 +591,11 @@ public class GameplayScreen extends AbstractScreen{
 								timerFin2 = 0;
 								timerFin3 = 0;
 								timerFin4 = 0;
-								timerFin5 = 0;
 								timerUfo = 10000;
 								timerStage5 = 5;
 								timerFase4 = 10000;
 								timerRed = 8;
+								timerEnemigoRed = 7;
 								
 							}
 							if(timerFin3<0){
@@ -610,6 +613,9 @@ public class GameplayScreen extends AbstractScreen{
 									timerFin4 -= delta;
 									if(timerFin4<0){
 										stage.getActors().removeValue(clear, false);
+										if(timerEnemigoRed < 0 && !enemigosRed.isEmpty()){
+											dispararLaserEnemigoRed();
+										}
 										if(timerStage5 < 2){
 											stage5();
 										}
@@ -1518,7 +1524,6 @@ public class GameplayScreen extends AbstractScreen{
 								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 								redDead++;
 								if(redDead == 10 ){
-									timerRed = 10000;
 									for(int g = 0; g<enemigosRed.size(); g++){
 										BoomActor boomRed = new BoomActor();
 										boomRed.setPosition(enemigosRed.get(g).getX()+
@@ -1540,7 +1545,7 @@ public class GameplayScreen extends AbstractScreen{
 									timerFin4 = 0;
 									timerFin5 = 0;
 									timerUfo = 10000;
-									timerRed = 8;
+									timerRed = 10000;
 									timerStage6 = 5;
 									
 								}
@@ -2456,6 +2461,24 @@ public class GameplayScreen extends AbstractScreen{
 		timerEnemigoYellow = (float) (0.1 + Math.random());
 		game.laserSound.play();
 	}
+	
+	private void dispararLaserEnemigoRed(){
+		Random random = new Random();
+	    int index = random.nextInt(enemigosRed.size());
+	    EnemigoActor enemigoRandom = enemigosRed.get(index);
+		LaserEnemigoActor laserEnemigo = new LaserEnemigoActor();
+		laserEnemigo.setPosition(enemigoRandom.getX() + enemigoRandom.getWidth()/2 -
+				laserEnemigo.getWidth()/2, enemigoRandom.getY()-laserEnemigo.getHeight());
+		laserEnemigo.getBb().setX(laserEnemigo.getX());
+		laserEnemigo.getBb().setY(laserEnemigo.getY());
+		stage.addActor(laserEnemigo);
+		laserEnemigos.add(laserEnemigo);
+		laserEnemigo.addAction(Actions.forever(
+				Actions.moveBy(0, -450 * Gdx.graphics.getDeltaTime())));
+		timerEnemigoRed = (float) (0.1 + Math.random());
+		game.laserSound.play();
+	}
+	
 	private void dispararLaserUfo(){
 		LaserUfoActor laserUfo = new LaserUfoActor();
 		laserUfo.setPosition(ufo.getX() + ufo.getWidth()/2 -
