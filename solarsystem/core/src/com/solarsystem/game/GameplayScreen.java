@@ -108,6 +108,7 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerBlue4;
 	private float timerEnemigoBlue;
 	private float timerEnemigoYellow;
+	private float timerEnemigoStage6;
 	private float timerEnemigoRed;
 	private float timerGameOver;
 	private float timerGreen;
@@ -119,6 +120,7 @@ public class GameplayScreen extends AbstractScreen{
 	private List<EnemigoActor> enemigosGreen;
 	private List<EnemigoActor> enemigosYellow;
 	private List<EnemigoActor> enemigosRed;
+	private List<EnemigoActor> enemigosStage6;
 	private List<LaserActor> lasers;
 	private List<LaserEnemigoActor> laserEnemigos;
 	private List<MeteoritoActor> meteoritos;
@@ -265,6 +267,7 @@ public class GameplayScreen extends AbstractScreen{
 		enemigosGreen = new ArrayList<EnemigoActor>();
 		enemigosYellow = new ArrayList<EnemigoActor>();
 		enemigosRed = new ArrayList<EnemigoActor>();
+		enemigosStage6 = new ArrayList<EnemigoActor>();
 		lasers = new ArrayList<LaserActor>();
 		laserEnemigos = new ArrayList<LaserEnemigoActor>();
 		meteoritos = new ArrayList<MeteoritoActor>();
@@ -495,7 +498,36 @@ public class GameplayScreen extends AbstractScreen{
 			timerFase4 = 10000;
 			timerRed = 8;
 			timerEnemigoRed = 7;
+		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)){
+			for(int i = 0; i<enemigos.size(); i++){
+				enemigos.get(i).setContador(4);
+				enemigos.get(i).remove();
+				enemigos.remove(i);
+			}
+
+			timerFin = 3;
+			timerFin2 = 0;	
+			timerFin3 = 0;	
+			timerFin4 = 0;	
+			timerFin5 = 0;	
+			timerStage6 = 5;
+			timerEnemigoStage6 = 7;
+			timerUfo = 10000;
+			
+			timerEnemigoRed = 10000;
+			timerRed = 10000;
+			timerStage5=10000;
+			timerEnemigoRed=10000;
+			timerBlue = 10000;
+			timerBlue2 = 10000;
+			timerBlue3 = 10000;
+			timerBlue4 = 10000;
+			timerGreen = 10000;
+			timerYellow = 10000; 
+			timerFase4 = 10000;
+			
 		}
+	
 		
 		puntuacion.toFront();
 		puntuacionTexto.toFront();
@@ -531,13 +563,14 @@ public class GameplayScreen extends AbstractScreen{
 		timerBlue4 -= delta;
 		timerEnemigoBlue -= delta;
 		timerEnemigoYellow -= delta;
+		timerEnemigoStage6 -= delta;
 		timerEnemigoRed -= delta;
 		timerGameOver -= delta;
 		timerGreen -= delta;
 		timerYellow -= delta;
 		timerRed -= delta;
 		
-
+	
 		if(timerFin<=4){
 			timerFin -= delta;
 			if(timerFin<0){
@@ -566,7 +599,7 @@ public class GameplayScreen extends AbstractScreen{
 				if(timerGameOver < 0){
 					game.setScreen(game.gameoverScreen);
 				}
-				
+
 				if(timerFin2<=4){
 					timerFin2 -= delta;
 					if(timerFin2<0){
@@ -577,7 +610,7 @@ public class GameplayScreen extends AbstractScreen{
 						if(timerGreen < 0){
 							spawnEnemigosGreen();
 						}
-						
+
 						if(timerFin3<=4){
 							timerFin3 -= delta;
 							timerFase4 -= delta;
@@ -598,6 +631,7 @@ public class GameplayScreen extends AbstractScreen{
 								timerEnemigoRed = 7;
 								
 							}
+							
 							if(timerFin3<0){
 								stage.getActors().removeValue(clear, false);
 								if(timerStage4 < 2){
@@ -622,13 +656,18 @@ public class GameplayScreen extends AbstractScreen{
 										if(timerRed < 0){
 											spawnEnemigosRed();
 										}
+
 										if(timerFin5<=4){
 											timerFin5 -= delta;
 											if(timerFin5<0){
 												stage.getActors().removeValue(clear, false);
 												if(timerStage6 < 2){
 													stage6();
-												}}}
+													}
+												if(timerEnemigoStage6 < 0){
+													spawnEnemigosStage6();
+												}
+											}}
 										
 									}
 								}
@@ -1547,6 +1586,7 @@ public class GameplayScreen extends AbstractScreen{
 									timerUfo = 10000;
 									timerRed = 10000;
 									timerStage6 = 5;
+									timerEnemigoStage6 = 7;
 									
 								}
 							}
@@ -2297,7 +2337,6 @@ public class GameplayScreen extends AbstractScreen{
 		enemigosRed1.add(enemigoRed3);
 		enemigosRed1.add(enemigoRed4);
 		enemigosRed1.add(enemigoRed5);
-		
 		Random random = new Random();
 	    int index = random.nextInt(enemigosRed1.size());
 	    EnemigoActor e = enemigosRed1.get(index);
@@ -2310,20 +2349,86 @@ public class GameplayScreen extends AbstractScreen{
 	    
 	    stage.addActor(e);
 	    
-//	    List<Integer> velocidades = new ArrayList<Integer>();
-//	    velocidades.add(-3);
-//	    velocidades.add(-4);
-//	    velocidades.add(-5);
-//	    velocidades.add(-6);
-//	    Random random2 = new Random();
-//	    int index2 = random2.nextInt(velocidades.size());
-//	    Integer i = velocidades.get(index2);
+	    List<Integer> velocidades = new ArrayList<Integer>();
+	    velocidades.add(-3);
+	    velocidades.add(-4);
+	    velocidades.add(-5);
+	    velocidades.add(-6);
+	    Random random2 = new Random();
+	    int index2 = random2.nextInt(velocidades.size());
+	    Integer i = velocidades.get(index2);
+	    
 	    e.addAction(Actions.sequence(Actions.moveTo(nave.getRight()/2, nave.getTop()/2, 3),
-	    		Actions.forever(Actions.moveBy(0, -6))));
+	    		Actions.forever(Actions.moveBy(0, i))));
 	    
 	    timerRed = 1;
 		
 	}
+	
+	private void spawnEnemigosStage6(){
+
+		EnemigoActor enemigoStage61 = new EnemigoActor(new Texture("enemyblack1.png"));
+		EnemigoActor enemigoStage62 = new EnemigoActor(new Texture("enemyblack1.png"));
+		EnemigoActor enemigoStage63 = new EnemigoActor(new Texture("enemyblack1.png"));
+		EnemigoActor enemigoStage64 = new EnemigoActor(new Texture("enemyblack1.png"));
+		EnemigoActor enemigoStage65 = new EnemigoActor(new Texture("enemyblack1.png"));
+		EnemigoActor enemigoStage66 = new EnemigoActor(new Texture("enemyblack1.png"));	
+
+		enemigoStage61.setPosition(20, stage.getHeight()+enemigoStage61.getHeight());
+		enemigoStage61.getBb().setX(enemigoStage61.getX());
+			enemigoStage61.getBb().setY(enemigoStage61.getY());
+			
+		enemigoStage62.setPosition(enemigoStage61.getWidth()+10, stage.getHeight()+enemigoStage62.getHeight());
+		enemigoStage62.getBb().setX(enemigoStage62.getX());
+		enemigoStage62.getBb().setY(enemigoStage62.getY());
+	
+		enemigoStage63.setPosition(enemigoStage62.getX()+enemigoStage62.getWidth()+nave.getWidth()+10, stage.getHeight()+enemigoStage63.getHeight());
+		enemigoStage63.getBb().setX(enemigoStage63.getX());
+		enemigoStage63.getBb().setY(enemigoStage63.getY());
+
+		enemigoStage64.setPosition(enemigoStage63.getX()+enemigoStage63.getWidth()+10, stage.getHeight()+enemigoStage64.getHeight());
+		enemigoStage64.getBb().setX(enemigoStage64.getX());
+		enemigoStage64.getBb().setY(enemigoStage64.getY());
+
+		enemigoStage65.setPosition(enemigoStage64.getX()+enemigoStage64.getWidth()+10, stage.getHeight()+enemigoStage65.getHeight());
+		enemigoStage65.getBb().setX(enemigoStage65.getX());
+		enemigoStage65.getBb().setY(enemigoStage65.getY());
+
+
+		enemigoStage66.setPosition(enemigoStage65.getX()+enemigoStage65.getWidth()+10, stage.getHeight()+enemigoStage66.getHeight());
+		enemigoStage66.getBb().setX(enemigoStage66.getX());
+		enemigoStage66.getBb().setY(enemigoStage66.getY());
+
+		stage.addActor(enemigoStage61);
+		stage.addActor(enemigoStage62);
+		stage.addActor(enemigoStage63);
+		stage.addActor(enemigoStage64);
+		stage.addActor(enemigoStage65);
+		stage.addActor(enemigoStage66);
+		enemigosStage6.add(enemigoStage61);
+		enemigosStage6.add(enemigoStage62);
+		enemigosStage6.add(enemigoStage63);
+		enemigosStage6.add(enemigoStage64);
+		enemigosStage6.add(enemigoStage65);
+		enemigosStage6.add(enemigoStage66);
+			
+			enemigoStage61.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+			enemigoStage62.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+			enemigoStage63.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+			enemigoStage64.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+			enemigoStage65.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+			enemigoStage66.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+								
+			timerEnemigoStage6 = 10000;
+			
+		}
+
 	
 	private void dropMunicion(EnemigoActor enemigoRandom, Texture textureMunicion, int tipo){
 	    MunicionActor municion = new MunicionActor(textureMunicion, tipo);
