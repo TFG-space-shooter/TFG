@@ -527,7 +527,7 @@ public class GameplayScreen extends AbstractScreen{
 			timerEnemigoStage65 = 18.5f;
 			timerFinStage6 = 23;
 			timerUfo = 10000;
-			timerStage7=3;
+//			timerStage7=3;
 			
 			timerEnemigoRed = 10000;
 			timerRed = 10000;
@@ -584,12 +584,12 @@ public class GameplayScreen extends AbstractScreen{
 		timerEnemigoStage63 -= delta;
 		timerEnemigoStage64 -= delta;
 		timerEnemigoStage65 -= delta;
-		timerFinStage6 -= delta;
 		timerEnemigoRed -= delta;
 		timerGameOver -= delta;
 		timerGreen -= delta;
 		timerYellow -= delta;
 		timerRed -= delta;
+		timerFinStage6 -= delta;
 		
 	
 		if(timerFin<=4){
@@ -686,7 +686,7 @@ public class GameplayScreen extends AbstractScreen{
 													stage6();
 													noDisparar();
 													musicaFundo.setVolume((float) 0.1);;
-													}
+												}
 												if(timerEnemigoStage6 < 0){
 													spawnEnemigosStage6();
 													game.lanzamiento.play();
@@ -707,57 +707,49 @@ public class GameplayScreen extends AbstractScreen{
 													spawnEnemigosStage65();
 													game.lanzamiento.play();
 												}
-												
-													
-													
-													if(timerFin6<=4){
-														timerFin6 -= delta;
-														timerFinStage6 -= delta;
-														nave.getHeight();
-														if(timerFin6 < 0){
 
-															clear = new Image(new Texture("clear.png"));
-															clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-																	stage.getHeight()/2 - clear.getHeight()/2);
-															stage.addActor(clear);
 
-															timerFin = 3;
-															timerFin2 = 0;
-															timerFin3 = 0;
-															timerFin4 = 0;
-															timerFin5 = 0;
-															timerFin6 = 0;
-															stage.getActors().removeValue(clear, false);
-															if(timerStage7 < 2){
+												if(timerFinStage6 < 0){
+													clear = new Image(new Texture("clear.png"));
+													clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
+															stage.getHeight()/2 - clear.getHeight()/2);
+													stage.addActor(clear);
 
-																stage7();
-
-																musicaFundo.setVolume((float) 0.3);
-															if(energia.getEnergia()==0){
-																disparar();
-															}
-															else if(energia.getEnergia()==1){
-																disparar2();
-															}
-															else if(energia.getEnergia()==2){
-																disparar3();
-															}
-															}
+													timerFin = 3;
+													timerFin2 = 0;
+													timerFin3 = 0;
+													timerFin4 = 0;
+													timerFin5 = 0;
+													timerFin6 = 0;
+													if(timerStage7 < 0){
+														stage.getActors().removeValue(clear, false);
+														stage7();
+														musicaFundo.setVolume((float) 0.3);
+														if(energia.getEnergia()==0){
+															disparar();
+														}
+														else if(energia.getEnergia()==1){
+															disparar2();
+														}
+														else if(energia.getEnergia()==2){
+															disparar3();
 														}
 													}
 												}
-											}}
-
+											}
+										}
 									}
-								}
 
+								}
 							}
+
 						}
 					}
 				}
 			}
 		}
-		
+
+
 		if(timerStage1<0){
 			stage.getActors().removeValue(stage1, false);
 		}
@@ -1679,7 +1671,7 @@ public class GameplayScreen extends AbstractScreen{
 									timerEnemigoStage63 = 14;
 									timerEnemigoStage64 = 16.5f;
 									timerEnemigoStage65 = 18.5f;
-									timerFinStage6 =23;
+									
 									
 								}
 							}
@@ -2825,7 +2817,8 @@ public class GameplayScreen extends AbstractScreen{
 					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
 								
 			timerEnemigoStage65 = 10000;
-			
+			timerFinStage6 = 6;
+			timerStage7 = 9;
 		}
 
 	
