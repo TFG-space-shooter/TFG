@@ -103,6 +103,7 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerFin3;
 	private float timerFin4;
 	private float timerFin5;
+	private float timerFin6;
 	private float timerBlue;
 	private float timerBlue2;
 	private float timerBlue3;
@@ -259,6 +260,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerFin3 = 5;
 		timerFin4 = 5;
 		timerFin5 = 5;
+		timerFin6 = 5;
 		timerGameOver = 10000;
 		timerFase4 = 35;
 		greenDead = 0;
@@ -705,26 +707,47 @@ public class GameplayScreen extends AbstractScreen{
 													spawnEnemigosStage65();
 													game.lanzamiento.play();
 												}
-												if(timerFinStage6 < 0){
-			
-													if(timerStage7 < 0){
-														stage7();
-														musicaFundo.setVolume((float) 0.3);
-														if(energia.getEnergia()==0){
-															disparar();
-														}
-														else if(energia.getEnergia()==1){
-															disparar2();
-														}
-														else if(energia.getEnergia()==2){
-															disparar3();
-														}
+												
+													
+													
+													if(timerFin6<=4){
+														timerFin6 -= delta;
+														timerFinStage6 -= delta;
+														nave.getHeight();
+														if(timerFin6 < 0){
 
+															clear = new Image(new Texture("clear.png"));
+															clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
+																	stage.getHeight()/2 - clear.getHeight()/2);
+															stage.addActor(clear);
 
+															timerFin = 3;
+															timerFin2 = 0;
+															timerFin3 = 0;
+															timerFin4 = 0;
+															timerFin5 = 0;
+															timerFin6 = 0;
+															stage.getActors().removeValue(clear, false);
+															if(timerStage7 < 2){
+
+																stage7();
+
+																musicaFundo.setVolume((float) 0.3);
+															if(energia.getEnergia()==0){
+																disparar();
+															}
+															else if(energia.getEnergia()==1){
+																disparar2();
+															}
+															else if(energia.getEnergia()==2){
+																disparar3();
+															}
+															}
+														}
 													}
 												}
 											}}
-										
+
 									}
 								}
 
@@ -1710,63 +1733,8 @@ public class GameplayScreen extends AbstractScreen{
 				
 
 				}
-
-					for(int j = 0; j < lasers.size(); j++){
-						laser = lasers.get(j);
-						if(laser.getBb().overlaps(enemigoStage6.getBb())){
-							// Colisión enemigo-láser
-							lasers.get(j).remove();
-							lasers.remove(j);
-							game.explosionSound.play();
-							enemigoStage6.setContador(enemigoStage6.getContador()+1);
-							if(enemigoStage6.getContador()==50){
-								Random random = new Random();
-							    int index = random.nextInt(booleans.size());
-							    Boolean m = booleans.get(index);
-							    if(m){
-							    	if(energia.getEnergia()==0 && drop){
-							    		dropMunicion(enemigoStage6, municion1, 1);
-							    	}else if(energia.getEnergia()==1 && drop){
-							    		dropMunicion(enemigoStage6, municion2, 2);
-							    	}
-//							    	}else if(energia.getEnergia()==2){
-//							    		dropMunicion(enemigoStage6, municion3, 3);
-//							    	}
-							    }
-							    Random random2 = new Random();
-							    int index2 = random2.nextInt(booleans2.size());
-							    Boolean e = booleans2.get(index2);
-							    if(e&&dropShield){
-							    	dropEscudo(enemigoStage6);
-							    	dropShield = false;
-							    }
-								
-								enemigosStage6.get(i).remove();
-								enemigosStage6.remove(i);
-								BoomActor boom = new BoomActor();
-								boom.setPosition(enemigoStage6.getX()+
-										enemigoStage6.getWidth()/2-boom.getWidth()/2,
-										enemigoStage6.getY()+enemigoStage6.getHeight()/2-boom.getHeight()/2);
-								stage.addActor(boom);
-								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
-								redDead++;
-									if(timerFinStage6 < 0){
-							
-									clear = new Image(new Texture("clear.png"));
-									clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-											stage.getHeight()/2 - clear.getHeight()/2);
-									stage.addActor(clear);
-									timerFin = 3;
-									timerFin2 = 0;
-									timerFin3 = 0;
-									timerFin4 = 0;
-									timerFin5 = 0;
-									timerFinStage6 = 0;
-									
-								}
-							}
-						}
-					}
+				
+				
 				}
 			
 			
