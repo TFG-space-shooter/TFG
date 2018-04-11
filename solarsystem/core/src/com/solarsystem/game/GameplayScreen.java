@@ -121,6 +121,9 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerGreen;
 	private float timerRed;
 	private float greenDead;
+	
+	private float timerClear6;
+	
 	private float redDead;
 	private List<EnemigoActor> enemigos;
 	private List<EnemigoActor> enemigosBlue;
@@ -507,6 +510,7 @@ public class GameplayScreen extends AbstractScreen{
 			timerFase4 = 10000;
 			timerRed = 8;
 			timerEnemigoRed = 7;
+			
 		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)){
 			for(int i = 0; i<enemigos.size(); i++){
 				enemigos.get(i).setContador(4);
@@ -525,9 +529,10 @@ public class GameplayScreen extends AbstractScreen{
 			timerEnemigoStage63 = 14;
 			timerEnemigoStage64 = 16.5f;
 			timerEnemigoStage65 = 18.5f;
-			timerFinStage6 = 23;
+			timerFinStage6 = 25;
+			timerStage7=29;
+			timerClear6 = 23;
 			timerUfo = 10000;
-//			timerStage7=3;
 			
 			timerEnemigoRed = 10000;
 			timerRed = 10000;
@@ -584,12 +589,14 @@ public class GameplayScreen extends AbstractScreen{
 		timerEnemigoStage63 -= delta;
 		timerEnemigoStage64 -= delta;
 		timerEnemigoStage65 -= delta;
+		timerFinStage6 -= delta;
 		timerEnemigoRed -= delta;
 		timerGameOver -= delta;
 		timerGreen -= delta;
 		timerYellow -= delta;
 		timerRed -= delta;
-		timerFinStage6 -= delta;
+		
+		timerClear6 -= delta;
 		
 	
 		if(timerFin<=4){
@@ -650,13 +657,13 @@ public class GameplayScreen extends AbstractScreen{
 								timerFase4 = 10000;
 								timerRed = 8;
 								timerEnemigoRed = 7;
-								
+
 							}
-							
+
 							if(timerFin3<0){
 								stage.getActors().removeValue(clear, false);
 								if(timerStage4 < 2){
-								stage4();
+									stage4();
 								}
 								if(timerYellow < 0){
 									spawnEnemigosYellow();
@@ -708,21 +715,17 @@ public class GameplayScreen extends AbstractScreen{
 													game.lanzamiento.play();
 												}
 
-
+											
+												if(timerClear6 < 0){
+													clear();
+												}
+												
 												if(timerFinStage6 < 0){
-													clear = new Image(new Texture("clear.png"));
-													clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-															stage.getHeight()/2 - clear.getHeight()/2);
-													stage.addActor(clear);
 
-													timerFin = 3;
-													timerFin2 = 0;
-													timerFin3 = 0;
-													timerFin4 = 0;
-													timerFin5 = 0;
-													timerFin6 = 0;
-													if(timerStage7 < 0){
-														stage.getActors().removeValue(clear, false);
+													stage.getActors().removeValue(clear, false);
+
+													if(timerStage7 < 4){
+
 														stage7();
 														musicaFundo.setVolume((float) 0.3);
 														if(energia.getEnergia()==0){
@@ -735,21 +738,22 @@ public class GameplayScreen extends AbstractScreen{
 															disparar3();
 														}
 													}
+
+
+
 												}
-											}
-										}
+											}}
+
 									}
-
 								}
-							}
 
+							}
 						}
 					}
 				}
 			}
 		}
-
-
+		
 		if(timerStage1<0){
 			stage.getActors().removeValue(stage1, false);
 		}
@@ -1671,7 +1675,9 @@ public class GameplayScreen extends AbstractScreen{
 									timerEnemigoStage63 = 14;
 									timerEnemigoStage64 = 16.5f;
 									timerEnemigoStage65 = 18.5f;
-									
+									timerFinStage6 =25;
+									timerStage7=29;
+									timerClear6 = 23;
 									
 								}
 							}
@@ -1679,6 +1685,7 @@ public class GameplayScreen extends AbstractScreen{
 					}
 				}
 			
+
 			for(int i = 0; i < enemigosStage6.size(); i++){
 				enemigoStage6 = enemigosStage6.get(i);
 				if(enemigoStage6.getBb().overlaps(nave.getBb())&&
@@ -1726,10 +1733,26 @@ public class GameplayScreen extends AbstractScreen{
 
 				}
 				
-				
+
+							
 				}
-			
-			
+//		if(timerFinStage6 < 0){
+//				
+//				clear = new Image(new Texture("clear.png"));
+//				clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
+//						stage.getHeight()/2 - clear.getHeight()/2);
+//				stage.addActor(clear);
+//				
+//			timerFin = 3;
+//			timerFin2 = 0;
+//			timerFin3 = 0;
+//			timerFin4 = 0;
+//			timerFin5 = 0;
+//			timerFin6 = 0;
+//
+//			
+//		}
+	
 			}
 		
 
@@ -2817,8 +2840,7 @@ public class GameplayScreen extends AbstractScreen{
 					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
 								
 			timerEnemigoStage65 = 10000;
-			timerFinStage6 = 6;
-			timerStage7 = 9;
+			
 		}
 
 	
@@ -3146,6 +3168,12 @@ public class GameplayScreen extends AbstractScreen{
 		stage7.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
 	}
 
+	private void clear(){
+		clear = new Image(new Texture("clear.png"));
+		clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
+				stage.getHeight()/2 - clear.getHeight()/2);
+		stage.addActor(clear);
+	}
 
 	
 	@Override
