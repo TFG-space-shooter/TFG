@@ -12,6 +12,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -115,6 +116,7 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerEnemigoStage63;
 	private float timerEnemigoStage64;
 	private float timerEnemigoStage65;
+	private float timerEnemigoStage7;
 	private float timerFinStage6;
 	private float timerEnemigoRed;
 	private float timerGameOver;
@@ -131,6 +133,7 @@ public class GameplayScreen extends AbstractScreen{
 	private List<EnemigoActor> enemigosYellow;
 	private List<EnemigoActor> enemigosRed;
 	private List<EnemigoActor> enemigosStage6;
+	private List<EnemigoActor> enemigosStage7;
 	private List<LaserActor> lasers;
 	private List<LaserEnemigoActor> laserEnemigos;
 	private List<MeteoritoActor> meteoritos;
@@ -280,6 +283,7 @@ public class GameplayScreen extends AbstractScreen{
 		enemigosYellow = new ArrayList<EnemigoActor>();
 		enemigosRed = new ArrayList<EnemigoActor>();
 		enemigosStage6 = new ArrayList<EnemigoActor>();
+		enemigosStage7 = new ArrayList<EnemigoActor>();
 		lasers = new ArrayList<LaserActor>();
 		laserEnemigos = new ArrayList<LaserEnemigoActor>();
 		meteoritos = new ArrayList<MeteoritoActor>();
@@ -532,6 +536,44 @@ public class GameplayScreen extends AbstractScreen{
 			timerFinStage6 = 25;
 			timerStage7=29;
 			timerClear6 = 23;
+			timerEnemigoStage7 = 32;
+			timerUfo = 10000;
+			
+			timerEnemigoRed = 10000;
+			timerRed = 10000;
+			timerStage5=10000;
+			timerEnemigoRed=10000;
+			timerBlue = 10000;
+			timerBlue2 = 10000;
+			timerBlue3 = 10000;
+			timerBlue4 = 10000;
+			timerGreen = 10000;
+			timerYellow = 10000; 
+			timerFase4 = 10000;
+			
+		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)){
+			for(int i = 0; i<enemigos.size(); i++){
+				enemigos.get(i).setContador(4);
+				enemigos.get(i).remove();
+				enemigos.remove(i);
+			}
+
+			timerFin = 3;
+			timerFin2 = 0;	
+			timerFin3 = 0;	
+			timerFin4 = 0;	
+			timerFin5 = 0;	
+			timerStage6 = 5;
+			timerEnemigoStage6 = 10000;
+			timerEnemigoStage62 = 10000;
+			timerEnemigoStage63 = 10000;
+			timerEnemigoStage64 = 10000;
+			timerEnemigoStage65 = 10000;
+			timerFinStage6 = 0;
+			timerStage7=0;
+			timerClear6 = 0;
+			timerEnemigoStage7 = 0;
+			
 			timerUfo = 10000;
 			
 			timerEnemigoRed = 10000;
@@ -589,6 +631,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerEnemigoStage63 -= delta;
 		timerEnemigoStage64 -= delta;
 		timerEnemigoStage65 -= delta;
+		timerEnemigoStage7 -= delta;
 		timerFinStage6 -= delta;
 		timerEnemigoRed -= delta;
 		timerGameOver -= delta;
@@ -737,10 +780,17 @@ public class GameplayScreen extends AbstractScreen{
 														else if(energia.getEnergia()==2){
 															disparar3();
 														}
+
+														
 													}
+														
 
 
-
+												}
+												
+												if(timerEnemigoStage7 < 0){
+													spawnEnemigosStage7();
+													
 												}
 											}}
 
@@ -1678,6 +1728,7 @@ public class GameplayScreen extends AbstractScreen{
 									timerFinStage6 =25;
 									timerStage7=29;
 									timerClear6 = 23;
+									timerEnemigoStage7 = 32;
 									
 								}
 							}
@@ -2843,6 +2894,130 @@ public class GameplayScreen extends AbstractScreen{
 			
 		}
 
+	private void spawnEnemigosStage7(){
+		EnemigoActor enemigoStage71 = new EnemigoActor(new Texture("enemyblack1.png"));
+		EnemigoActor enemigoStage72 = new EnemigoActor(new Texture("enemyblack2.png"));
+		EnemigoActor enemigoStage73 = new EnemigoActor(new Texture("enemyblack3.png"));
+		EnemigoActor enemigoStage74 = new EnemigoActor(new Texture("enemyblack4.png"));
+		EnemigoActor enemigoStage75 = new EnemigoActor(new Texture("enemyblack5.png"));
+		
+
+		EnemigoActor enemigoStage76 = new EnemigoActor(new Texture("enemyBlue2.png"));
+		EnemigoActor enemigoStage77 = new EnemigoActor(new Texture("enemyBlue4.png"));
+		EnemigoActor enemigoStage78 = new EnemigoActor(new Texture("enemyBlue3.png"));
+		EnemigoActor enemigoStage79 = new EnemigoActor(new Texture("enemyBlue2.png"));
+		EnemigoActor enemigoStage80 = new EnemigoActor(new Texture("enemyBlue5.png"));
+
+		enemigoStage71.setPosition(-enemigoStage71.getWidth(), stage.getHeight());
+		enemigoStage71.getBb().setX(enemigoStage71.getX());
+		enemigoStage71.getBb().setY(enemigoStage71.getY());
+
+		enemigoStage72.setPosition(-enemigoStage72.getWidth(), stage.getHeight());
+		enemigoStage72.getBb().setX(enemigoStage72.getX());
+		enemigoStage72.getBb().setY(enemigoStage72.getY());
+
+		enemigoStage73.setPosition(-enemigoStage73.getWidth(), stage.getHeight());
+		enemigoStage73.getBb().setX(enemigoStage73.getX());
+		enemigoStage73.getBb().setY(enemigoStage73.getY());
+
+		enemigoStage74.setPosition(-enemigoStage74.getWidth(), stage.getHeight());
+		enemigoStage74.getBb().setX(enemigoStage74.getX());
+		enemigoStage74.getBb().setY(enemigoStage74.getY());
+
+		enemigoStage75.setPosition(-enemigoStage75.getWidth(), stage.getHeight());
+		enemigoStage75.getBb().setX(enemigoStage75.getX());
+		enemigoStage75.getBb().setY(enemigoStage75.getY());
+
+		enemigoStage76.setPosition(stage.getWidth(), stage.getHeight()-150);
+		enemigoStage76.getBb().setX(enemigoStage76.getX());
+		enemigoStage76.getBb().setY(enemigoStage76.getY());
+		
+		enemigoStage77.setPosition(stage.getWidth(), stage.getHeight()-150);
+		enemigoStage77.getBb().setX(enemigoStage77.getX());
+		enemigoStage77.getBb().setY(enemigoStage77.getY());		
+		
+		enemigoStage78.setPosition(stage.getWidth(), stage.getHeight()-150);
+		enemigoStage78.getBb().setX(enemigoStage78.getX());
+		enemigoStage78.getBb().setY(enemigoStage78.getY());
+		
+		enemigoStage79.setPosition(stage.getWidth(), stage.getHeight()-150);
+		enemigoStage79.getBb().setX(enemigoStage79.getX());
+		enemigoStage79.getBb().setY(enemigoStage79.getY());
+		
+		enemigoStage80.setPosition(stage.getWidth(), stage.getHeight()-150);
+		enemigoStage80.getBb().setX(enemigoStage80.getX());
+		enemigoStage80.getBb().setY(enemigoStage80.getY());		
+		
+		stage.addActor(enemigoStage71);
+		enemigosStage7.add(enemigoStage71);
+		stage.addActor(enemigoStage72);
+		enemigosStage7.add(enemigoStage72);
+		stage.addActor(enemigoStage73);
+		enemigosStage7.add(enemigoStage73);
+		stage.addActor(enemigoStage74);
+		enemigosStage7.add(enemigoStage74);
+		stage.addActor(enemigoStage75);
+		enemigosStage7.add(enemigoStage75);
+		
+		stage.addActor(enemigoStage76);
+		enemigosStage7.add(enemigoStage76);
+		stage.addActor(enemigoStage77);
+		enemigosStage7.add(enemigoStage77);
+		stage.addActor(enemigoStage78);
+		enemigosStage7.add(enemigoStage78);
+		stage.addActor(enemigoStage79);
+		enemigosStage7.add(enemigoStage79);
+		stage.addActor(enemigoStage80);
+		enemigosStage7.add(enemigoStage80);
+		
+		enemigoStage71.addAction(Actions.sequence(Actions.moveTo( 
+				stage.getWidth()-enemigoStage71.getWidth()-50,100,1), Actions.moveTo( 
+						stage.getWidth()-enemigoStage71.getWidth()-50,stage.getHeight()-enemigoStage71.getHeight()-100,1), Actions.moveTo( 
+								50,stage.getHeight()-enemigoStage71.getHeight()-100,1)  ) );
+		
+		enemigoStage72.addAction(Actions.sequence(Actions.delay(0.2f),Actions.moveTo( 
+				stage.getWidth()-enemigoStage72.getWidth()-50,100,1), Actions.moveTo( 
+						stage.getWidth()-enemigoStage72.getWidth()-50,stage.getHeight()-enemigoStage72.getHeight()-100,1), Actions.moveTo( 
+								50 + enemigoStage71.getWidth() + 20,stage.getHeight()-enemigoStage72.getHeight()-100,0.8f)  ) );
+		
+		enemigoStage73.addAction(Actions.sequence(Actions.delay(0.4f),Actions.moveTo( 
+				stage.getWidth()-enemigoStage73.getWidth()-50,100,1), Actions.moveTo( 
+						stage.getWidth()-enemigoStage73.getWidth()-50,stage.getHeight()-enemigoStage73.getHeight()-100,1), Actions.moveTo( 
+								50 + enemigoStage71.getWidth() + enemigoStage72.getWidth() + 40,stage.getHeight()-enemigoStage73.getHeight()-100,0.6f)  ) );
+		
+		enemigoStage74.addAction(Actions.sequence(Actions.delay(0.6f),Actions.moveTo( 
+				stage.getWidth()-enemigoStage74.getWidth()-50,100,1), Actions.moveTo( 
+						stage.getWidth()-enemigoStage74.getWidth()-50,stage.getHeight()-enemigoStage74.getHeight()-100,1), Actions.moveTo( 
+								50 + enemigoStage71.getWidth() + enemigoStage72.getWidth() + enemigoStage73.getWidth() + 60,stage.getHeight()-enemigoStage73.getHeight()-100,0.4f)  ) );
+
+		enemigoStage75.addAction(Actions.sequence(Actions.delay(0.8f),Actions.moveTo( 
+				stage.getWidth()-enemigoStage75.getWidth()-50,100,1), Actions.moveTo( 
+						stage.getWidth()-enemigoStage75.getWidth()-50,stage.getHeight()-enemigoStage75.getHeight()-100,1), Actions.moveTo( 
+								50 + enemigoStage71.getWidth() + enemigoStage72.getWidth() + enemigoStage73.getWidth()  + enemigoStage74.getWidth() + 80,stage.getHeight()-enemigoStage73.getHeight()-100,0.2f)  ) );
+		
+		enemigoStage76.addAction(Actions.sequence(Actions.delay(3),Actions.moveTo(
+				50,100,1), Actions.moveTo(50,stage.getHeight()-enemigoStage76.getHeight()-200,1),
+				Actions.moveTo(stage.getWidth()-enemigoStage76.getWidth()-50, stage.getHeight()-enemigoStage76.getHeight()-200,1)));
+
+		enemigoStage77.addAction(Actions.sequence(Actions.delay(3.2f),Actions.moveTo(
+				50,100,1), Actions.moveTo(50,stage.getHeight()-enemigoStage77.getHeight()-200,1),
+				Actions.moveTo(stage.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-70, stage.getHeight()-enemigoStage77.getHeight()-200,0.8f)));
+
+		enemigoStage78.addAction(Actions.sequence(Actions.delay(3.4f),Actions.moveTo(
+				50,100,1), Actions.moveTo(50,stage.getHeight()-enemigoStage78.getHeight()-200,1),
+				Actions.moveTo(stage.getWidth()-enemigoStage78.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-90, stage.getHeight()-enemigoStage78.getHeight()-200,0.6f)));
+
+		enemigoStage79.addAction(Actions.sequence(Actions.delay(3.6f),Actions.moveTo(
+				50,100,1), Actions.moveTo(50,stage.getHeight()-enemigoStage79.getHeight()-200,1),
+				Actions.moveTo(stage.getWidth()-enemigoStage79.getWidth()-enemigoStage78.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-110, stage.getHeight()-enemigoStage79.getHeight()-200,0.4f)));
+
+		enemigoStage80.addAction(Actions.sequence(Actions.delay(3.8f),Actions.moveTo(
+				50,100,1), Actions.moveTo(50,stage.getHeight()-enemigoStage80.getHeight()-200,1),
+				Actions.moveTo(stage.getWidth()-enemigoStage80.getWidth()-enemigoStage79.getWidth()-enemigoStage78.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-130, stage.getHeight()-enemigoStage80.getHeight()-200,0.2f)));
+	
+		timerEnemigoStage7 = 10000;			
+
+	}
 	
 	private void dropMunicion(EnemigoActor enemigoRandom, Texture textureMunicion, int tipo){
 	    MunicionActor municion = new MunicionActor(textureMunicion, tipo);
