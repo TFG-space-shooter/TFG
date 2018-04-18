@@ -2896,12 +2896,12 @@ public class GameplayScreen extends AbstractScreen{
 
 	private void spawnEnemigosStage7(){
 		EnemigoActor enemigoStage71 = new EnemigoActor(new Texture("enemyblack1.png"));
-//		EnemigoActor enemigoStage72 = new EnemigoActor(new Texture("enemyblack2.png"));
-//		EnemigoActor enemigoStage73 = new EnemigoActor(new Texture("enemyblack3.png"));
-//		EnemigoActor enemigoStage74 = new EnemigoActor(new Texture("enemyblack4.png"));
-//		EnemigoActor enemigoStage75 = new EnemigoActor(new Texture("enemyblack5.png"));
-//		
-//
+		EnemigoActor enemigoStage72 = new EnemigoActor(new Texture("enemyblack2.png"));
+		EnemigoActor enemigoStage73 = new EnemigoActor(new Texture("enemyblack3.png"));
+		EnemigoActor enemigoStage74 = new EnemigoActor(new Texture("enemyblack4.png"));
+		EnemigoActor enemigoStage75 = new EnemigoActor(new Texture("enemyblack5.png"));
+		
+
 //		EnemigoActor enemigoStage76 = new EnemigoActor(new Texture("enemyBlue2.png"));
 //		EnemigoActor enemigoStage77 = new EnemigoActor(new Texture("enemyBlue4.png"));
 //		EnemigoActor enemigoStage78 = new EnemigoActor(new Texture("enemyBlue3.png"));
@@ -2924,10 +2924,10 @@ public class GameplayScreen extends AbstractScreen{
 		enemigoStage71.getBb().setX(enemigoStage71.getX());
 		enemigoStage71.getBb().setY(enemigoStage71.getY());
 
-//		enemigoStage72.setPosition(-enemigoStage72.getWidth(), stage.getHeight());
-//		enemigoStage72.getBb().setX(enemigoStage72.getX());
-//		enemigoStage72.getBb().setY(enemigoStage72.getY());
-//
+		enemigoStage72.setPosition(-enemigoStage72.getWidth(), stage.getHeight());
+		enemigoStage72.getBb().setX(enemigoStage72.getX());
+		enemigoStage72.getBb().setY(enemigoStage72.getY());
+
 //		enemigoStage73.setPosition(-enemigoStage73.getWidth(), stage.getHeight());
 //		enemigoStage73.getBb().setX(enemigoStage73.getX());
 //		enemigoStage73.getBb().setY(enemigoStage73.getY());
@@ -3001,9 +3001,11 @@ public class GameplayScreen extends AbstractScreen{
 //		enemigoStage90.getBb().setY(enemigoStage90.getY());
 		
 		stage.addActor(enemigoStage71);
+		stage.addActor(enemigoStage72);
+
 		enemigosStage7.add(enemigoStage71);
-//		stage.addActor(enemigoStage72);
-//		enemigosStage7.add(enemigoStage72);
+		enemigosStage7.add(enemigoStage72);
+		
 //		stage.addActor(enemigoStage73);
 //		enemigosStage7.add(enemigoStage73);
 //		stage.addActor(enemigoStage74);
