@@ -515,7 +515,7 @@ public class GameplayScreen extends AbstractScreen{
 			timerRed = 8;
 			timerEnemigoRed = 7;
 			
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)){
+		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)|Gdx.input.isKeyPressed(Input.Keys.VOLUME_DOWN)){
 			for(int i = 0; i<enemigos.size(); i++){
 				enemigos.get(i).setContador(4);
 				enemigos.get(i).remove();
@@ -551,7 +551,7 @@ public class GameplayScreen extends AbstractScreen{
 			timerYellow = 10000; 
 			timerFase4 = 10000;
 			
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)){
+		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)|Gdx.input.isKeyPressed(Input.Keys.VOLUME_UP)){
 			for(int i = 0; i<enemigos.size(); i++){
 				enemigos.get(i).setContador(4);
 				enemigos.get(i).remove();
