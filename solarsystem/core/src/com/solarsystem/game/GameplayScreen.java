@@ -98,13 +98,14 @@ public class GameplayScreen extends AbstractScreen{
 	private float timerStage5;
 	private float timerStage6;
 	private float timerStage7;
+	private float timerStage8;
 	private float timerFase4;
 	private float timerFin;
 	private float timerFin2;
 	private float timerFin3;
 	private float timerFin4;
 	private float timerFin5;
-	private float timerFin6;
+	private float timerFin7;
 	private float timerBlue;
 	private float timerBlue2;
 	private float timerBlue3;
@@ -227,6 +228,7 @@ public class GameplayScreen extends AbstractScreen{
 	private Image stage5;
 	private Image stage6;
 	private Image stage7;
+	private Image stage8;
 	private Image clear;
 	private boolean disparo1;
 	private boolean disparo2;
@@ -268,7 +270,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerFin3 = 5;
 		timerFin4 = 5;
 		timerFin5 = 5;
-		timerFin6 = 5;
+		timerFin7 = 5;
 		timerGameOver = 10000;
 		timerFase4 = 35;
 		greenDead = 0;
@@ -624,6 +626,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerStage5 -= delta;
 		timerStage6 -= delta;
 		timerStage7 -= delta;
+		timerStage8 -= delta;
 		timerBlue -= delta;
 		timerBlue2 -= delta;
 		timerBlue3 -= delta;
@@ -796,6 +799,14 @@ public class GameplayScreen extends AbstractScreen{
 												if(timerEnemigoStage7 < 0){
 													spawnEnemigosStage7();
 													
+												}
+
+												if(timerFin7<=4){
+													timerFin7 -= delta;
+													stage.getActors().removeValue(clear, false);
+													if(timerStage8 < 2){
+														stage8();
+													}
 												}
 												
 											}}
@@ -994,6 +1005,7 @@ public class GameplayScreen extends AbstractScreen{
 		EnemigoActor enemigoYellow;
 		EnemigoActor enemigoRed;
 		EnemigoActor enemigoStage6;
+		EnemigoActor enemigoStage7;
 		LaserActor laser;
 		LaserEnemigoActor laserEnemigo;
 		MeteoritoActor meteorito;
@@ -1761,6 +1773,8 @@ public class GameplayScreen extends AbstractScreen{
 					}
 				}
 			
+			
+			
 
 			for(int i = 0; i < enemigosStage6.size(); i++){
 				enemigoStage6 = enemigosStage6.get(i);
@@ -1812,6 +1826,8 @@ public class GameplayScreen extends AbstractScreen{
 
 							
 				}
+			
+			
 //		if(timerFinStage6 < 0){
 //				
 //				clear = new Image(new Texture("clear.png"));
@@ -1828,6 +1844,248 @@ public class GameplayScreen extends AbstractScreen{
 //
 //			
 //		}
+			
+			
+			
+			for(int i = 0; i < enemigosStage7.size(); i++){
+				enemigoStage7 = enemigosStage7.get(i);
+				if(enemigoStage7.getBb().overlaps(nave.getBb())&&
+						!stage.getActors().contains(shield, false)){
+					// Colisión enemigo-nave
+					
+					enemigosStage7.get(i).remove();
+					enemigosStage7.remove(i);
+					
+					game.explosion.play();
+					game.ufoSound.stop();
+					
+					
+					BoomActor boom = new BoomActor();
+					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+							nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+					nave.remove();
+					stage.addActor(boom);
+					timerGameOver = 0.4f;
+					int prueba =  Preferencias.getMayorPuntuacion();
+					if (puntuacion.getPuntuacion() > prueba){
+						Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+					}
+				}else if(stage.getActors().contains(shield, false)&&
+						enemigoStage7.getBb().overlaps(nave.getBb())&&
+						shield.getTipo()==2){
+					enemigosStage7.get(i).remove();
+					enemigosStage7.remove(i);
+					BoomActor boom = new BoomActor();
+					boom.setPosition(enemigoStage7.getX()+enemigoStage7.getWidth()/2-boom.getWidth()/2,
+							enemigoStage7.getY()+enemigoStage7.getHeight()/2-boom.getHeight()/2);
+					stage.addActor(boom);
+					stage.getActors().removeValue(shield, false);
+					shield = new ShieldActor(new Texture("shield1.png"), 1);
+					stage.addActor(shield);
+					game.hitSound.play();
+				}else if(stage.getActors().contains(shield, false)&&
+						enemigoStage7.getBb().overlaps(nave.getBb())&&
+						shield.getTipo()==1){
+					enemigosStage7.get(i).remove();
+					enemigosStage7.remove(i);
+					BoomActor boom = new BoomActor();
+					boom.setPosition(enemigoStage7.getX()+enemigoStage7.getWidth()/2-boom.getWidth()/2,
+							enemigoStage7.getY()+enemigoStage7.getHeight()/2-boom.getHeight()/2);
+					stage.addActor(boom);
+					stage.getActors().removeValue(shield, false);
+					game.hitSound.play();
+					dropShield = true;
+				}
+					for(int j = 0; j < lasers.size(); j++){
+						laser = lasers.get(j);
+						if(laser.getBb().overlaps(enemigoStage7.getBb())){
+							// Colisión enemigoStage7-láser
+							lasers.get(j).remove();
+							lasers.remove(j);
+							game.explosionSound.play();
+							enemigoStage7.setContador(enemigoStage7.getContador()+1);
+							if(enemigoStage7.getContador()==20){
+								Random random = new Random();
+							    int index = random.nextInt(booleans.size());
+							    Boolean m = booleans.get(index);
+							    if(m){
+							    	if(energia.getEnergia()==0 && drop){
+							    		dropMunicion(enemigoStage7, municion1, 1);
+							    	}else if(energia.getEnergia()==1 && drop){
+							    		dropMunicion(enemigoStage7, municion2, 2);
+							    	}
+//							    	}else if(energia.getEnergia()==2){
+//							    		dropMunicion(enemigoStage7, municion3, 3);
+//							    	}
+							    }
+							    Random random2 = new Random();
+							    int index2 = random2.nextInt(booleans2.size());
+							    Boolean e = booleans2.get(index2);
+							    if(e&&dropShield){
+							    	dropEscudo(enemigoStage7);
+							    	dropShield = false;
+							    }
+							    
+								enemigosStage7.get(i).remove();
+								enemigosStage7.remove(i);
+								BoomActor boom = new BoomActor();
+								boom.setPosition(enemigoStage7.getX()+enemigoStage7.getWidth()/2-boom.getWidth()/2,
+										enemigoStage7.getY()+enemigoStage7.getHeight()/2-boom.getHeight()/2);
+								stage.addActor(boom);
+								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
+								if(enemigosStage7.isEmpty()){
+									stage.getActors().removeValue(ufo, false);
+									clear = new Image(new Texture("clear.png"));
+									clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
+											stage.getHeight()/2 - clear.getHeight()/2);
+									stage.addActor(clear);
+									timerFin = 3;
+									timerFin2 = 0;
+									timerFin3 = 0;
+									timerFin4 = 0;
+									timerFin5 = 0;
+									timerFin7 = 0;
+									timerStage8=10000;
+									timerFinStage6 =10000;
+									timerEnemigoStage7 = 10000;
+								}
+							}
+						}
+					}
+				}
+			
+			for(int k = 0; k < laserEnemigos.size(); k++){
+				laserEnemigo = laserEnemigos.get(k);
+				if(laserEnemigo.getBb().overlaps(nave.getBb())&&
+						!stage.getActors().contains(shield, false)){
+					// Colisión nave-láser enemigo
+					laserEnemigos.get(k).remove();
+					laserEnemigos.remove(k);
+					game.explosion.play();
+					game.ufoSound.stop();
+					BoomActor boom = new BoomActor();
+					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+							nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+					nave.remove();
+					stage.addActor(boom);
+					timerGameOver = 0.4f;
+					if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
+						Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+					}
+				}else if(stage.getActors().contains(shield, false)&&
+						laserEnemigo.getBb().overlaps(nave.getBb())&&
+						shield.getTipo()==2){
+					laserEnemigos.get(k).remove();
+					laserEnemigos.remove(k);
+					stage.getActors().removeValue(shield, false);
+					shield = new ShieldActor(new Texture("shield1.png"), 1);
+					stage.addActor(shield);
+					game.hitSound.play();
+				}else if(stage.getActors().contains(shield, false)&&
+						laserEnemigo.getBb().overlaps(nave.getBb())&&
+						shield.getTipo()==1){
+					laserEnemigos.get(k).remove();
+					laserEnemigos.remove(k);
+					stage.getActors().removeValue(shield, false);
+					game.hitSound.play();
+					dropShield = true;
+				}
+			}
+
+			
+//			for(int k = 0; k < ufos.size(); k++){
+//				ufo = ufos.get(k);
+				for(int j = 0; j < lasers.size(); j++){
+					laser = lasers.get(j);
+					if(stage.getActors().contains(ufo, false)){
+						if(ufo.getBb().overlaps(laser.getBb())){
+							// Colisión láser-ufo
+							ufo.remove();
+							//					ufos.remove(k);
+							lasers.get(j).remove();
+							lasers.remove(j);
+							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+500);
+							game.ufoSound.stop();
+							game.explosionSound.play();
+						}
+					}
+				}
+				//		}
+			for(int k = 0; k < laserUfos.size(); k++){
+				laserUfo = laserUfos.get(k);
+				if(laserUfo.getBb().overlaps(nave.getBb())&&
+						!stage.getActors().contains(shield, false)){
+					// Colisión nave-láser ufo
+					laserUfos.get(k).remove();
+					laserUfos.remove(k);
+					game.explosion.play();
+					game.ufoSound.stop();
+					BoomActor boom = new BoomActor();
+					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+							nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+					nave.remove();
+					stage.addActor(boom);
+					timerGameOver = 0.4f;
+					if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
+						Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+					}
+				}else if(stage.getActors().contains(shield, false)&&
+						laserUfo.getBb().overlaps(nave.getBb())&&
+						shield.getTipo()==2){
+					laserUfos.get(k).remove();
+					laserUfos.remove(k);
+					stage.getActors().removeValue(shield, false);
+					shield = new ShieldActor(new Texture("shield1.png"), 1);
+					stage.addActor(shield);
+					game.hitSound.play();
+				}else if(stage.getActors().contains(shield, false)&&
+						laserUfo.getBb().overlaps(nave.getBb())&&
+						shield.getTipo()==1){
+					laserUfos.get(k).remove();
+					laserUfos.remove(k);
+					stage.getActors().removeValue(shield, false);
+					game.hitSound.play();
+					dropShield = true;
+				}
+			}
+			for(int k = 0; k < municiones.size(); k++){
+				municion = municiones.get(k);
+				if(municion.getBb().overlaps(nave.getBb())){
+					// Colisión nave-municion
+					municiones.get(k).remove();
+					municiones.remove(k);
+					if(energia.getEnergia()==0 && municion.getTipo()==1){
+						disparo1 = false;
+						disparo2 = true;
+						energia.setEnergia(1);
+					}else if(energia.getEnergia()==1 && municion.getTipo()==2){
+						disparo2 = false;
+						disparo3 = true;
+						drop = false;
+						energia.setEnergia(2);
+					}
+//					}else if(energia.getEnergia()==2){
+//						disparo3 = false;
+//						disparo4 = true;
+//						energia.setEnergia(3);
+//					}
+					game.pillSound.play();
+				}
+			}
+			
+			for(int k = 0; k < escudos.size(); k++){
+				escudo = escudos.get(k);
+				if(escudo.getBb().overlaps(nave.getBb())){
+					// Colisión nave-escudo
+					escudos.get(k).remove();
+					escudos.remove(k);
+					shield = new ShieldActor(new Texture("shield2.png"), 2);
+					stage.addActor(shield);
+					game.pillSound.play();
+				}
+			}
+			
+
 	
 			}
 		
@@ -2920,7 +3178,7 @@ public class GameplayScreen extends AbstractScreen{
 		}
 
 	private void spawnEnemigosStage7(){
-		contadorFinFase7 = 12;
+		contadorFinFase7 = 20;
 		
 		EnemigoActor enemigoStage71 = new EnemigoActor(new Texture("enemyblack1.png"));
 		EnemigoActor enemigoStage72 = new EnemigoActor(new Texture("enemyBlack2.png"));
@@ -3508,6 +3766,14 @@ public class GameplayScreen extends AbstractScreen{
 		stage7.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
 	}
 
+	private void stage8(){
+		stage8 = new Image(new Texture("stage8.png"));
+		stage8.setPosition(stage.getWidth()/2 - stage8.getWidth()/2,
+				stage.getHeight()/2 - stage8.getHeight()/2);
+		stage.addActor(stage8);
+		timerStage8 = 10000;
+		stage8.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
+	}
 	private void clear(){
 		clear = new Image(new Texture("clear.png"));
 		clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
