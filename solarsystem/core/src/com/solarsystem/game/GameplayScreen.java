@@ -249,6 +249,7 @@ public class GameplayScreen extends AbstractScreen{
 	private Image pauseText;
 	
 	private float contadorFinFase7;
+	private float timerJefe;
 	
 	public GameplayScreen(Solarsystem game) {
 		super(game);		
@@ -568,7 +569,7 @@ public class GameplayScreen extends AbstractScreen{
 			timerYellow = 10000; 
 			timerFase4 = 10000;
 			
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)|Gdx.input.isKeyPressed(Input.Keys.VOLUME_UP)){
+		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)){
 			for(int i = 0; i<enemigos.size(); i++){
 				enemigos.get(i).setContador(4);
 				enemigos.get(i).remove();
@@ -604,6 +605,56 @@ public class GameplayScreen extends AbstractScreen{
 			timerGreen = 10000;
 			timerYellow = 10000; 
 			timerFase4 = 10000;
+			
+		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_7)|Gdx.input.isKeyPressed(Input.Keys.VOLUME_UP)){
+			for(int i = 0; i<enemigos.size(); i++){
+				enemigos.get(i).setContador(4);
+				enemigos.get(i).remove();
+				enemigos.remove(i);
+			}
+			timerFin = 3;
+			timerFin2 = 0;	
+			timerFin3 = 0;	
+			timerFin4 = 0;	
+			timerFin5 = 0;	
+			timerStage6 = 10000;
+			timerEnemigoStage6 = 10000;
+			timerEnemigoStage62 = 10000;
+			timerEnemigoStage63 = 10000;
+			timerEnemigoStage64 = 10000;
+			timerEnemigoStage65 = 10000;
+			timerFinStage6 = 10000;
+			timerStage7=10000;
+			timerClear6 = 10000;
+			timerEnemigoStage7 = 10000;
+			
+			timerUfo = 10000;
+			
+			timerEnemigoRed = 10000;
+			timerRed = 10000;
+			timerStage5=10000;
+			timerEnemigoRed=10000;
+			timerBlue = 10000;
+			timerBlue2 = 10000;
+			timerBlue3 = 10000;
+			timerBlue4 = 10000;
+			timerGreen = 10000;
+			timerYellow = 10000; 
+			timerFase4 = 10000;
+			
+			timerFin = 3;
+			timerFin2 = 0;
+			timerFin3 = 0;
+			timerFin4 = 0;
+			timerFin5 = 0;
+			timerFin7 = 0;
+			timerStage8=0;
+			timerFinStage6 =10000;
+			timerEnemigoStage7 = 10000;
+			contadorFinFase7 = 10000;
+			timerDisparoEnemigoStage7 = 3;
+			timerJefe = 8;
+			
 			
 		}
 	
@@ -660,6 +711,7 @@ public class GameplayScreen extends AbstractScreen{
 		
 		timerClear6 -= delta;
 		contadorFinFase7 -= delta;
+		timerJefe -= delta;
 		
 	
 		if(timerFin<=4){
@@ -832,6 +884,9 @@ public class GameplayScreen extends AbstractScreen{
 													if(timerStage8 < 2){
 														stage8();
 														
+													}
+													if(timerJefe < 0){
+														spawnJefe();
 													}
 												}
 												
@@ -1939,6 +1994,8 @@ public class GameplayScreen extends AbstractScreen{
 					timerEnemigoStage7 = 10000;
 					contadorFinFase7 = 10000;
 					timerDisparoEnemigoStage7 = 3;
+					timerJefe = 8;
+					
 				}
 				if(enemigoStage7.getBb().overlaps(nave.getBb())&&
 						!stage.getActors().contains(shield, false)){
@@ -3847,6 +3904,21 @@ public class GameplayScreen extends AbstractScreen{
 		clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
 				stage.getHeight()/2 - clear.getHeight()/2);
 		stage.addActor(clear);
+	}
+	
+	private void spawnJefe(){
+		EnemigoActor jefe = new EnemigoActor(new Texture("jefe.png"));
+		jefe.setPosition(stage.getWidth()/2+jefe.getWidth()/2, stage.getHeight()+jefe.getHeight());
+		jefe.getBb().setX(jefe.getX());
+		jefe.getBb().setY(jefe.getY());
+		
+		jefe.rotateBy(180);
+		stage.addActor(jefe);
+		
+		jefe.addAction(Actions.moveTo(stage.getWidth()/2+jefe.getWidth()/2, 
+				stage.getHeight()/2+jefe.getHeight()/2, 5));
+		
+		timerJefe = 10000;
 	}
 
 	
