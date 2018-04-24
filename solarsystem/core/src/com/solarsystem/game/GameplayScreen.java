@@ -305,8 +305,8 @@ public class GameplayScreen extends AbstractScreen{
 		escudos = new ArrayList<EscudoActor>();
 		booleans = new ArrayList<Boolean>();
 		booleans2 = new ArrayList<Boolean>();
-		booleans.add(false);
-		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
 		booleans.add(false);
 		booleans.add(false);
 		booleans.add(false);
@@ -416,10 +416,10 @@ public class GameplayScreen extends AbstractScreen{
 		textureEnemigoBlue5 = new Texture("enemyBlue5.png");
 		
 		municion1 = new Texture("bolt_silver.png");
-		municion2 = new Texture("bolt_bronze.png");
+		municion2 = new Texture("bolt_azul.png");
 		municion3 = new Texture("bolt_bronze.png");
-		municion4 = new Texture("bolt_gold.png");
-		municion5 = new Texture("bolt_gold.png");
+		municion4 = new Texture("bolt_verde.png");
+		municion5 = new Texture("bolt_morado.png");
 		municion6 = new Texture("bolt_gold.png");
 		enemigo1 = new EnemigoActor(textureEnemigo1);
 		enemigo2 = new EnemigoActor(textureEnemigo2);
@@ -3458,16 +3458,6 @@ public class GameplayScreen extends AbstractScreen{
 		timerDisparar = 0.15f;
 	}
 
-	private void disparar21(){
-		LaserActor laser = new LaserActor();
-		laser.setPosition(nave.getX() + nave.getWidth()/2 -
-				laser.getWidth()/2, nave.getY() + nave.getHeight());
-		laser.getBb().setX(laser.getX());
-		laser.getBb().setY(laser.getY());
-		stage.addActor(laser);
-		lasers.add(laser);
-		timerDisparar = 0.10f;
-	}
 	
 	private void disparar3(){
 		LaserActor laser1 = new LaserActor();
@@ -3489,7 +3479,7 @@ public class GameplayScreen extends AbstractScreen{
 		laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(0.5f, 0)),
 				Actions.forever(Actions.rotateBy(-0.2f))));
 		
-		timerDisparar = 0.10f;
+		timerDisparar = 0.15f;
 	}
 	
 	private void disparar4(){
@@ -3557,10 +3547,16 @@ public class GameplayScreen extends AbstractScreen{
 		LaserActor laser2 = new LaserActor();
 		LaserActor laser3 = new LaserActor();
 		LaserActor laser4 = new LaserActor();
+		LaserActor laser5 = new LaserActor();
+		
 		laser1.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
 		laser2.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
 		laser4.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
 		laser3.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
+
+		laser5.setPosition(nave.getX() + nave.getWidth()/2 -
+				laser3.getWidth()/2, nave.getY() + nave.getHeight());		
+		
 		laser1.getBb().setX(laser1.getX());
 		laser1.getBb().setY(laser1.getY());
 		laser2.getBb().setX(laser2.getX());
@@ -3569,6 +3565,8 @@ public class GameplayScreen extends AbstractScreen{
 		laser3.getBb().setY(laser3.getY());
 		laser4.getBb().setX(laser4.getX());
 		laser4.getBb().setY(laser4.getY());
+		laser4.getBb().setX(laser5.getX());
+		laser4.getBb().setY(laser5.getY());
 		stage.addActor(laser1);
 		lasers.add(laser1);
 		stage.addActor(laser2);
@@ -3577,6 +3575,8 @@ public class GameplayScreen extends AbstractScreen{
 		lasers.add(laser3);
 		stage.addActor(laser4);
 		lasers.add(laser4);
+		stage.addActor(laser5);
+		lasers.add(laser5);
 		
 		laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1f, 0)),
 				Actions.forever(Actions.rotateBy(0.5f))));
@@ -3589,6 +3589,7 @@ public class GameplayScreen extends AbstractScreen{
 		
 		timerDisparar = 0.15f;
 	}
+	
 	private void dispararLaserEnemigo(){
 		Random random = new Random();
 	    int index = random.nextInt(enemigos.size());
