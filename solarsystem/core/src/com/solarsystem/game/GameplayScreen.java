@@ -170,7 +170,10 @@ public class GameplayScreen extends AbstractScreen{
 	private Texture textureMeteorito5;
 	private Texture municion1;
 	private Texture municion2;
-//	private Texture municion3;
+	private Texture municion3;
+	private Texture municion4;
+	private Texture municion5;
+	private Texture municion6;
 	private EnemigoActor enemigo1;
 	private EnemigoActor enemigo2;
 	private EnemigoActor enemigo3;
@@ -235,6 +238,8 @@ public class GameplayScreen extends AbstractScreen{
 	private boolean disparo2;
 	private boolean disparo3;
 	private boolean disparo4;
+	private boolean disparo5;
+	private boolean disparo6;
 	private boolean drop;
 	private ShieldActor shield;
 	private boolean dropShield;
@@ -280,6 +285,8 @@ public class GameplayScreen extends AbstractScreen{
 		disparo2 = false;
 		disparo3 = false;
 		disparo4 = false;
+		disparo5 = false;
+		disparo6 = false;
 		drop = true;
 		dropShield = true;
 		enemigos = new ArrayList<EnemigoActor>();
@@ -409,8 +416,11 @@ public class GameplayScreen extends AbstractScreen{
 		textureEnemigoBlue5 = new Texture("enemyBlue5.png");
 		
 		municion1 = new Texture("bolt_silver.png");
-		municion2 = new Texture("bolt_gold.png");
-//		municion3 = new Texture("bolt_gold.png");
+		municion2 = new Texture("bolt_bronze.png");
+		municion3 = new Texture("bolt_bronze.png");
+		municion4 = new Texture("bolt_gold.png");
+		municion5 = new Texture("bolt_gold.png");
+		municion6 = new Texture("bolt_gold.png");
 		enemigo1 = new EnemigoActor(textureEnemigo1);
 		enemigo2 = new EnemigoActor(textureEnemigo2);
 		enemigo3 = new EnemigoActor(textureEnemigo3);
@@ -790,6 +800,15 @@ public class GameplayScreen extends AbstractScreen{
 														}
 														else if(energia.getEnergia()==2){
 															disparar3();
+														}	
+														else if(energia.getEnergia()==3){
+															disparar4();
+														}
+														else if(energia.getEnergia()==4){
+															disparar5();
+														}
+														else if(energia.getEnergia()==5){
+															disparar6();
 														}
 
 														
@@ -868,7 +887,15 @@ public class GameplayScreen extends AbstractScreen{
 		if(timerDisparar < 0 && disparo3){
 			disparar3();
 		}
-
+		if(timerDisparar < 0 && disparo4){
+			disparar4();
+		}
+		if(timerDisparar < 0 && disparo5){
+			disparar5();
+		}	
+		if(timerDisparar < 0 && disparo6){
+			disparar6();
+		}
 		if(timerEnemigo < 0 && !enemigos.isEmpty()){
 			dispararLaserEnemigo();
 		}
@@ -1087,10 +1114,15 @@ public class GameplayScreen extends AbstractScreen{
 						    		dropMunicion(enemigo, municion1, 1);
 						    	}else if(energia.getEnergia()==1 && drop){
 						    		dropMunicion(enemigo, municion2, 2);
+						    	}else if(energia.getEnergia()==2 && drop){
+						    		dropMunicion(enemigo, municion3, 3);
+						    	}else if(energia.getEnergia()==3 && drop){
+						    		dropMunicion(enemigo, municion4, 4);
+						    	}else if(energia.getEnergia()==4 && drop){
+						    		dropMunicion(enemigo, municion5, 5);
+						    	}else if(energia.getEnergia()==5 && drop){
+						    		dropMunicion(enemigo, municion6, 6);
 						    	}
-//						    	}else if(energia.getEnergia()==2){
-//						    		dropMunicion(enemigo, municion3, 3);
-//						    	}
 						    }
 						    Random random2 = new Random();
 						    int index2 = random2.nextInt(booleans2.size());
@@ -1314,8 +1346,21 @@ public class GameplayScreen extends AbstractScreen{
 				}else if(energia.getEnergia()==1 && municion.getTipo()==2){
 					disparo2 = false;
 					disparo3 = true;
-					drop = false;
 					energia.setEnergia(2);
+				}else if(energia.getEnergia()==2 && municion.getTipo()==3){
+					disparo3 = false;
+					disparo4 = true;
+					energia.setEnergia(3);
+				}else if(energia.getEnergia()==3 && municion.getTipo()==4){
+					disparo4 = false;
+					disparo5 = true;
+					energia.setEnergia(4);
+				}
+				else if(energia.getEnergia()==4 && municion.getTipo()==5){
+					disparo5 = false;
+					disparo6 = true;
+					energia.setEnergia(5);
+					drop = false;
 				}
 //				}else if(energia.getEnergia()==2){
 //					disparo3 = false;
@@ -1402,10 +1447,15 @@ public class GameplayScreen extends AbstractScreen{
 						    		dropMunicion(enemigoBlue, municion1, 1);
 						    	}else if(energia.getEnergia()==1 && drop){
 						    		dropMunicion(enemigoBlue, municion2, 2);
+						    	}else if(energia.getEnergia()==2 && drop){
+						    		dropMunicion(enemigoBlue, municion3, 3);
+						    	}else if(energia.getEnergia()==3 && drop){
+						    		dropMunicion(enemigoBlue, municion4, 4);
+						    	}else if(energia.getEnergia()==4 && drop){
+						    		dropMunicion(enemigoBlue, municion5, 5);
+						    	}else if(energia.getEnergia()==5 && drop){
+						    		dropMunicion(enemigoBlue, municion6, 6);
 						    	}
-//						    	}else if(energia.getEnergia()==2){
-//						    		dropMunicion(enemigoBlue, municion3, 3);
-//						    	}
 						    }
 						    Random random2 = new Random();
 						    int index2 = random2.nextInt(booleans2.size());
@@ -1505,10 +1555,15 @@ public class GameplayScreen extends AbstractScreen{
 						    		dropMunicion(enemigoGreen, municion1, 1);
 						    	}else if(energia.getEnergia()==1 && drop){
 						    		dropMunicion(enemigoGreen, municion2, 2);
+						    	}else if(energia.getEnergia()==2 && drop){
+						    		dropMunicion(enemigoGreen, municion3, 3);
+						    	}else if(energia.getEnergia()==3 && drop){
+						    		dropMunicion(enemigoGreen, municion4, 4);
+						    	}else if(energia.getEnergia()==4 && drop){
+						    		dropMunicion(enemigoGreen, municion5, 5);
+						    	}else if(energia.getEnergia()==5 && drop){
+						    		dropMunicion(enemigoGreen, municion6, 6);
 						    	}
-//						    	}else if(energia.getEnergia()==2){
-//						    		dropMunicion(enemigoGreen, municion3, 3);
-//						    	}
 						    }
 						    Random random2 = new Random();
 						    int index2 = random2.nextInt(booleans2.size());
@@ -1625,10 +1680,15 @@ public class GameplayScreen extends AbstractScreen{
 							    		dropMunicion(enemigoYellow, municion1, 1);
 							    	}else if(energia.getEnergia()==1 && drop){
 							    		dropMunicion(enemigoYellow, municion2, 2);
+							    	}else if(energia.getEnergia()==2 && drop){
+							    		dropMunicion(enemigoYellow, municion3, 3);
+							    	}else if(energia.getEnergia()==3 && drop){
+							    		dropMunicion(enemigoYellow, municion4, 4);
+							    	}else if(energia.getEnergia()==4 && drop){
+							    		dropMunicion(enemigoYellow, municion5, 5);
+							    	}else if(energia.getEnergia()==5 && drop){
+							    		dropMunicion(enemigoYellow, municion6, 6);
 							    	}
-//							    	}else if(energia.getEnergia()==2){
-//							    		dropMunicion(enemigoYellow, municion3, 3);
-//							    	}
 							    }
 							    Random random2 = new Random();
 							    int index2 = random2.nextInt(booleans2.size());
@@ -1718,10 +1778,15 @@ public class GameplayScreen extends AbstractScreen{
 							    		dropMunicion(enemigoRed, municion1, 1);
 							    	}else if(energia.getEnergia()==1 && drop){
 							    		dropMunicion(enemigoRed, municion2, 2);
+							    	}else if(energia.getEnergia()==2 && drop){
+							    		dropMunicion(enemigoRed, municion3, 3);
+							    	}else if(energia.getEnergia()==3 && drop){
+							    		dropMunicion(enemigoRed, municion4, 4);
+							    	}else if(energia.getEnergia()==4 && drop){
+							    		dropMunicion(enemigoRed, municion5, 5);
+							    	}else if(energia.getEnergia()==5 && drop){
+							    		dropMunicion(enemigoRed, municion6, 6);
 							    	}
-//							    	}else if(energia.getEnergia()==2){
-//							    		dropMunicion(enemigoRed, municion3, 3);
-//							    	}
 							    }
 							    Random random2 = new Random();
 							    int index2 = random2.nextInt(booleans2.size());
@@ -1939,12 +2004,18 @@ public class GameplayScreen extends AbstractScreen{
 							    		dropMunicion(enemigoStage7, municion1, 1);
 							    	}else if(energia.getEnergia()==1 && drop){
 							    		dropMunicion(enemigoStage7, municion2, 2);
+							    	}else if(energia.getEnergia()==2 && drop){
+							    		dropMunicion(enemigoStage7, municion3, 3);
+							    	}else if(energia.getEnergia()==3 && drop){
+							    		dropMunicion(enemigoStage7, municion4, 4);
+							    	}else if(energia.getEnergia()==4 && drop){
+							    		dropMunicion(enemigoStage7, municion5, 5);
+							    	}else if(energia.getEnergia()==5 && drop){
+							    		dropMunicion(enemigoStage7, municion6, 6);
 							    	}
-//							    	}else if(energia.getEnergia()==2){
-//							    		dropMunicion(enemigoStage7, municion3, 3);
-//							    	}
 							    }
 							    Random random2 = new Random();
+							    
 							    int index2 = random2.nextInt(booleans2.size());
 							    Boolean e = booleans2.get(index2);
 							    if(e&&dropShield){
@@ -3364,8 +3435,19 @@ public class GameplayScreen extends AbstractScreen{
 		lasers.add(laser);
 		timerDisparar = 10000;
 	}
-	
+
 	private void disparar(){
+		LaserActor laser = new LaserActor();
+		laser.setPosition(nave.getX() + nave.getWidth()/2 -
+				laser.getWidth()/2, nave.getY() + nave.getHeight());
+		laser.getBb().setX(laser.getX());
+		laser.getBb().setY(laser.getY());
+		stage.addActor(laser);
+		lasers.add(laser);
+		timerDisparar = 0.25f;
+	}
+	
+	private void disparar2(){
 		LaserActor laser = new LaserActor();
 		laser.setPosition(nave.getX() + nave.getWidth()/2 -
 				laser.getWidth()/2, nave.getY() + nave.getHeight());
@@ -3375,8 +3457,19 @@ public class GameplayScreen extends AbstractScreen{
 		lasers.add(laser);
 		timerDisparar = 0.15f;
 	}
+
+	private void disparar21(){
+		LaserActor laser = new LaserActor();
+		laser.setPosition(nave.getX() + nave.getWidth()/2 -
+				laser.getWidth()/2, nave.getY() + nave.getHeight());
+		laser.getBb().setX(laser.getX());
+		laser.getBb().setY(laser.getY());
+		stage.addActor(laser);
+		lasers.add(laser);
+		timerDisparar = 0.10f;
+	}
 	
-	private void disparar2(){
+	private void disparar3(){
 		LaserActor laser1 = new LaserActor();
 		LaserActor laser2 = new LaserActor();
 		laser1.setPosition(nave.getX() + nave.getWidth()/2 -
@@ -3391,15 +3484,15 @@ public class GameplayScreen extends AbstractScreen{
 		stage.addActor(laser2);
 		lasers.add(laser2);
 		
-		laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-2, 0)),
-				Actions.forever(Actions.rotateBy(0.5f))));
-		laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(2, 0)),
-				Actions.forever(Actions.rotateBy(-0.5f))));
+		laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-0.5f, 0)),
+				Actions.forever(Actions.rotateBy(0.2f))));
+		laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(0.5f, 0)),
+				Actions.forever(Actions.rotateBy(-0.2f))));
 		
-		timerDisparar = 0.15f;
+		timerDisparar = 0.10f;
 	}
 	
-	private void disparar3(){
+	private void disparar4(){
 		LaserActor laser1 = new LaserActor();
 		LaserActor laser2 = new LaserActor();
 		LaserActor laser3 = new LaserActor();
@@ -3421,14 +3514,81 @@ public class GameplayScreen extends AbstractScreen{
 		stage.addActor(laser3);
 		lasers.add(laser3);
 		
-		laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-2.5f, 0)),
-				Actions.forever(Actions.rotateBy(1))));
-		laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(2.5f, 0)),
-				Actions.forever(Actions.rotateBy(-1))));
+		laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1f, 0)),
+				Actions.forever(Actions.rotateBy(0.5f))));
+		laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1f, 0)),
+				Actions.forever(Actions.rotateBy(-0.5f))));
+		
+		timerDisparar = 0.25f;
+	}
+	
+	private void disparar5(){
+		LaserActor laser1 = new LaserActor();
+		LaserActor laser2 = new LaserActor();
+		LaserActor laser3 = new LaserActor();
+		laser1.setPosition(nave.getX() + nave.getWidth()/2 -
+				laser1.getWidth(), nave.getY() + nave.getHeight());
+		laser2.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
+		laser3.setPosition(nave.getX() + nave.getWidth()/2 -
+				laser3.getWidth()/2, nave.getY() + nave.getHeight());
+		laser1.getBb().setX(laser1.getX());
+		laser1.getBb().setY(laser1.getY());
+		laser2.getBb().setX(laser2.getX());
+		laser2.getBb().setY(laser2.getY());
+		laser3.getBb().setX(laser3.getX());
+		laser3.getBb().setY(laser3.getY());
+		stage.addActor(laser1);
+		lasers.add(laser1);
+		stage.addActor(laser2);
+		lasers.add(laser2);
+		stage.addActor(laser3);
+		lasers.add(laser3);
+		
+		laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1f, 0)),
+				Actions.forever(Actions.rotateBy(0.5f))));
+		laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1f, 0)),
+				Actions.forever(Actions.rotateBy(-0.5f))));
 		
 		timerDisparar = 0.15f;
 	}
-	
+
+	private void disparar6(){
+		LaserActor laser1 = new LaserActor();
+		LaserActor laser2 = new LaserActor();
+		LaserActor laser3 = new LaserActor();
+		LaserActor laser4 = new LaserActor();
+		laser1.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
+		laser2.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
+		laser4.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
+		laser3.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
+		laser1.getBb().setX(laser1.getX());
+		laser1.getBb().setY(laser1.getY());
+		laser2.getBb().setX(laser2.getX());
+		laser2.getBb().setY(laser2.getY());
+		laser3.getBb().setX(laser3.getX());
+		laser3.getBb().setY(laser3.getY());
+		laser4.getBb().setX(laser4.getX());
+		laser4.getBb().setY(laser4.getY());
+		stage.addActor(laser1);
+		lasers.add(laser1);
+		stage.addActor(laser2);
+		lasers.add(laser2);
+		stage.addActor(laser3);
+		lasers.add(laser3);
+		stage.addActor(laser4);
+		lasers.add(laser4);
+		
+		laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1f, 0)),
+				Actions.forever(Actions.rotateBy(0.5f))));
+		laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1f, 0)),
+				Actions.forever(Actions.rotateBy(-0.5f))));
+		laser3.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1.5f, 0)),
+				Actions.forever(Actions.rotateBy(0.5f))));
+		laser4.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1.5f, 0)),
+				Actions.forever(Actions.rotateBy(-0.5f))));
+		
+		timerDisparar = 0.15f;
+	}
 	private void dispararLaserEnemigo(){
 		Random random = new Random();
 	    int index = random.nextInt(enemigos.size());
