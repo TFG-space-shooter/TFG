@@ -7,7 +7,6 @@ import java.util.Random;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -27,6 +26,7 @@ import com.solarsystem.game.actor.EscudoActor;
 import com.solarsystem.game.actor.FondoActor;
 import com.solarsystem.game.actor.LaserActor;
 import com.solarsystem.game.actor.LaserEnemigoActor;
+import com.solarsystem.game.actor.LaserJefeActor;
 import com.solarsystem.game.actor.LaserUfoActor;
 import com.solarsystem.game.actor.MeteoritoActor;
 import com.solarsystem.game.actor.MunicionActor;
@@ -250,6 +250,11 @@ public class GameplayScreen extends AbstractScreen{
 	
 	private float contadorFinFase7;
 	private float timerJefe;
+	private EnemigoActor jefe;
+	private float timerDispararJefe;
+	private float timerDispararJefeStop;
+	private float reiniciarDisparo1;
+	private List<LaserJefeActor> laserJefes;
 	
 	public GameplayScreen(Solarsystem game) {
 		super(game);		
@@ -299,6 +304,7 @@ public class GameplayScreen extends AbstractScreen{
 		enemigosStage7 = new ArrayList<EnemigoActor>();
 		lasers = new ArrayList<LaserActor>();
 		laserEnemigos = new ArrayList<LaserEnemigoActor>();
+		laserJefes = new ArrayList<LaserJefeActor>();
 		meteoritos = new ArrayList<MeteoritoActor>();
 //		ufos = new ArrayList<UfoActor>();
 		laserUfos = new ArrayList<LaserUfoActor>();
@@ -654,6 +660,9 @@ public class GameplayScreen extends AbstractScreen{
 			contadorFinFase7 = 10000;
 			timerDisparoEnemigoStage7 = 3;
 			timerJefe = 8;
+			timerDispararJefe = 15;
+			timerDispararJefeStop = 17;
+			reiniciarDisparo1 = 25;
 			
 			
 		}
@@ -712,7 +721,10 @@ public class GameplayScreen extends AbstractScreen{
 		timerClear6 -= delta;
 		contadorFinFase7 -= delta;
 		timerJefe -= delta;
-		
+		timerDispararJefe -= delta;
+		reiniciarDisparo1 -= delta;
+
+		timerDispararJefeStop -= delta;
 	
 		if(timerFin<=4){
 			timerFin -= delta;
@@ -888,6 +900,19 @@ public class GameplayScreen extends AbstractScreen{
 													if(timerJefe < 0){
 														spawnJefe();
 													}
+													
+												
+													if(timerDispararJefe < 0 & timerDispararJefeStop > 0){
+														dispararJefe();
+													}
+													
+													if(reiniciarDisparo1<0){
+														timerDispararJefe = 0;
+														timerDispararJefeStop =2;
+														reiniciarDisparo1 = 6;
+		
+													}
+													
 												}
 												
 											}}
@@ -1084,6 +1109,13 @@ public class GameplayScreen extends AbstractScreen{
 				puntuacion.setPuntuacion(puntuacion.getPuntuacion()-100);
 			}
 		}
+		
+		for(int i = 0; i < laserJefes.size(); i++){
+			if(laserJefes.get(i).getY() < -laserJefes.get(i).getHeight()){
+				laserJefes.get(i).remove();
+				laserJefes.remove(i);
+			}
+		}
 
 	}
 
@@ -1097,6 +1129,7 @@ public class GameplayScreen extends AbstractScreen{
 		EnemigoActor enemigoStage7;
 		LaserActor laser;
 		LaserEnemigoActor laserEnemigo;
+		LaserJefeActor laserJefe;
 		MeteoritoActor meteorito;
 //		UfoActor ufo;
 		LaserUfoActor laserUfo;
@@ -1246,6 +1279,44 @@ public class GameplayScreen extends AbstractScreen{
 					shield.getTipo()==1){
 				laserEnemigos.get(k).remove();
 				laserEnemigos.remove(k);
+				stage.getActors().removeValue(shield, false);
+				game.hitSound.play();
+				dropShield = true;
+			}
+		}
+		
+		for(int k = 0; k < laserJefes.size(); k++){
+			laserJefe = laserJefes.get(k);
+			if(laserJefe.getBb().overlaps(nave.getBb())&&
+					!stage.getActors().contains(shield, false)){
+				// Colisión nave-láser enemigo
+				laserJefes.get(k).remove();
+				laserJefes.remove(k);
+				game.explosion.play();
+				game.ufoSound.stop();
+				BoomActor boom = new BoomActor();
+				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				nave.remove();
+				stage.addActor(boom);
+				timerGameOver = 0.4f;
+				if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
+					Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+				}
+			}else if(stage.getActors().contains(shield, false)&&
+					laserJefe.getBb().overlaps(nave.getBb())&&
+					shield.getTipo()==2){
+				laserJefes.get(k).remove();
+				laserJefes.remove(k);
+				stage.getActors().removeValue(shield, false);
+				shield = new ShieldActor(new Texture("shield1.png"), 1);
+				stage.addActor(shield);
+				game.hitSound.play();
+			}else if(stage.getActors().contains(shield, false)&&
+					laserJefe.getBb().overlaps(nave.getBb())&&
+					shield.getTipo()==1){
+				laserJefes.get(k).remove();
+				laserJefes.remove(k);
 				stage.getActors().removeValue(shield, false);
 				game.hitSound.play();
 				dropShield = true;
@@ -1990,6 +2061,9 @@ public class GameplayScreen extends AbstractScreen{
 				contadorFinFase7 = 10000;
 				timerDisparoEnemigoStage7 = 3;
 				timerJefe = 8;
+				timerDispararJefe = 15;
+				timerDispararJefeStop = 17;
+				reiniciarDisparo1 =25;
 				
 			}
 			
@@ -3460,6 +3534,47 @@ public class GameplayScreen extends AbstractScreen{
 
 	}
 	
+	
+	private void spawnJefe(){
+		jefe = new EnemigoActor(new Texture("jefe.png"));
+		jefe.setPosition(stage.getWidth()/2+jefe.getWidth()/2, stage.getHeight()+jefe.getHeight());
+		jefe.getBb().setX(jefe.getX());
+		jefe.getBb().setY(jefe.getY());
+		
+		jefe.rotateBy(180);
+		stage.addActor(jefe);
+		
+		
+		jefe.addAction(Actions.sequence(Actions.moveTo(stage.getWidth()/2+jefe.getWidth()/2, 
+				stage.getHeight()-100, 5),  Actions.delay(2), Actions.moveTo(jefe.getWidth(), stage.getHeight()-100, 1.5f),  Actions.forever(
+						Actions.sequence(Actions.delay(0.2f),Actions.moveTo(stage.getWidth(), stage.getHeight()-100, 3),Actions.delay(0.2f), Actions.moveTo(jefe.getWidth(), stage.getHeight()-100, 3)))));
+	
+		timerJefe = 10000;
+	}
+	
+	private void dispararJefe(){
+		if(stage.getActors().contains(jefe, false)){
+			LaserJefeActor laserJefe1 = new LaserJefeActor();
+			LaserJefeActor laserJefe2 = new LaserJefeActor();
+			laserJefe1.setPosition(jefe.getX()-jefe.getWidth(), 2*jefe.getHeight()-2*laserJefe1.getHeight());
+			laserJefe2.setPosition(jefe.getRight()-jefe.getWidth()-laserJefe2.getWidth()/2, 2*jefe.getHeight()-2*laserJefe2.getHeight());
+			laserJefe1.getBb().setX(laserJefe1.getX());
+			laserJefe1.getBb().setY(laserJefe1.getY());
+			laserJefe2.getBb().setX(laserJefe2.getX());
+			laserJefe2.getBb().setY(laserJefe2.getY());
+			stage.addActor(laserJefe1);
+			stage.addActor(laserJefe2);
+			laserJefes.add(laserJefe1);
+			laserJefes.add(laserJefe2);
+			laserJefe1.addAction(Actions.forever(
+					Actions.moveBy(0.5f, -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe2.addAction(Actions.forever(
+					Actions.moveBy(-0.5f, -350 * Gdx.graphics.getDeltaTime())));
+			timerDispararJefe = 0.1f;
+			game.laserSound.play();
+		}
+	}
+	
 	private void dropMunicion(EnemigoActor enemigoRandom, Texture textureMunicion, int tipo){
 	    MunicionActor municion = new MunicionActor(textureMunicion, tipo);
 	    municion.setPosition(enemigoRandom.getX() + enemigoRandom.getWidth()/2 -
@@ -3904,21 +4019,6 @@ public class GameplayScreen extends AbstractScreen{
 		clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
 				stage.getHeight()/2 - clear.getHeight()/2);
 		stage.addActor(clear);
-	}
-	
-	private void spawnJefe(){
-		EnemigoActor jefe = new EnemigoActor(new Texture("jefe.png"));
-		jefe.setPosition(stage.getWidth()/2+jefe.getWidth()/2, stage.getHeight()+jefe.getHeight());
-		jefe.getBb().setX(jefe.getX());
-		jefe.getBb().setY(jefe.getY());
-		
-		jefe.rotateBy(180);
-		stage.addActor(jefe);
-		
-		jefe.addAction(Actions.moveTo(stage.getWidth()/2+jefe.getWidth()/2, 
-				stage.getHeight()/2+jefe.getHeight()/2, 5));
-		
-		timerJefe = 10000;
 	}
 
 	
