@@ -308,22 +308,22 @@ public class GameplayScreen extends AbstractScreen{
 		booleans2 = new ArrayList<Boolean>();
 //		booleans.add(false);
 //		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
+//		booleans.add(false);
 		booleans.add(true);
 		
 		booleans2.add(false);
@@ -1972,31 +1972,31 @@ public class GameplayScreen extends AbstractScreen{
 //			
 //		}
 			
-
+			if(contadorFinFase7<0){
+				stage.getActors().removeValue(ufo, false);
+				clear = new Image(new Texture("clear.png"));
+				clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
+						stage.getHeight()/2 - clear.getHeight()/2);
+				stage.addActor(clear);
+				timerFin = 3;
+				timerFin2 = 0;
+				timerFin3 = 0;
+				timerFin4 = 0;
+				timerFin5 = 0;
+				timerFin7 = 0;
+				timerStage8=0;
+				timerFinStage6 =10000;
+				timerEnemigoStage7 = 10000;
+				contadorFinFase7 = 10000;
+				timerDisparoEnemigoStage7 = 3;
+				timerJefe = 8;
+				
+			}
 			
 			for(int i = 0; i < enemigosStage7.size(); i++){
 				enemigoStage7 = enemigosStage7.get(i);
 				
-				if(contadorFinFase7<0){
-					stage.getActors().removeValue(ufo, false);
-					clear = new Image(new Texture("clear.png"));
-					clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-							stage.getHeight()/2 - clear.getHeight()/2);
-					stage.addActor(clear);
-					timerFin = 3;
-					timerFin2 = 0;
-					timerFin3 = 0;
-					timerFin4 = 0;
-					timerFin5 = 0;
-					timerFin7 = 0;
-					timerStage8=0;
-					timerFinStage6 =10000;
-					timerEnemigoStage7 = 10000;
-					contadorFinFase7 = 10000;
-					timerDisparoEnemigoStage7 = 3;
-					timerJefe = 8;
-					
-				}
+			
 				if(enemigoStage7.getBb().overlaps(nave.getBb())&&
 						!stage.getActors().contains(shield, false)){
 					// Colisión enemigo-nave
