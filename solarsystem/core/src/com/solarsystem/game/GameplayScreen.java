@@ -253,6 +253,13 @@ public class GameplayScreen extends AbstractScreen{
 	private EnemigoActor jefe;
 	private float timerDispararJefe;
 	private float timerDispararJefeStop;
+	
+
+	private float timerDispararJefe2;
+	private float timerDispararJefeStop2;
+	private float timerDispararJefe3;
+	private float timerDispararJefeStop3;
+	
 	private float reiniciarDisparo1;
 	private List<LaserJefeActor> laserJefes;
 	
@@ -662,7 +669,15 @@ public class GameplayScreen extends AbstractScreen{
 			timerJefe = 8;
 			timerDispararJefe = 15;
 			timerDispararJefeStop = 17;
-			reiniciarDisparo1 = 25;
+			
+
+			timerDispararJefe2 = 20;
+			timerDispararJefeStop2 = 22;
+			timerDispararJefe3 = 25;
+			timerDispararJefeStop3 =27;
+			
+			
+			reiniciarDisparo1 = 30;
 			
 			
 		}
@@ -725,6 +740,12 @@ public class GameplayScreen extends AbstractScreen{
 		reiniciarDisparo1 -= delta;
 
 		timerDispararJefeStop -= delta;
+		
+
+		timerDispararJefe2 -= delta;
+		timerDispararJefeStop2 -= delta;
+		timerDispararJefe3 -= delta;
+		timerDispararJefeStop3 -= delta;
 	
 		if(timerFin<=4){
 			timerFin -= delta;
@@ -905,11 +926,23 @@ public class GameplayScreen extends AbstractScreen{
 													if(timerDispararJefe < 0 & timerDispararJefeStop > 0){
 														dispararJefe();
 													}
+
+													if(timerDispararJefe2 < 0 & timerDispararJefeStop2 > 0){
+														dispararJefe();
+													}	
 													
-													if(reiniciarDisparo1<0){
+													if(timerDispararJefe3 < 0 & timerDispararJefeStop3 > 0){
+														dispararJefe();
+													}													
+													
+													if(reiniciarDisparo1 < 0){
 														timerDispararJefe = 0;
 														timerDispararJefeStop =2;
-														reiniciarDisparo1 = 6;
+														timerDispararJefe2 = 5;
+														timerDispararJefeStop2 =7;
+														timerDispararJefe3 = 10;
+														timerDispararJefeStop3 =12;
+														reiniciarDisparo1 = 15;
 		
 													}
 													
@@ -2061,9 +2094,17 @@ public class GameplayScreen extends AbstractScreen{
 				contadorFinFase7 = 10000;
 				timerDisparoEnemigoStage7 = 3;
 				timerJefe = 8;
+				
 				timerDispararJefe = 15;
 				timerDispararJefeStop = 17;
-				reiniciarDisparo1 =25;
+				reiniciarDisparo1 = 30;
+				
+
+				timerDispararJefe2 = 20;
+				timerDispararJefeStop2 = 22;
+				
+				timerDispararJefe3 = 25;
+				timerDispararJefeStop3 =27;
 				
 			}
 			
