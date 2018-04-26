@@ -928,11 +928,11 @@ public class GameplayScreen extends AbstractScreen{
 													}
 
 													if(timerDispararJefe2 < 0 & timerDispararJefeStop2 > 0){
-														dispararJefe();
+														dispararJefe2();
 													}	
 													
 													if(timerDispararJefe3 < 0 & timerDispararJefeStop3 > 0){
-														dispararJefe();
+														dispararJefe3();
 													}													
 													
 													if(reiniciarDisparo1 < 0){
@@ -3597,8 +3597,8 @@ public class GameplayScreen extends AbstractScreen{
 		if(stage.getActors().contains(jefe, false)){
 			LaserJefeActor laserJefe1 = new LaserJefeActor();
 			LaserJefeActor laserJefe2 = new LaserJefeActor();
-			laserJefe1.setPosition(jefe.getX()-jefe.getWidth(), 2*jefe.getHeight()-2*laserJefe1.getHeight());
-			laserJefe2.setPosition(jefe.getRight()-jefe.getWidth()-laserJefe2.getWidth()/2, 2*jefe.getHeight()-2*laserJefe2.getHeight());
+			laserJefe1.setPosition(jefe.getX()-jefe.getWidth(), 1.5f*jefe.getHeight()-2*laserJefe1.getHeight());
+			laserJefe2.setPosition(jefe.getRight()-jefe.getWidth()-laserJefe2.getWidth()/2, 1.5f*jefe.getHeight()-2*laserJefe2.getHeight());
 			laserJefe1.getBb().setX(laserJefe1.getX());
 			laserJefe1.getBb().setY(laserJefe1.getY());
 			laserJefe2.getBb().setX(laserJefe2.getX());
@@ -3612,6 +3612,52 @@ public class GameplayScreen extends AbstractScreen{
 			laserJefe2.addAction(Actions.forever(
 					Actions.moveBy(-0.5f, -350 * Gdx.graphics.getDeltaTime())));
 			timerDispararJefe = 0.1f;
+			game.laserSound.play();
+		}
+	}
+	
+	private void dispararJefe2(){
+		if(stage.getActors().contains(jefe, false)){
+			LaserJefeActor laserJefe1 = new LaserJefeActor();
+			LaserJefeActor laserJefe2 = new LaserJefeActor();
+			laserJefe1.setPosition(jefe.getX()-jefe.getWidth(), 1.5f*jefe.getHeight()-2*laserJefe1.getHeight());
+			laserJefe2.setPosition(jefe.getRight()-jefe.getWidth()-laserJefe2.getWidth()/2, 1.5f*jefe.getHeight()-2*laserJefe2.getHeight());
+			laserJefe1.getBb().setX(laserJefe1.getX());
+			laserJefe1.getBb().setY(laserJefe1.getY());
+			laserJefe2.getBb().setX(laserJefe2.getX());
+			laserJefe2.getBb().setY(laserJefe2.getY());
+			stage.addActor(laserJefe1);
+			stage.addActor(laserJefe2);
+			laserJefes.add(laserJefe1);
+			laserJefes.add(laserJefe2);
+			laserJefe1.addAction(Actions.forever(
+					Actions.moveBy(0.5f, -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe2.addAction(Actions.forever(
+					Actions.moveBy(-0.5f, -350 * Gdx.graphics.getDeltaTime())));
+			timerDispararJefe2 = 0.1f;
+			game.laserSound.play();
+		}
+	}
+	
+	private void dispararJefe3(){
+		if(stage.getActors().contains(jefe, false)){
+			LaserJefeActor laserJefe1 = new LaserJefeActor();
+			LaserJefeActor laserJefe2 = new LaserJefeActor();
+			laserJefe1.setPosition(jefe.getX()-jefe.getWidth(), 1.5f*jefe.getHeight()-2*laserJefe1.getHeight());
+			laserJefe2.setPosition(jefe.getRight()-jefe.getWidth()-laserJefe2.getWidth()/2, 1.5f*jefe.getHeight()-2*laserJefe2.getHeight());
+			laserJefe1.getBb().setX(laserJefe1.getX());
+			laserJefe1.getBb().setY(laserJefe1.getY());
+			laserJefe2.getBb().setX(laserJefe2.getX());
+			laserJefe2.getBb().setY(laserJefe2.getY());
+			stage.addActor(laserJefe1);
+			stage.addActor(laserJefe2);
+			laserJefes.add(laserJefe1);
+			laserJefes.add(laserJefe2);
+			laserJefe1.addAction(Actions.forever(
+					Actions.moveBy(0.5f, -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe2.addAction(Actions.forever(
+					Actions.moveBy(-0.5f, -350 * Gdx.graphics.getDeltaTime())));
+			timerDispararJefe3 = 0.1f;
 			game.laserSound.play();
 		}
 	}
