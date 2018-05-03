@@ -1964,7 +1964,7 @@ public class GameplayScreen extends AbstractScreen{
 								stage.addActor(boom);
 								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 								redDead++;
-								if(redDead == 10 ){
+								if(redDead == 39 ){
 									for(int g = 0; g<enemigosRed.size(); g++){
 										BoomActor boomRed = new BoomActor();
 										boomRed.setPosition(enemigosRed.get(g).getX()+
@@ -3578,17 +3578,16 @@ public class GameplayScreen extends AbstractScreen{
 	
 	private void spawnJefe(){
 		jefe = new EnemigoActor(new Texture("jefe.png"));
-		jefe.setPosition(stage.getWidth()/2+jefe.getWidth()/2, stage.getHeight()+jefe.getHeight());
+		jefe.setPosition(stage.getWidth()/2-jefe.getWidth()/2, stage.getHeight());
 		jefe.getBb().setX(jefe.getX());
 		jefe.getBb().setY(jefe.getY());
 		
-		jefe.rotateBy(180);
 		stage.addActor(jefe);
 		
 		
-		jefe.addAction(Actions.sequence(Actions.moveTo(stage.getWidth()/2+jefe.getWidth()/2, 
-				stage.getHeight()-100, 5),  Actions.delay(2), Actions.moveTo(jefe.getWidth(), stage.getHeight()-100, 1.5f),  Actions.forever(
-						Actions.sequence(Actions.delay(0.2f),Actions.moveTo(stage.getWidth(), stage.getHeight()-100, 3),Actions.delay(0.2f), Actions.moveTo(jefe.getWidth(), stage.getHeight()-100, 3)))));
+		jefe.addAction(Actions.sequence(Actions.moveTo(stage.getWidth()/2-jefe.getWidth()/2, 
+				stage.getHeight()-100-jefe.getHeight(), 5),  Actions.delay(2), Actions.moveTo(50, stage.getHeight()-100-jefe.getHeight(), 1.5f),  Actions.forever(
+						Actions.sequence(Actions.delay(0.2f),Actions.moveTo(stage.getWidth()-jefe.getWidth()-50, stage.getHeight()-100-jefe.getHeight(), 3),Actions.delay(0.2f), Actions.moveTo(50, stage.getHeight()-100-jefe.getHeight(), 3)))));
 	
 		timerJefe = 10000;
 	}
@@ -3597,8 +3596,8 @@ public class GameplayScreen extends AbstractScreen{
 		if(stage.getActors().contains(jefe, false)){
 			LaserJefeActor laserJefe1 = new LaserJefeActor();
 			LaserJefeActor laserJefe2 = new LaserJefeActor();
-			laserJefe1.setPosition(jefe.getX()-jefe.getWidth(), 1.5f*jefe.getHeight()-2*laserJefe1.getHeight());
-			laserJefe2.setPosition(jefe.getRight()-jefe.getWidth()-laserJefe2.getWidth()/2, 1.5f*jefe.getHeight()-2*laserJefe2.getHeight());
+			laserJefe1.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe2.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
 			laserJefe1.getBb().setX(laserJefe1.getX());
 			laserJefe1.getBb().setY(laserJefe1.getY());
 			laserJefe2.getBb().setX(laserJefe2.getX());
@@ -3618,14 +3617,56 @@ public class GameplayScreen extends AbstractScreen{
 	
 	private void dispararJefe2(){
 		if(stage.getActors().contains(jefe, false)){
+			
 			LaserJefeActor laserJefe1 = new LaserJefeActor();
 			LaserJefeActor laserJefe2 = new LaserJefeActor();
-			laserJefe1.setPosition(jefe.getX()-jefe.getWidth(), 1.5f*jefe.getHeight()-2*laserJefe1.getHeight());
-			laserJefe2.setPosition(jefe.getRight()-jefe.getWidth()-laserJefe2.getWidth()/2, 1.5f*jefe.getHeight()-2*laserJefe2.getHeight());
+			LaserJefeActor laserJefe3 = new LaserJefeActor();
+			LaserJefeActor laserJefe4 = new LaserJefeActor();
+			LaserJefeActor laserJefe5 = new LaserJefeActor();
+			LaserJefeActor laserJefe6 = new LaserJefeActor();
+			LaserJefeActor laserJefe7 = new LaserJefeActor();
+			LaserJefeActor laserJefe8 = new LaserJefeActor();
+			LaserJefeActor laserJefe9 = new LaserJefeActor();
+			LaserJefeActor laserJefe10 = new LaserJefeActor();
+			LaserJefeActor laserJefe11 = new LaserJefeActor();
+			LaserJefeActor laserJefe12 = new LaserJefeActor();
+			LaserJefeActor laserJefe13 = new LaserJefeActor();
+			LaserJefeActor laserJefe14 = new LaserJefeActor();
+			LaserJefeActor laserJefe15 = new LaserJefeActor();
+			LaserJefeActor laserJefe16 = new LaserJefeActor();
+			
+			laserJefe1.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe2.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe3.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe4.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe5.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe6.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe7.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe8.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe9.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe10.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe11.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe12.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe13.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe14.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe15.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe16.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);			
+			
+			
+			
+			
 			laserJefe1.getBb().setX(laserJefe1.getX());
 			laserJefe1.getBb().setY(laserJefe1.getY());
 			laserJefe2.getBb().setX(laserJefe2.getX());
 			laserJefe2.getBb().setY(laserJefe2.getY());
+			
 			stage.addActor(laserJefe1);
 			stage.addActor(laserJefe2);
 			laserJefes.add(laserJefe1);
