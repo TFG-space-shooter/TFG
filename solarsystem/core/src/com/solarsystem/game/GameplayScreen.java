@@ -262,6 +262,7 @@ public class GameplayScreen extends AbstractScreen{
 	
 	private float reiniciarDisparo1;
 	private List<LaserJefeActor> laserJefes;
+	private float contadorFinal;
 	
 	public GameplayScreen(Solarsystem game) {
 		super(game);		
@@ -359,6 +360,7 @@ public class GameplayScreen extends AbstractScreen{
 		booleans2.add(true);
 		
 		contadorFinFase7 = 10000;
+		contadorFinal = 10000;
 		
 		stage = new Stage(new ScreenViewport());
 		nave = new NaveActor();
@@ -746,6 +748,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerDispararJefeStop2 -= delta;
 		timerDispararJefe3 -= delta;
 		timerDispararJefeStop3 -= delta;
+		contadorFinal -= delta;
 	
 		if(timerFin<=4){
 			timerFin -= delta;
@@ -944,6 +947,12 @@ public class GameplayScreen extends AbstractScreen{
 														timerDispararJefeStop3 =12;
 														reiniciarDisparo1 = 15;
 		
+													}
+													
+													if(contadorFinal < 0){
+														stage.getActors().removeValue(jefe, false);
+														clear();
+														
 													}
 													
 												}
@@ -1218,12 +1227,12 @@ public class GameplayScreen extends AbstractScreen{
 				game.hitSound.play();
 				dropShield = true;
 			}
-				for(int j = 0; j < lasers.size(); j++){
-					laser = lasers.get(j);
-					if(laser.getBb().overlaps(enemigo.getBb())){
-						// Colisión enemigo-láser
-						lasers.get(j).remove();
-						lasers.remove(j);
+			for(int j = 0; j < lasers.size(); j++){
+				laser = lasers.get(j);
+				if(laser.getBb().overlaps(enemigo.getBb())){
+					// Colisión enemigo-láser
+					lasers.get(j).remove();
+					lasers.remove(j);
 						game.explosionSound.play();
 						enemigo.setContador(enemigo.getContador()+1);
 						if(enemigo.getContador()==4){
@@ -2211,11 +2220,81 @@ public class GameplayScreen extends AbstractScreen{
 						
 						
 					}
-				}
-	
-	
 			}
-		
+
+			for(int j = 0; j < lasers.size(); j++){
+				laser = lasers.get(j);
+				if(stage.getActors().contains(jefe, false)){
+					if(laser.getBb().overlaps(jefe.getBb())){
+						lasers.get(j).remove();
+						lasers.remove(j);
+						game.explosionSound.play();
+						jefe.setContador(jefe.getContador()+1);
+						if(jefe.getContador()==50){
+							
+							int explosionJefe = 5;
+							int pos = 0;
+							while(explosionJefe !=0){
+							BoomActor boom = new BoomActor();
+							boom.setPosition(jefe.getX()+jefe.getWidth()/2-boom.getWidth()/2,
+									jefe.getTop()-boom.getHeight()/2-pos);
+							stage.addActor(boom);
+							explosionJefe--;
+							pos += boom.getHeight() + 10;
+							}
+							
+							for(Action a : jefe.getActions()){
+								jefe.removeAction(a);
+							}
+							jefe.addAction(Actions.forever(Actions.moveBy(0, 0)));
+							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+10000);
+							contadorFinal = 0.5f;
+							timerDispararJefe = 10000;
+							timerDispararJefeStop = 10000;
+							timerDispararJefe2 = 10000;
+							timerDispararJefeStop2 = 10000;
+							timerDispararJefe3 = 10000;
+							timerDispararJefeStop3 = 10000;
+							reiniciarDisparo1 = 10000;
+							musicaFundo.stop();
+						}
+					}
+				}
+			}
+			if(stage.getActors().contains(jefe, false)){
+				if(jefe.getBb().overlaps(nave.getBb())&&
+						!stage.getActors().contains(shield, false)){
+					// Colisión enemigo-nave
+
+					game.explosion.play();
+
+					BoomActor boom = new BoomActor();
+					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
+							nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+					nave.remove();
+					stage.addActor(boom);
+					timerGameOver = 0.4f;
+					int prueba =  Preferencias.getMayorPuntuacion();
+					if (puntuacion.getPuntuacion() > prueba){
+						Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
+					}
+				}else if(stage.getActors().contains(shield, false)&&
+						jefe.getBb().overlaps(nave.getBb())&&
+						shield.getTipo()==2){
+					stage.getActors().removeValue(shield, false);
+					shield = new ShieldActor(new Texture("shield1.png"), 1);
+					stage.addActor(shield);
+					game.hitSound.play();
+				}else if(stage.getActors().contains(shield, false)&&
+						jefe.getBb().overlaps(nave.getBb())&&
+						shield.getTipo()==1){
+					stage.getActors().removeValue(shield, false);
+					game.hitSound.play();
+					dropShield = true;
+				}
+			}
+	}
+
 
 
 
@@ -3638,44 +3717,204 @@ public class GameplayScreen extends AbstractScreen{
 			laserJefe1.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
 			laserJefe2.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
 			
+			laserJefe1.setOriginX(laserJefe1.getOriginX()+laserJefe1.getWidth()/2);
+			laserJefe1.setOriginY(laserJefe1.getOriginY());
+			laserJefe2.setOriginX(laserJefe2.getOriginX()+laserJefe2.getWidth()/2);
+			laserJefe2.setOriginY(laserJefe2.getOriginY());
+			
+			laserJefe1.rotateBy(180);
+			laserJefe2.rotateBy(180);
+			
+			//------------------------------------------------------
+			
 			laserJefe3.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
-			laserJefe4.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			laserJefe4.setPosition(jefe.getRight()-laserJefe4.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe3.setOriginX(laserJefe3.getOriginX()+laserJefe3.getWidth()/2);
+			laserJefe3.setOriginY(laserJefe3.getOriginY());
+			laserJefe4.setOriginX(laserJefe4.getOriginX()+laserJefe4.getWidth()/2);
+			laserJefe4.setOriginY(laserJefe4.getOriginY());
+			
+			laserJefe3.rotateBy(135);
+			laserJefe4.rotateBy(135);
+			
+			//--------------------------------------------------------
 			
 			laserJefe5.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
-			laserJefe6.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			laserJefe6.setPosition(jefe.getRight()-laserJefe6.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe5.setOriginX(laserJefe5.getOriginX()+laserJefe5.getWidth()/2);
+			laserJefe5.setOriginY(laserJefe5.getOriginY());
+			laserJefe6.setOriginX(laserJefe6.getOriginX()+laserJefe6.getWidth()/2);
+			laserJefe6.setOriginY(laserJefe6.getOriginY());
+			
+			laserJefe5.rotateBy(90);
+			laserJefe6.rotateBy(90);
+			
+			//---------------------------------------------------------
 			
 			laserJefe7.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
-			laserJefe8.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			laserJefe8.setPosition(jefe.getRight()-laserJefe8.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe7.setOriginX(laserJefe7.getOriginX()+laserJefe7.getWidth()/2);
+			laserJefe7.setOriginY(laserJefe7.getOriginY());
+			laserJefe8.setOriginX(laserJefe8.getOriginX()+laserJefe8.getWidth()/2);
+			laserJefe8.setOriginY(laserJefe8.getOriginY());
+			
+			laserJefe7.rotateBy(45);
+			laserJefe8.rotateBy(45);
+			
+			//------------------------------------------------------
 			
 			laserJefe9.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
-			laserJefe10.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			laserJefe10.setPosition(jefe.getRight()-laserJefe10.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe9.setOriginX(laserJefe9.getOriginX()+laserJefe9.getWidth()/2);
+			laserJefe9.setOriginY(laserJefe9.getOriginY());
+			laserJefe10.setOriginX(laserJefe10.getOriginX()+laserJefe10.getWidth()/2);
+			laserJefe10.setOriginY(laserJefe10.getOriginY());
+			
+			//---------------------------------------------------------
 			
 			laserJefe11.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
-			laserJefe12.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			laserJefe12.setPosition(jefe.getRight()-laserJefe12.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe11.setOriginX(laserJefe11.getOriginX()+laserJefe11.getWidth()/2);
+			laserJefe11.setOriginY(laserJefe11.getOriginY());
+			laserJefe12.setOriginX(laserJefe12.getOriginX()+laserJefe12.getWidth()/2);
+			laserJefe12.setOriginY(laserJefe12.getOriginY());
+			
+			laserJefe11.setRotation(-45);
+			laserJefe12.setRotation(-45);
+			
+			//----------------------------------------------------------
 			
 			laserJefe13.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
-			laserJefe14.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			laserJefe14.setPosition(jefe.getRight()-laserJefe14.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe13.setOriginX(laserJefe13.getOriginX()+laserJefe13.getWidth()/2);
+			laserJefe13.setOriginY(laserJefe13.getOriginY());
+			laserJefe14.setOriginX(laserJefe14.getOriginX()+laserJefe14.getWidth()/2);
+			laserJefe14.setOriginY(laserJefe14.getOriginY());
+			
+			laserJefe13.setRotation(-90);
+			laserJefe14.setRotation(-90);
+			
+			//----------------------------------------------------------
 			
 			laserJefe15.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
-			laserJefe16.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);			
+			laserJefe16.setPosition(jefe.getRight()-laserJefe16.getWidth(),jefe.getY()+jefe.getHeight()/2);			
 			
+			laserJefe15.setOriginX(laserJefe15.getOriginX()+laserJefe15.getWidth()/2);
+			laserJefe15.setOriginY(laserJefe15.getOriginY());
+			laserJefe16.setOriginX(laserJefe16.getOriginX()+laserJefe16.getWidth()/2);
+			laserJefe16.setOriginY(laserJefe16.getOriginY());
 			
+			laserJefe15.setRotation(45);
+			laserJefe16.setRotation(45);
 			
 			
 			laserJefe1.getBb().setX(laserJefe1.getX());
 			laserJefe1.getBb().setY(laserJefe1.getY());
 			laserJefe2.getBb().setX(laserJefe2.getX());
 			laserJefe2.getBb().setY(laserJefe2.getY());
+			laserJefe3.getBb().setX(laserJefe3.getX());
+			laserJefe3.getBb().setY(laserJefe3.getY());
+			laserJefe4.getBb().setX(laserJefe4.getX());
+			laserJefe4.getBb().setY(laserJefe4.getY());
+			laserJefe5.getBb().setX(laserJefe5.getX());
+			laserJefe5.getBb().setY(laserJefe5.getY());
+			laserJefe6.getBb().setX(laserJefe6.getX());
+			laserJefe6.getBb().setY(laserJefe6.getY());
+			laserJefe7.getBb().setX(laserJefe7.getX());
+			laserJefe7.getBb().setY(laserJefe7.getY());
+			laserJefe8.getBb().setX(laserJefe8.getX());
+			laserJefe8.getBb().setY(laserJefe8.getY());
+			laserJefe9.getBb().setX(laserJefe9.getX());
+			laserJefe9.getBb().setY(laserJefe9.getY());
+			laserJefe10.getBb().setX(laserJefe10.getX());
+			laserJefe10.getBb().setY(laserJefe10.getY());
+			laserJefe11.getBb().setX(laserJefe11.getX());
+			laserJefe11.getBb().setY(laserJefe11.getY());
+			laserJefe12.getBb().setX(laserJefe12.getX());
+			laserJefe12.getBb().setY(laserJefe12.getY());
+			laserJefe13.getBb().setX(laserJefe13.getX());
+			laserJefe13.getBb().setY(laserJefe13.getY());
+			laserJefe14.getBb().setX(laserJefe14.getX());
+			laserJefe14.getBb().setY(laserJefe14.getY());
+			laserJefe15.getBb().setX(laserJefe15.getX());
+			laserJefe15.getBb().setY(laserJefe15.getY());
+			laserJefe16.getBb().setX(laserJefe16.getX());
+			laserJefe16.getBb().setY(laserJefe16.getY());
 			
 			stage.addActor(laserJefe1);
 			stage.addActor(laserJefe2);
+			stage.addActor(laserJefe3);
+			stage.addActor(laserJefe4);
+			stage.addActor(laserJefe5);
+			stage.addActor(laserJefe6);
+			stage.addActor(laserJefe7);
+			stage.addActor(laserJefe8);
+			stage.addActor(laserJefe9);
+			stage.addActor(laserJefe10);
+			stage.addActor(laserJefe11);
+			stage.addActor(laserJefe12);
+			stage.addActor(laserJefe13);
+			stage.addActor(laserJefe14);
+			stage.addActor(laserJefe15);
+			stage.addActor(laserJefe16);
+			
 			laserJefes.add(laserJefe1);
 			laserJefes.add(laserJefe2);
+			laserJefes.add(laserJefe3);
+			laserJefes.add(laserJefe4);
+			laserJefes.add(laserJefe5);
+			laserJefes.add(laserJefe6);
+			laserJefes.add(laserJefe7);
+			laserJefes.add(laserJefe8);
+			laserJefes.add(laserJefe9);
+			laserJefes.add(laserJefe10);
+			laserJefes.add(laserJefe11);
+			laserJefes.add(laserJefe12);
+			laserJefes.add(laserJefe13);
+			laserJefes.add(laserJefe14);
+			laserJefes.add(laserJefe15);
+			laserJefes.add(laserJefe16);
+			
 			laserJefe1.addAction(Actions.forever(
-					Actions.moveBy(0.5f, -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(0, 350 * Gdx.graphics.getDeltaTime())));
 			laserJefe2.addAction(Actions.forever(
-					Actions.moveBy(-0.5f, -350 * Gdx.graphics.getDeltaTime())));
-			timerDispararJefe2 = 0.1f;
+					Actions.moveBy(0, 350 * Gdx.graphics.getDeltaTime())));
+			laserJefe3.addAction(Actions.forever(
+					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), 350 * Gdx.graphics.getDeltaTime())));
+			laserJefe4.addAction(Actions.forever(
+					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), 350 * Gdx.graphics.getDeltaTime())));
+			laserJefe5.addAction(Actions.forever(
+					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), 0)));
+			laserJefe6.addAction(Actions.forever(
+					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), 0)));
+			laserJefe7.addAction(Actions.forever(
+					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe8.addAction(Actions.forever(
+					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe9.addAction(Actions.forever(
+					Actions.moveBy(0, -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe10.addAction(Actions.forever(
+					Actions.moveBy(0, -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe11.addAction(Actions.forever(
+					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe12.addAction(Actions.forever(
+					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe13.addAction(Actions.forever(
+					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), 0)));
+			laserJefe14.addAction(Actions.forever(
+					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), 0)));
+			laserJefe15.addAction(Actions.forever(
+					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), 350 * Gdx.graphics.getDeltaTime())));
+			laserJefe16.addAction(Actions.forever(
+					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), 350 * Gdx.graphics.getDeltaTime())));
+			
+			timerDispararJefe2 = 10000;
 			game.laserSound.play();
 		}
 	}
@@ -3684,21 +3923,63 @@ public class GameplayScreen extends AbstractScreen{
 		if(stage.getActors().contains(jefe, false)){
 			LaserJefeActor laserJefe1 = new LaserJefeActor();
 			LaserJefeActor laserJefe2 = new LaserJefeActor();
-			laserJefe1.setPosition(jefe.getX()-jefe.getWidth(), 1.5f*jefe.getHeight()-2*laserJefe1.getHeight());
-			laserJefe2.setPosition(jefe.getRight()-jefe.getWidth()-laserJefe2.getWidth()/2, 1.5f*jefe.getHeight()-2*laserJefe2.getHeight());
+			LaserJefeActor laserJefe3 = new LaserJefeActor();
+			LaserJefeActor laserJefe4 = new LaserJefeActor();
+			LaserJefeActor laserJefe5 = new LaserJefeActor();
+			LaserJefeActor laserJefe6 = new LaserJefeActor();
+			laserJefe1.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe2.setPosition(jefe.getRight()-laserJefe2.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			laserJefe3.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe4.setPosition(jefe.getRight()-laserJefe4.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			laserJefe5.setPosition(jefe.getX(), jefe.getY() + +jefe.getHeight()/2);
+			laserJefe6.setPosition(jefe.getRight()-laserJefe6.getWidth(),jefe.getY()+jefe.getHeight()/2);
+			
+			laserJefe3.rotateBy(30);
+			laserJefe4.rotateBy(30);
+			laserJefe5.rotateBy(-30);
+			laserJefe6.rotateBy(-30);
+			
 			laserJefe1.getBb().setX(laserJefe1.getX());
 			laserJefe1.getBb().setY(laserJefe1.getY());
 			laserJefe2.getBb().setX(laserJefe2.getX());
 			laserJefe2.getBb().setY(laserJefe2.getY());
+			laserJefe3.getBb().setX(laserJefe3.getX());
+			laserJefe3.getBb().setY(laserJefe3.getY());
+			laserJefe4.getBb().setX(laserJefe4.getX());
+			laserJefe4.getBb().setY(laserJefe4.getY());
+			laserJefe5.getBb().setX(laserJefe5.getX());
+			laserJefe5.getBb().setY(laserJefe5.getY());
+			laserJefe6.getBb().setX(laserJefe6.getX());
+			laserJefe6.getBb().setY(laserJefe6.getY());
+			
 			stage.addActor(laserJefe1);
 			stage.addActor(laserJefe2);
+			stage.addActor(laserJefe3);
+			stage.addActor(laserJefe4);
+			stage.addActor(laserJefe5);
+			stage.addActor(laserJefe6);
+			
 			laserJefes.add(laserJefe1);
 			laserJefes.add(laserJefe2);
+			laserJefes.add(laserJefe3);
+			laserJefes.add(laserJefe4);
+			laserJefes.add(laserJefe5);
+			laserJefes.add(laserJefe6);
+			
 			laserJefe1.addAction(Actions.forever(
-					Actions.moveBy(0.5f, -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(0, -350 * Gdx.graphics.getDeltaTime())));
 			laserJefe2.addAction(Actions.forever(
-					Actions.moveBy(-0.5f, -350 * Gdx.graphics.getDeltaTime())));
-			timerDispararJefe3 = 0.1f;
+					Actions.moveBy(0, -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe3.addAction(Actions.forever(
+					Actions.moveBy(250 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe4.addAction(Actions.forever(
+					Actions.moveBy(250 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe5.addAction(Actions.forever(
+					Actions.moveBy(-250 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+			laserJefe6.addAction(Actions.forever(
+					Actions.moveBy(-250 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+			
+			timerDispararJefe3 = 1;
 			game.laserSound.play();
 		}
 	}
