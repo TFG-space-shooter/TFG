@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.solarsystem.game.actor.BarraActor;
 import com.solarsystem.game.actor.BoomActor;
 import com.solarsystem.game.actor.EnemigoActor;
 import com.solarsystem.game.actor.EnergiaActor;
@@ -263,6 +264,7 @@ public class GameplayScreen extends AbstractScreen{
 	private float reiniciarDisparo1;
 	private List<LaserJefeActor> laserJefes;
 	private float contadorFinal;
+	private BarraActor barraJefe;
 	
 	public GameplayScreen(Solarsystem game) {
 		super(game);		
@@ -2230,6 +2232,7 @@ public class GameplayScreen extends AbstractScreen{
 						lasers.remove(j);
 						game.explosionSound.play();
 						jefe.setContador(jefe.getContador()+1);
+						barraJefe.setHealth(barraJefe.getHealth()-0.001f);
 						if(jefe.getContador()==1000){
 							
 							int explosionJefe = 5;
@@ -3668,6 +3671,10 @@ public class GameplayScreen extends AbstractScreen{
 				stage.getHeight()-100-jefe.getHeight(), 5),  Actions.delay(2), Actions.moveTo(50, stage.getHeight()-100-jefe.getHeight(), 1.5f),  Actions.forever(
 						Actions.sequence(Actions.delay(0.2f),Actions.moveTo(stage.getWidth()-jefe.getWidth()-50, stage.getHeight()-100-jefe.getHeight(), 3),Actions.delay(0.2f), Actions.moveTo(50, stage.getHeight()-100-jefe.getHeight(), 3)))));
 	
+		barraJefe = new BarraActor();
+		barraJefe.setPosition(30, stage.getHeight()-100);
+		stage.addActor(barraJefe);
+		
 		timerJefe = 10000;
 	}
 	
