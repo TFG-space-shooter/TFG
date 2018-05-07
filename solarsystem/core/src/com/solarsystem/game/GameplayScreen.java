@@ -2230,7 +2230,7 @@ public class GameplayScreen extends AbstractScreen{
 						lasers.remove(j);
 						game.explosionSound.play();
 						jefe.setContador(jefe.getContador()+1);
-						if(jefe.getContador()==50){
+						if(jefe.getContador()==1000){
 							
 							int explosionJefe = 5;
 							int pos = 0;
