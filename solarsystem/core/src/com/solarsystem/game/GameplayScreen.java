@@ -845,7 +845,7 @@ public class GameplayScreen extends AbstractScreen{
 												if(timerStage6 < 2){
 													stage6();
 													noDisparar();
-													musicaFundo.setVolume((float) 0.1);;
+													musicaFundo.setVolume((float) 0.5);;
 												}
 												if(timerEnemigoStage6 < 0){
 													spawnEnemigosStage6();
@@ -881,7 +881,7 @@ public class GameplayScreen extends AbstractScreen{
 													if(timerStage7 < 4){
 
 														stage7();
-														musicaFundo.setVolume((float) 0.3);
+														musicaFundo.setVolume((float) 0.5);
 														if(energia.getEnergia()==0){
 															disparar();
 														}
@@ -4459,10 +4459,10 @@ public class GameplayScreen extends AbstractScreen{
 
 	
     private void initSons() {
-        musicaFundo = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
+        musicaFundo = Gdx.audio.newMusic(Gdx.files.internal("sounds/systemSolar.mp3"));
         musicaFundo.setLooping(true);
         musicaFundo.play();
-        musicaFundo.setVolume((float) 0.3);
+        musicaFundo.setVolume((float) 1);
         
 
     	timerMusicaFondo = 1000000;

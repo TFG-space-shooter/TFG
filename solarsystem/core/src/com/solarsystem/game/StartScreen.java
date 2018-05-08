@@ -126,7 +126,7 @@ public class StartScreen extends AbstractScreen{
 	}
 	
     private void initSons() {
-        musicaPrincipal = Gdx.audio.newMusic(Gdx.files.internal("sounds/bonus-background.mp3"));
+        musicaPrincipal = Gdx.audio.newMusic(Gdx.files.internal("sounds/xeon6.ogg"));
         musicaPrincipal.setLooping(true);
         musicaPrincipal.play();
     }
