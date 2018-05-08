@@ -265,6 +265,7 @@ public class GameplayScreen extends AbstractScreen{
 	private List<LaserJefeActor> laserJefes;
 	private float contadorFinal;
 	private BarraActor barraJefe;
+	private boolean dead;
 	
 	public GameplayScreen(Solarsystem game) {
 		super(game);		
@@ -273,7 +274,7 @@ public class GameplayScreen extends AbstractScreen{
 	
 	@Override
 	public void show() {	    
-
+		dead = false;
 		controlador = new ControladorVirtual();
 		timer = 5;
 		timerMusicaFondo =5;
@@ -1196,6 +1197,7 @@ public class GameplayScreen extends AbstractScreen{
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				dead = true;
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
@@ -1303,6 +1305,7 @@ public class GameplayScreen extends AbstractScreen{
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				dead = true;
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
@@ -1341,6 +1344,7 @@ public class GameplayScreen extends AbstractScreen{
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				dead = true;
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
@@ -1380,9 +1384,9 @@ public class GameplayScreen extends AbstractScreen{
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				dead = true;
 				nave.remove();
 				stage.addActor(boom);
-				
 				timerGameOver = 0.4f;
 				if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
 					Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
@@ -1478,6 +1482,7 @@ public class GameplayScreen extends AbstractScreen{
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				dead = true;
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
@@ -1566,6 +1571,7 @@ public class GameplayScreen extends AbstractScreen{
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				dead = true;
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
@@ -1673,6 +1679,7 @@ public class GameplayScreen extends AbstractScreen{
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 						nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+				dead = true;
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
@@ -1798,6 +1805,7 @@ public class GameplayScreen extends AbstractScreen{
 					BoomActor boom = new BoomActor();
 					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 							nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+					dead = true;
 					nave.remove();
 					stage.addActor(boom);
 					timerGameOver = 0.4f;
@@ -1896,6 +1904,7 @@ public class GameplayScreen extends AbstractScreen{
 					BoomActor boom = new BoomActor();
 					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 							nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+					dead = true;
 					nave.remove();
 					stage.addActor(boom);
 					timerGameOver = 0.4f;
@@ -2030,6 +2039,7 @@ public class GameplayScreen extends AbstractScreen{
 					BoomActor boom = new BoomActor();
 					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 							nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+					dead = true;
 					nave.remove();
 					stage.addActor(boom);
 					timerGameOver = 0.4f;
@@ -2137,6 +2147,7 @@ public class GameplayScreen extends AbstractScreen{
 					BoomActor boom = new BoomActor();
 					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 							nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+					dead = true;
 					nave.remove();
 					stage.addActor(boom);
 					timerGameOver = 0.4f;
@@ -2274,6 +2285,7 @@ public class GameplayScreen extends AbstractScreen{
 					BoomActor boom = new BoomActor();
 					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
 							nave.getY()+nave.getHeight()/2-boom.getHeight()/2);
+					dead = true;
 					nave.remove();
 					stage.addActor(boom);
 					timerGameOver = 0.4f;
@@ -4012,170 +4024,188 @@ public class GameplayScreen extends AbstractScreen{
 	}
 	
 	
-	
+
 	private void noDisparar(){
-		LaserActor laser = new LaserActor();
-		laser.setPosition(nave.getX() + nave.getWidth()/2 -
-				laser.getWidth()/2, nave.getY() + nave.getHeight());
-		laser.getBb().setX(laser.getX());
-		laser.getBb().setY(laser.getY());
-		stage.addActor(laser);
-		lasers.add(laser);
-		timerDisparar = 10000;
+		if(!dead){
+			LaserActor laser = new LaserActor();
+			laser.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser.getWidth()/2, nave.getY() + nave.getHeight());
+			laser.getBb().setX(laser.getX());
+			laser.getBb().setY(laser.getY());
+			stage.addActor(laser);
+			lasers.add(laser);
+			timerDisparar = 10000;
+		}
 	}
 
 	private void disparar(){
-		LaserActor laser = new LaserActor();
-		laser.setPosition(nave.getX() + nave.getWidth()/2 -
-				laser.getWidth()/2, nave.getY() + nave.getHeight());
-		laser.getBb().setX(laser.getX());
-		laser.getBb().setY(laser.getY());
-		stage.addActor(laser);
-		lasers.add(laser);
-		timerDisparar = 0.25f;
+		if(!dead){
+			LaserActor laser = new LaserActor();
+			laser.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser.getWidth()/2, nave.getY() + nave.getHeight());
+			laser.getBb().setX(laser.getX());
+			laser.getBb().setY(laser.getY());
+			stage.addActor(laser);
+			lasers.add(laser);
+			timerDisparar = 0.25f;
+		}
 	}
-	
+
 	private void disparar2(){
-		LaserActor laser = new LaserActor();
-		laser.setPosition(nave.getX() + nave.getWidth()/2 -
-				laser.getWidth()/2, nave.getY() + nave.getHeight());
-		laser.getBb().setX(laser.getX());
-		laser.getBb().setY(laser.getY());
-		stage.addActor(laser);
-		lasers.add(laser);
-		timerDisparar = 0.15f;
+		if(!dead){
+			LaserActor laser = new LaserActor();
+			laser.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser.getWidth()/2, nave.getY() + nave.getHeight());
+			laser.getBb().setX(laser.getX());
+			laser.getBb().setY(laser.getY());
+			stage.addActor(laser);
+			lasers.add(laser);
+			timerDisparar = 0.15f;
+		}
 	}
 
 	
 	private void disparar3(){
-		LaserActor laser1 = new LaserActor();
-		LaserActor laser2 = new LaserActor();
-		laser1.setPosition(nave.getX() + nave.getWidth()/2 -
-				laser1.getWidth(), nave.getY() + nave.getHeight());
-		laser2.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
-		laser1.getBb().setX(laser1.getX());
-		laser1.getBb().setY(laser1.getY());
-		laser2.getBb().setX(laser2.getX());
-		laser2.getBb().setY(laser2.getY());
-		stage.addActor(laser1);
-		lasers.add(laser1);
-		stage.addActor(laser2);
-		lasers.add(laser2);
-		
-		laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-0.5f, 0)),
-				Actions.forever(Actions.rotateBy(0.2f))));
-		laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(0.5f, 0)),
-				Actions.forever(Actions.rotateBy(-0.2f))));
-		
-		timerDisparar = 0.15f;
+		if(!dead){
+			LaserActor laser1 = new LaserActor();
+			LaserActor laser2 = new LaserActor();
+			laser1.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser1.getWidth(), nave.getY() + nave.getHeight());
+			laser2.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
+			laser1.getBb().setX(laser1.getX());
+			laser1.getBb().setY(laser1.getY());
+			laser2.getBb().setX(laser2.getX());
+			laser2.getBb().setY(laser2.getY());
+			stage.addActor(laser1);
+			lasers.add(laser1);
+			stage.addActor(laser2);
+			lasers.add(laser2);
+
+			laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-0.5f, 0)),
+					Actions.forever(Actions.rotateBy(0.2f))));
+			laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(0.5f, 0)),
+					Actions.forever(Actions.rotateBy(-0.2f))));
+
+			timerDisparar = 0.15f;
+		}
 	}
-	
+
 	private void disparar4(){
-		LaserActor laser1 = new LaserActor();
-		LaserActor laser2 = new LaserActor();
-		LaserActor laser3 = new LaserActor();
-		laser1.setPosition(nave.getX() + nave.getWidth()/2 -
-				laser1.getWidth(), nave.getY() + nave.getHeight());
-		laser2.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
-		laser3.setPosition(nave.getX() + nave.getWidth()/2 -
-				laser3.getWidth()/2, nave.getY() + nave.getHeight());
-		laser1.getBb().setX(laser1.getX());
-		laser1.getBb().setY(laser1.getY());
-		laser2.getBb().setX(laser2.getX());
-		laser2.getBb().setY(laser2.getY());
-		laser3.getBb().setX(laser3.getX());
-		laser3.getBb().setY(laser3.getY());
-		stage.addActor(laser1);
-		lasers.add(laser1);
-		stage.addActor(laser2);
-		lasers.add(laser2);
-		stage.addActor(laser3);
-		lasers.add(laser3);
-		
-		laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1f, 0)),
-				Actions.forever(Actions.rotateBy(0.5f))));
-		laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1f, 0)),
-				Actions.forever(Actions.rotateBy(-0.5f))));
-		
-		timerDisparar = 0.25f;
+		if(!dead){
+			LaserActor laser1 = new LaserActor();
+			LaserActor laser2 = new LaserActor();
+			LaserActor laser3 = new LaserActor();
+			laser1.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser1.getWidth(), nave.getY() + nave.getHeight());
+			laser2.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
+			laser3.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser3.getWidth()/2, nave.getY() + nave.getHeight());
+			laser1.getBb().setX(laser1.getX());
+			laser1.getBb().setY(laser1.getY());
+			laser2.getBb().setX(laser2.getX());
+			laser2.getBb().setY(laser2.getY());
+			laser3.getBb().setX(laser3.getX());
+			laser3.getBb().setY(laser3.getY());
+			stage.addActor(laser1);
+			lasers.add(laser1);
+			stage.addActor(laser2);
+			lasers.add(laser2);
+			stage.addActor(laser3);
+			lasers.add(laser3);
+
+			laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1f, 0)),
+					Actions.forever(Actions.rotateBy(0.5f))));
+			laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1f, 0)),
+					Actions.forever(Actions.rotateBy(-0.5f))));
+
+			timerDisparar = 0.25f;
+		}
 	}
 	
 	private void disparar5(){
-		LaserActor laser1 = new LaserActor();
-		LaserActor laser2 = new LaserActor();
-		LaserActor laser3 = new LaserActor();
-		laser1.setPosition(nave.getX() + nave.getWidth()/2 -
-				laser1.getWidth(), nave.getY() + nave.getHeight());
-		laser2.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
-		laser3.setPosition(nave.getX() + nave.getWidth()/2 -
-				laser3.getWidth()/2, nave.getY() + nave.getHeight());
-		laser1.getBb().setX(laser1.getX());
-		laser1.getBb().setY(laser1.getY());
-		laser2.getBb().setX(laser2.getX());
-		laser2.getBb().setY(laser2.getY());
-		laser3.getBb().setX(laser3.getX());
-		laser3.getBb().setY(laser3.getY());
-		stage.addActor(laser1);
-		lasers.add(laser1);
-		stage.addActor(laser2);
-		lasers.add(laser2);
-		stage.addActor(laser3);
-		lasers.add(laser3);
-		
-		laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1f, 0)),
-				Actions.forever(Actions.rotateBy(0.5f))));
-		laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1f, 0)),
-				Actions.forever(Actions.rotateBy(-0.5f))));
-		
-		timerDisparar = 0.15f;
+		if(!dead){
+			LaserActor laser1 = new LaserActor();
+			LaserActor laser2 = new LaserActor();
+			LaserActor laser3 = new LaserActor();
+			laser1.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser1.getWidth(), nave.getY() + nave.getHeight());
+			laser2.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
+			laser3.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser3.getWidth()/2, nave.getY() + nave.getHeight());
+			laser1.getBb().setX(laser1.getX());
+			laser1.getBb().setY(laser1.getY());
+			laser2.getBb().setX(laser2.getX());
+			laser2.getBb().setY(laser2.getY());
+			laser3.getBb().setX(laser3.getX());
+			laser3.getBb().setY(laser3.getY());
+			stage.addActor(laser1);
+			lasers.add(laser1);
+			stage.addActor(laser2);
+			lasers.add(laser2);
+			stage.addActor(laser3);
+			lasers.add(laser3);
+
+			laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1f, 0)),
+					Actions.forever(Actions.rotateBy(0.5f))));
+			laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1f, 0)),
+					Actions.forever(Actions.rotateBy(-0.5f))));
+
+			timerDisparar = 0.15f;
+		}
 	}
 
 	private void disparar6(){
-		LaserActor laser1 = new LaserActor();
-		LaserActor laser2 = new LaserActor();
-		LaserActor laser3 = new LaserActor();
-		LaserActor laser4 = new LaserActor();
-		LaserActor laser5 = new LaserActor();
-		
-		laser1.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
-		laser2.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
-		laser4.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
-		laser3.setPosition(nave.getX() + nave.getWidth()/2, nave.getY() + nave.getHeight());
+		if(!dead){
+			LaserActor laser1 = new LaserActor();
+			LaserActor laser2 = new LaserActor();
+			LaserActor laser3 = new LaserActor();
+			LaserActor laser4 = new LaserActor();
+			LaserActor laser5 = new LaserActor();
 
-		laser5.setPosition(nave.getX() + nave.getWidth()/2 -
-				laser3.getWidth()/2, nave.getY() + nave.getHeight());		
-		
-		laser1.getBb().setX(laser1.getX());
-		laser1.getBb().setY(laser1.getY());
-		laser2.getBb().setX(laser2.getX());
-		laser2.getBb().setY(laser2.getY());
-		laser3.getBb().setX(laser3.getX());
-		laser3.getBb().setY(laser3.getY());
-		laser4.getBb().setX(laser4.getX());
-		laser4.getBb().setY(laser4.getY());
-		laser4.getBb().setX(laser5.getX());
-		laser4.getBb().setY(laser5.getY());
-		stage.addActor(laser1);
-		lasers.add(laser1);
-		stage.addActor(laser2);
-		lasers.add(laser2);
-		stage.addActor(laser3);
-		lasers.add(laser3);
-		stage.addActor(laser4);
-		lasers.add(laser4);
-		stage.addActor(laser5);
-		lasers.add(laser5);
-		
-		laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1f, 0)),
-				Actions.forever(Actions.rotateBy(0.5f))));
-		laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1f, 0)),
-				Actions.forever(Actions.rotateBy(-0.5f))));
-		laser3.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1.5f, 0)),
-				Actions.forever(Actions.rotateBy(0.5f))));
-		laser4.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1.5f, 0)),
-				Actions.forever(Actions.rotateBy(-0.5f))));
-		
-		timerDisparar = 0.15f;
+			laser1.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser1.getWidth()/2, nave.getY() + nave.getHeight());
+			laser2.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser2.getWidth()/2, nave.getY() + nave.getHeight());
+			laser3.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser3.getWidth()/2, nave.getY() + nave.getHeight());
+			laser4.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser4.getWidth()/2, nave.getY() + nave.getHeight());
+			
+			laser5.setPosition(nave.getX() + nave.getWidth()/2 -
+					laser3.getWidth()/2, nave.getY() + nave.getHeight());		
+
+			laser1.getBb().setX(laser1.getX());
+			laser1.getBb().setY(laser1.getY());
+			laser2.getBb().setX(laser2.getX());
+			laser2.getBb().setY(laser2.getY());
+			laser3.getBb().setX(laser3.getX());
+			laser3.getBb().setY(laser3.getY());
+			laser4.getBb().setX(laser4.getX());
+			laser4.getBb().setY(laser4.getY());
+			laser4.getBb().setX(laser5.getX());
+			laser4.getBb().setY(laser5.getY());
+			stage.addActor(laser1);
+			lasers.add(laser1);
+			stage.addActor(laser2);
+			lasers.add(laser2);
+			stage.addActor(laser3);
+			lasers.add(laser3);
+			stage.addActor(laser4);
+			lasers.add(laser4);
+			stage.addActor(laser5);
+			lasers.add(laser5);
+
+			laser1.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1f, 0)),
+					Actions.forever(Actions.rotateBy(0.5f))));
+			laser2.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1f, 0)),
+					Actions.forever(Actions.rotateBy(-0.5f))));
+			laser3.addAction(Actions.parallel(Actions.forever(Actions.moveBy(-1.5f, 0)),
+					Actions.forever(Actions.rotateBy(0.5f))));
+			laser4.addAction(Actions.parallel(Actions.forever(Actions.moveBy(1.5f, 0)),
+					Actions.forever(Actions.rotateBy(-0.5f))));
+
+			timerDisparar = 0.15f;
+		}
 	}
 	
 	private void dispararLaserEnemigo(){
