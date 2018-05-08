@@ -19,7 +19,7 @@ public class PuntuacionActor extends Actor{
 
 	public PuntuacionActor(BitmapFont font) {
 		this.font = font;
-		font.getData().setScale(1.2f);
+		font.getData().setScale(2);
 	}
 	
 	@Override

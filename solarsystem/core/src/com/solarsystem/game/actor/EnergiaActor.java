@@ -19,7 +19,7 @@ public class EnergiaActor extends Actor{
 
 	public EnergiaActor(BitmapFont font) {
 		this.font = font;
-		font.getData().setScale(1.2f);
+		font.getData().setScale(2);
 	}
 	
 	@Override

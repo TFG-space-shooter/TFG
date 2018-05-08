@@ -322,24 +322,24 @@ public class GameplayScreen extends AbstractScreen{
 		escudos = new ArrayList<EscudoActor>();
 		booleans = new ArrayList<Boolean>();
 		booleans2 = new ArrayList<Boolean>();
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
-//		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
+		booleans.add(false);
 		booleans.add(true);
 		
 		booleans2.add(false);
@@ -408,13 +408,13 @@ public class GameplayScreen extends AbstractScreen{
 			nave.addListener(new InputDesktopAndroidListener());
 		}
 		
-		puntuacion.setPosition(puntuacion.getWidth() + 120, stage.getHeight() - 20);
+		puntuacion.setPosition(puntuacion.getWidth() + 140, stage.getHeight() - 20);
 		puntuacion.setPuntuacion(0);
-		puntuacionTexto.setPosition(puntuacion.getX() - puntuacionTexto.getWidth() - 100, 
-				stage.getHeight() - 20);
-		energia.setPosition(energia.getWidth() + 100, stage.getHeight() - 50);
-		energiaTexto.setPosition(energia.getX() - energiaTexto.getWidth() - 80,
-				stage.getHeight() - 50);
+		puntuacionTexto.setPosition(puntuacion.getX() - puntuacionTexto.getWidth() - 120, 
+				stage.getHeight() - 30);
+		energia.setPosition(energia.getWidth() + 120, stage.getHeight() - 60);
+		energiaTexto.setPosition(energia.getX() - energiaTexto.getWidth() - 100,
+				stage.getHeight() - 60);
 		energia.setEnergia(0);
 		stage.addActor(puntuacion);
 		stage.addActor(puntuacionTexto);
