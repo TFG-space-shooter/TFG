@@ -75,6 +75,9 @@ public class GameplayScreen extends AbstractScreen{
 
     private Music musicaFundo;	
     
+    private Music musicaFinal;
+
+    
 	private ControladorVirtual controlador;
 	private Stage stage;
 	public NaveActor nave;
@@ -265,6 +268,7 @@ public class GameplayScreen extends AbstractScreen{
 	private List<LaserJefeActor> laserJefes;
 	private float contadorFinal;
 	private float contadorExplosionFinal;
+	private float contador10000;
 	private BarraActor barraJefe;
 	private boolean dead;
 	
@@ -759,6 +763,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerDispararJefeStop3 -= delta;
 		contadorFinal -= delta;
 		contadorExplosionFinal -= delta;
+		contador10000 -= delta;
 	
 		if(timerFin<=4){
 			timerFin -= delta;
@@ -961,7 +966,10 @@ public class GameplayScreen extends AbstractScreen{
 													
 													if(contadorFinal < 0){
 														stage.getActors().removeValue(jefe, false);
-														contadorExplosionFinal = 10000;
+														contadorExplosionFinal = 10000;	
+														contador10000 = 1;
+
+
 														clear();
 														
 													}
@@ -2265,6 +2273,7 @@ public class GameplayScreen extends AbstractScreen{
 									stage.addActor(boom);
 									explosionJefe--;
 									pos += boom.getHeight() + 10;
+									game.explosion.play();
 								}
 								
 							}
@@ -2272,20 +2281,24 @@ public class GameplayScreen extends AbstractScreen{
 								jefe.removeAction(a);
 							}
 
-							contadorFinal = 2;
-							
-							if(contadorFinal ==2){
 							jefe.addAction(Actions.forever(Actions.moveBy(0, 0)));
-							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+10000);
+							if(contador10000<1){
+
+								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+10000);
+								contador10000 =10000;
+
+								initSonsFinal();
+							}
 							timerDispararJefe = 10000;
 							timerDispararJefeStop = 10000;
 							timerDispararJefe2 = 10000;
 							timerDispararJefeStop2 = 10000;
 							timerDispararJefe3 = 10000;
 							timerDispararJefeStop3 = 10000;
-							reiniciarDisparo1 = 10000;
+							contadorFinal = 2;
+
+							noDisparar();
 							musicaFundo.stop();
-							}
 						}
 
 					}
@@ -4513,9 +4526,21 @@ public class GameplayScreen extends AbstractScreen{
 
     	timerMusicaFondo = 1000000;
     	
+    } 
+    
+    private void initSonsFinal() {
+        musicaFinal =  Gdx.audio.newMusic(Gdx.files.internal("sounds/xeon6.ogg"));
+        musicaFinal.setLooping(true);
+        musicaFinal.play();
+        musicaFinal.setVolume((float) 1);
+        
+
+    	timerMusicaFondo = 1000000;
+    	
     }
 
-  
+
+
     
  
     
