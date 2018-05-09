@@ -4032,6 +4032,8 @@ public class GameplayScreen extends AbstractScreen{
 		}
 	}
 	
+	
+	
 	private void dropMunicion(EnemigoActor enemigoRandom, Texture textureMunicion, int tipo){
 	    MunicionActor municion = new MunicionActor(textureMunicion, tipo);
 	    municion.setPosition(enemigoRandom.getX() + enemigoRandom.getWidth()/2 -
