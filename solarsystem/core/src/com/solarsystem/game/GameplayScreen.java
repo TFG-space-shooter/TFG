@@ -290,8 +290,6 @@ public class GameplayScreen extends AbstractScreen{
 	
 	@Override
 	public void show() {	 
-		initFonts();
-		initLabels();
 		jefeVivo = true;
 		dead = false;
 		controlador = new ControladorVirtual();
@@ -507,7 +505,8 @@ public class GameplayScreen extends AbstractScreen{
 		enemigoBlue19 = new EnemigoActor(textureEnemigoBlue4);
 		enemigoBlue20 = new EnemigoActor(textureEnemigoBlue5);
 		
-		
+		initFonts();
+		initLabels();
 	}
 
 	@Override
@@ -985,12 +984,12 @@ public class GameplayScreen extends AbstractScreen{
 
 
 														clear();
-														
+														creditos.addAction(Actions.moveTo(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight()/2-creditos.getHeight()/2, 8));
+
 													}
 													if(contadorTextoFinal<0){
 
 														stage.getActors().removeValue(clear, false);
-														creditos.addAction(Actions.moveTo(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight()/2-creditos.getHeight()/2, 8));
 														
 													}
 													
@@ -4559,9 +4558,6 @@ public class GameplayScreen extends AbstractScreen{
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
-        
-        
-        
         
         creditos = new Label("Congratulations!", labelStyle);
         creditos.setPosition(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight());
