@@ -2253,6 +2253,7 @@ public class GameplayScreen extends AbstractScreen{
 						jefe.setContador(jefe.getContador()+1);
 						barraJefe.setHealth(barraJefe.getHealth()-0.001f);
 						if(jefe.getContador()>=1000){
+
 							contadorExplosionFinal = 1;
 							if(contadorExplosionFinal > 0){
 								int explosionJefe = 5;
@@ -2270,10 +2271,12 @@ public class GameplayScreen extends AbstractScreen{
 							for(Action a : jefe.getActions()){
 								jefe.removeAction(a);
 							}
+
+							contadorFinal = 2;
 							
+							if(contadorFinal ==2){
 							jefe.addAction(Actions.forever(Actions.moveBy(0, 0)));
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+10000);
-							contadorFinal = 2;
 							timerDispararJefe = 10000;
 							timerDispararJefeStop = 10000;
 							timerDispararJefe2 = 10000;
@@ -2282,7 +2285,9 @@ public class GameplayScreen extends AbstractScreen{
 							timerDispararJefeStop3 = 10000;
 							reiniciarDisparo1 = 10000;
 							musicaFundo.stop();
+							}
 						}
+
 					}
 				}
 			}
@@ -4490,7 +4495,7 @@ public class GameplayScreen extends AbstractScreen{
 	@Override
 	public void hide() {
 		Gdx.input.setInputProcessor(null);
-		stage.dispose();
+	//	stage.dispose();
 	}
 	
 	@Override
