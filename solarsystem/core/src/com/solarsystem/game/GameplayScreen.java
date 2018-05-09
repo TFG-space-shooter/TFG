@@ -4557,6 +4557,7 @@ public class GameplayScreen extends AbstractScreen{
         labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
         
+        
         creditos = new Label("Congratulations!", labelStyle);
         creditos.setPosition(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight());
 
