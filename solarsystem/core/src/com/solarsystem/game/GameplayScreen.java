@@ -8,15 +8,19 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.solarsystem.game.actor.BarraActor;
 import com.solarsystem.game.actor.BoomActor;
@@ -37,6 +41,7 @@ import com.solarsystem.game.actor.PuntuacionTextoActor;
 import com.solarsystem.game.actor.ShieldActor;
 import com.solarsystem.game.actor.UfoActor;
 import com.solarsystem.game.inputhandler.ControladorVirtual;
+import com.solarsystem.game.util.Format;
 import com.solarsystem.game.util.Preferencias;
 
 public class GameplayScreen extends AbstractScreen{
@@ -70,7 +75,10 @@ public class GameplayScreen extends AbstractScreen{
 		this.nave = nave;
 	}
 
-	
+
+    private BitmapFont fontBotoes;
+    private Label creditos;
+
 	private boolean paused;
 
     private Music musicaFundo;	
@@ -82,6 +90,7 @@ public class GameplayScreen extends AbstractScreen{
 	private Stage stage;
 	public NaveActor nave;
 	private float timerMusicaFondo;
+	private boolean jefeVivo;
 	
 	private float timer;
 	private float timer2;
@@ -271,6 +280,7 @@ public class GameplayScreen extends AbstractScreen{
 	private float contador10000;
 	private BarraActor barraJefe;
 	private boolean dead;
+	private float contadorTextoFinal;
 	
 	public GameplayScreen(Solarsystem game) {
 		super(game);		
@@ -278,7 +288,10 @@ public class GameplayScreen extends AbstractScreen{
 	}
 	
 	@Override
-	public void show() {	    
+	public void show() {	 
+		initFonts();
+		initLabels();
+		jefeVivo = true;
 		dead = false;
 		controlador = new ControladorVirtual();
 		timer = 5;
@@ -707,7 +720,7 @@ public class GameplayScreen extends AbstractScreen{
 //		if(planeta1.getTop()<0){
 //			planeta1.setPosition(planeta1.getX(), stage.getHeight());
 //		}
-
+		contadorTextoFinal -= delta;
 		timer -= delta;
 		timerMusicaFondo -= delta;
 		timer2 -= delta;
@@ -973,6 +986,12 @@ public class GameplayScreen extends AbstractScreen{
 														clear();
 														
 													}
+													if(contadorTextoFinal<0){
+
+														stage.getActors().removeValue(clear, false);
+														creditos.addAction(Actions.moveTo(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight()/2-creditos.getHeight()/2, 8));
+														
+													}
 													
 												}
 												
@@ -1012,7 +1031,7 @@ public class GameplayScreen extends AbstractScreen{
 			spawnEnemigos4();
 		}
 
-		if(controlador.obedeceRaton){
+		if(controlador.obedeceRaton && jefeVivo){
 			ir();
 		}
 		if(stage.getActors().contains(shield, false)){
@@ -1350,7 +1369,7 @@ public class GameplayScreen extends AbstractScreen{
 		
 		for(int k = 0; k < laserJefes.size(); k++){
 			laserJefe = laserJefes.get(k);
-			if(laserJefe.getBb().overlaps(nave.getBb())&&
+			if(laserJefe.getBb().overlaps(nave.getBb())&&  jefeVivo &&
 					!stage.getActors().contains(shield, false)){
 				// Colisión nave-láser enemigo
 				laserJefes.get(k).remove();
@@ -1367,7 +1386,7 @@ public class GameplayScreen extends AbstractScreen{
 				if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
 					Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
 				}
-			}else if(stage.getActors().contains(shield, false)&&
+			}else if(stage.getActors().contains(shield, false)&&  jefeVivo &&
 					laserJefe.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
 				laserJefes.get(k).remove();
@@ -1376,7 +1395,7 @@ public class GameplayScreen extends AbstractScreen{
 				shield = new ShieldActor(new Texture("shield1.png"), 1);
 				stage.addActor(shield);
 				game.hitSound.play();
-			}else if(stage.getActors().contains(shield, false)&&
+			}else if(stage.getActors().contains(shield, false)&&  jefeVivo &&
 					laserJefe.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==1){
 				laserJefes.get(k).remove();
@@ -1390,7 +1409,7 @@ public class GameplayScreen extends AbstractScreen{
 		
 		for(int k = 0; k < meteoritos.size(); k++){
 			meteorito = meteoritos.get(k);
-			if(meteorito.getBb().overlaps(nave.getBb())&&
+			if(meteorito.getBb().overlaps(nave.getBb())&& jefeVivo &&
 					!stage.getActors().contains(shield, false)){
 				// Colisión nave-meteorito
 				meteoritos.get(k).remove();
@@ -1407,7 +1426,7 @@ public class GameplayScreen extends AbstractScreen{
 				if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
 					Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
 				}
-			}else if(stage.getActors().contains(shield, false)&&
+			}else if(stage.getActors().contains(shield, false)&& jefeVivo &&
 					meteorito.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==2){
 				meteoritos.get(k).remove();
@@ -1420,7 +1439,7 @@ public class GameplayScreen extends AbstractScreen{
 				shield = new ShieldActor(new Texture("shield1.png"), 1);
 				stage.addActor(shield);
 				game.hitSound.play();
-			}else if(stage.getActors().contains(shield, false)&&
+			}else if(stage.getActors().contains(shield, false)&& jefeVivo &&
 					meteorito.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==1){
 				meteoritos.get(k).remove();
@@ -2095,23 +2114,7 @@ public class GameplayScreen extends AbstractScreen{
 							
 				}
 			
-			
-//		if(timerFinStage6 < 0){
-//				
-//				clear = new Image(new Texture("clear.png"));
-//				clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-//						stage.getHeight()/2 - clear.getHeight()/2);
-//				stage.addActor(clear);
-//				
-//			timerFin = 3;
-//			timerFin2 = 0;
-//			timerFin3 = 0;
-//			timerFin4 = 0;
-//			timerFin5 = 0;
-//			timerFin6 = 0;
-//
-//			
-//		}
+
 			
 			if(contadorFinFase7<0){
 				stage.getActors().removeValue(ufo, false);
@@ -2288,6 +2291,11 @@ public class GameplayScreen extends AbstractScreen{
 								contador10000 =10000;
 
 								initSonsFinal();
+								timerMeteor = 10000;
+								jefeVivo = false;
+								nave.addAction(Actions.moveTo(stage.getWidth()/2-nave.getWidth()/2, 100, 3));
+
+								contadorTextoFinal = 5;
 							}
 							timerDispararJefe = 10000;
 							timerDispararJefeStop = 10000;
@@ -2296,6 +2304,7 @@ public class GameplayScreen extends AbstractScreen{
 							timerDispararJefe3 = 10000;
 							timerDispararJefeStop3 = 10000;
 							contadorFinal = 2;
+							
 
 							noDisparar();
 							musicaFundo.stop();
@@ -2305,7 +2314,7 @@ public class GameplayScreen extends AbstractScreen{
 				}
 			}
 			if(stage.getActors().contains(jefe, false)){
-				if(jefe.getBb().overlaps(nave.getBb())&&
+				if(jefe.getBb().overlaps(nave.getBb())&&  jefeVivo &&
 						!stage.getActors().contains(shield, false)){
 					// Colisión enemigo-nave
 
@@ -2322,14 +2331,14 @@ public class GameplayScreen extends AbstractScreen{
 					if (puntuacion.getPuntuacion() > prueba){
 						Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
 					}
-				}else if(stage.getActors().contains(shield, false)&&
+				}else if(stage.getActors().contains(shield, false)&& jefeVivo &&
 						jefe.getBb().overlaps(nave.getBb())&&
 						shield.getTipo()==2){
 					stage.getActors().removeValue(shield, false);
 					shield = new ShieldActor(new Texture("shield1.png"), 1);
 					stage.addActor(shield);
 					game.hitSound.play();
-				}else if(stage.getActors().contains(shield, false)&&
+				}else if(stage.getActors().contains(shield, false)&&  jefeVivo &&
 						jefe.getBb().overlaps(nave.getBb())&&
 						shield.getTipo()==1){
 					stage.getActors().removeValue(shield, false);
@@ -4494,6 +4503,8 @@ public class GameplayScreen extends AbstractScreen{
 		clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
 				stage.getHeight()/2 - clear.getHeight()/2);
 		stage.addActor(clear);
+
+		clear.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
 	}
 
 	
@@ -4529,7 +4540,7 @@ public class GameplayScreen extends AbstractScreen{
     } 
     
     private void initSonsFinal() {
-        musicaFinal =  Gdx.audio.newMusic(Gdx.files.internal("sounds/xeon6.ogg"));
+        musicaFinal =  Gdx.audio.newMusic(Gdx.files.internal("sounds/Soliloquy.mp3"));
         musicaFinal.setLooping(true);
         musicaFinal.play();
         musicaFinal.setVolume((float) 1);
@@ -4541,7 +4552,26 @@ public class GameplayScreen extends AbstractScreen{
 
 
 
-    
+    private void initLabels() {
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle = new Label.LabelStyle();
+        labelStyle.font = fontBotoes;
+        
+        creditos = new Label("Congratulations!", labelStyle);
+        creditos.setPosition(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight());
+
+//        creditos.setPosition(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight()/2-creditos.getHeight()/2);
+        stage.addActor(creditos);
+    }
+    private void initFonts() {
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/roboto.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        params.size = MathUtils.roundPositive(32 * Gdx.graphics.getDensity());
+        params.color = Color.WHITE;
+        fontBotoes = generator.generateFont(params);
+
+        generator.dispose();
+    }	
  
     
 
