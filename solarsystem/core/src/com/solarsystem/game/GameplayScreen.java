@@ -264,6 +264,7 @@ public class GameplayScreen extends AbstractScreen{
 	private float reiniciarDisparo1;
 	private List<LaserJefeActor> laserJefes;
 	private float contadorFinal;
+	private float contadorExplosionFinal;
 	private BarraActor barraJefe;
 	private boolean dead;
 	
@@ -364,6 +365,7 @@ public class GameplayScreen extends AbstractScreen{
 		
 		contadorFinFase7 = 10000;
 		contadorFinal = 10000;
+		contadorExplosionFinal = 10000;
 		
 		stage = new Stage(new ScreenViewport());
 		nave = new NaveActor();
@@ -685,8 +687,12 @@ public class GameplayScreen extends AbstractScreen{
 			reiniciarDisparo1 = 30;
 			
 			
+		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_9)){
+
+			disparar6();
+			
+			
 		}
-	
 		
 		puntuacion.toFront();
 		puntuacionTexto.toFront();
@@ -752,6 +758,7 @@ public class GameplayScreen extends AbstractScreen{
 		timerDispararJefe3 -= delta;
 		timerDispararJefeStop3 -= delta;
 		contadorFinal -= delta;
+		contadorExplosionFinal -= delta;
 	
 		if(timerFin<=4){
 			timerFin -= delta;
@@ -954,6 +961,7 @@ public class GameplayScreen extends AbstractScreen{
 													
 													if(contadorFinal < 0){
 														stage.getActors().removeValue(jefe, false);
+														contadorExplosionFinal = 10000;
 														clear();
 														
 													}
@@ -2244,25 +2252,28 @@ public class GameplayScreen extends AbstractScreen{
 						game.explosionSound.play();
 						jefe.setContador(jefe.getContador()+1);
 						barraJefe.setHealth(barraJefe.getHealth()-0.001f);
-						if(jefe.getContador()==1000){
-							
-							int explosionJefe = 5;
-							int pos = 0;
-							while(explosionJefe !=0){
-							BoomActor boom = new BoomActor();
-							boom.setPosition(jefe.getX()+jefe.getWidth()/2-boom.getWidth()/2,
-									jefe.getTop()-boom.getHeight()/2-pos);
-							stage.addActor(boom);
-							explosionJefe--;
-							pos += boom.getHeight() + 10;
+						if(jefe.getContador()>=1000){
+							contadorExplosionFinal = 1;
+							if(contadorExplosionFinal > 0){
+								int explosionJefe = 5;
+								int pos = 0;
+								while(explosionJefe !=0){
+									BoomActor boom = new BoomActor();
+									boom.setPosition(jefe.getX()+jefe.getWidth()/2-boom.getWidth()/2,
+											jefe.getTop()-boom.getHeight()/2-pos);
+									stage.addActor(boom);
+									explosionJefe--;
+									pos += boom.getHeight() + 10;
+								}
+								
 							}
-							
 							for(Action a : jefe.getActions()){
 								jefe.removeAction(a);
 							}
+							
 							jefe.addAction(Actions.forever(Actions.moveBy(0, 0)));
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+10000);
-							contadorFinal = 0.5f;
+							contadorFinal = 2;
 							timerDispararJefe = 10000;
 							timerDispararJefeStop = 10000;
 							timerDispararJefe2 = 10000;
