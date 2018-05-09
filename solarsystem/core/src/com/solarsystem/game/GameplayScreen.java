@@ -47,6 +47,7 @@ import com.solarsystem.game.util.Preferencias;
 public class GameplayScreen extends AbstractScreen{
 
 
+	
 	private final class InputDesktopAndroidListener extends InputListener {
 		@Override
 		public boolean touchDown(InputEvent event, float x, float y,
