@@ -983,8 +983,8 @@ public class GameplayScreen extends AbstractScreen{
 														contador10000 = 1;
 
 
-														clear();
-														creditos.addAction(Actions.moveTo(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight()/2-creditos.getHeight()/2, 8));
+														congratulations();
+														creditos.addAction(Actions.sequence(Actions.delay(8),Actions.moveTo(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight()/2-creditos.getHeight()/2, 8)));
 
 													}
 													if(contadorTextoFinal<0){
@@ -2293,9 +2293,12 @@ public class GameplayScreen extends AbstractScreen{
 								initSonsFinal();
 								timerMeteor = 10000;
 								jefeVivo = false;
-								nave.addAction(Actions.moveTo(stage.getWidth()/2-nave.getWidth()/2, 100, 3));
+								nave.addAction(Actions.sequence(Actions.moveTo(0, 100, 1),
+										Actions.moveTo(stage.getWidth()-nave.getWidth(), 100, 1),
+										Actions.moveTo(stage.getWidth()/2-nave.getWidth()/2, 100, 5)));
 
-								contadorTextoFinal = 5;
+								noDisparar();
+								contadorTextoFinal = 8;
 							}
 							timerDispararJefe = 10000;
 							timerDispararJefeStop = 10000;
@@ -4506,9 +4509,14 @@ public class GameplayScreen extends AbstractScreen{
 				stage.getHeight()/2 - clear.getHeight()/2);
 		stage.addActor(clear);
 
-		clear.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
 	}
+	private void congratulations(){
+		clear = new Image(new Texture("congratulations.png"));
+		clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
+				stage.getHeight()/2 - clear.getHeight()/2);
+		stage.addActor(clear);
 
+	}
 	
 	@Override
 	public void dispose() {
@@ -4559,7 +4567,7 @@ public class GameplayScreen extends AbstractScreen{
         labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
         
-        creditos = new Label("Congratulations!", labelStyle);
+        creditos = new Label("UNIVERSIDAD DE SEVILLA\n   ETSII Reina Mercedes\n\n\n\nTrabajo de Fin de Grado\n    Departamento LSI\n\n   '' SOLAR SYSTEM ''\n\n\n\n\n Alumnos:\n Aurora Gómez Medina\n Jorge Ramos Rivas", labelStyle);
         creditos.setPosition(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight());
 
 //        creditos.setPosition(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight()/2-creditos.getHeight()/2);
@@ -4569,7 +4577,7 @@ public class GameplayScreen extends AbstractScreen{
     private void initFonts() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/roboto.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        params.size = MathUtils.roundPositive(32 * Gdx.graphics.getDensity());
+        params.size = MathUtils.roundPositive(24 * Gdx.graphics.getDensity());
         params.color = Color.WHITE;
         fontBotoes = generator.generateFont(params);
 
