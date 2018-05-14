@@ -3,6 +3,7 @@ package com.solarsystem.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,11 +21,14 @@ public class Solarsystem extends Game {
 	
 	public GameplayScreen gameplayScreen;
 	public GameOverScreen gameoverScreen;
+	public GameSelectScreen gameselectScreen;
 	public StartScreen startScreen;
 	public Box2DScreen box2DScreen;
 	public GameScreen gameScreen;
 	public SpriteBatch batch;
 	public Sound laserSound, hitSound, explosionSound, pillSound, ufoSound, explosion, lanzamiento;
+
+    public Music musicaPrincipal;	
 	
 	@Override
 	public void create () {
@@ -53,8 +57,13 @@ public class Solarsystem extends Game {
 		explosionSound = Gdx.audio.newSound(Gdx.files.internal("phaserUp4.mp3"));
 		pillSound = Gdx.audio.newSound(Gdx.files.internal("phaseJump3.mp3"));
 		ufoSound = Gdx.audio.newSound(Gdx.files.internal("pepSound3.mp3"));
+		
+
+        musicaPrincipal = Gdx.audio.newMusic(Gdx.files.internal("sounds/xeon6.ogg"));
+		
 		gameplayScreen = new GameplayScreen(this);
 		gameoverScreen = new GameOverScreen(this);
+		gameselectScreen = new GameSelectScreen(this);
 		startScreen = new StartScreen(this);
 		box2DScreen = new Box2DScreen(this);
 		gameScreen = new GameScreen(this);

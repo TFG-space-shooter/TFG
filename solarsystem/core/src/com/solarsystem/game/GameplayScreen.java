@@ -871,7 +871,9 @@ public class GameplayScreen extends AbstractScreen{
 												if(timerStage6 < 2){
 													stage6();
 													noDisparar();
-													musicaFundo.setVolume((float) 0.5);;
+													if(Preferencias.getMusic()){
+														musicaFundo.setVolume((float) 0.5);
+													}
 												}
 												if(timerEnemigoStage6 < 0){
 													spawnEnemigosStage6();
@@ -907,7 +909,9 @@ public class GameplayScreen extends AbstractScreen{
 													if(timerStage7 < 4){
 
 														stage7();
-														musicaFundo.setVolume((float) 0.5);
+														if(Preferencias.getMusic()){
+														musicaFundo.setVolume(1);
+														}
 														if(energia.getEnergia()==0){
 															disparar();
 														}
@@ -4542,8 +4546,11 @@ public class GameplayScreen extends AbstractScreen{
         musicaFundo = Gdx.audio.newMusic(Gdx.files.internal("sounds/systemSolar.mp3"));
         musicaFundo.setLooping(true);
         musicaFundo.play();
+        if (Preferencias.getMusic()){
         musicaFundo.setVolume((float) 1);
-        
+        }else{
+            musicaFundo.setVolume((float) 0);
+        }
 
     	timerMusicaFondo = 1000000;
     	
@@ -4553,9 +4560,12 @@ public class GameplayScreen extends AbstractScreen{
         musicaFinal =  Gdx.audio.newMusic(Gdx.files.internal("sounds/Soliloquy.mp3"));
         musicaFinal.setLooping(true);
         musicaFinal.play();
+        if (Preferencias.getMusic()){
         musicaFinal.setVolume((float) 1);
         
-
+        }else{
+            musicaFinal.setVolume((float) 0);
+        }
     	timerMusicaFondo = 1000000;
     	
     }

@@ -27,19 +27,31 @@ public class StartScreen extends AbstractScreen{
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
 			game.setScreen(game.gameplayScreen);
-			musicaPrincipal.stop();
+			game.musicaPrincipal.stop();
 
 			game.lanzamiento.play();
 			return true;
 		}
 	}
-	
+
+	private final class InputTouchToSelectListener extends InputListener {
+		@Override
+		public boolean touchDown(InputEvent event, float x, float y,
+				int pointer, int button) {
+			game.setScreen(game.gameselectScreen);
+
+			game.lanzamiento.play();
+			return true;
+		}
+	}
+
+
 	private Stage stage;
 	private FondoActor fondo;
 	private Image solarsystem;
 	private Image start;
+	private Image select;
 
-    private Music musicaPrincipal;	
 	private PuntuacionActor mayorPuntuacion;
 	
 
@@ -53,6 +65,7 @@ public class StartScreen extends AbstractScreen{
 		stage = new Stage(new ScreenViewport());
 		solarsystem = new Image(new Texture("solarsystem2.png"));
 		start = new Image(new Texture("retry.png"));
+		select = new Image(new Texture("setting.png"));
 		fondo = new FondoActor();
 		stage.addActor(fondo);
 
@@ -60,12 +73,17 @@ public class StartScreen extends AbstractScreen{
 		solarsystem.setPosition(stage.getWidth()/2 - solarsystem.getWidth()/2,
 				stage.getHeight()/2 + 200);
 		start.setPosition(stage.getWidth()/2 - start.getWidth()/2,
-				stage.getHeight()/2 - 200);
+				stage.getHeight()/2 - 200);	
 		
+		select.setPosition(stage.getWidth()/2 - select.getWidth()/2,
+						stage.getHeight()/2-100);
+
 		start.addListener(new InputTouchToStartListener());
+		select.addListener(new InputTouchToSelectListener());
 		
 		stage.addActor(solarsystem);
 		stage.addActor(start);
+		stage.addActor(select);
 	}
 	   
     private void initLabels() {
@@ -111,13 +129,18 @@ public class StartScreen extends AbstractScreen{
 		stage.act();
 		stage.draw();
 		
+        if (Preferencias.getMusic()){
+        	game.musicaPrincipal.setVolume((float) 1);
+        }else{
+        	game.musicaPrincipal.setVolume((float) 0);
+        }
 
 	}
 	
 	@Override
 	public void dispose() {
 		stage.dispose();
-		musicaPrincipal.dispose();
+		game.musicaPrincipal.dispose();
 	}
 	
 	@Override
@@ -126,9 +149,15 @@ public class StartScreen extends AbstractScreen{
 	}
 	
     private void initSons() {
-        musicaPrincipal = Gdx.audio.newMusic(Gdx.files.internal("sounds/xeon6.ogg"));
-        musicaPrincipal.setLooping(true);
-        musicaPrincipal.play();
+        game.musicaPrincipal.setLooping(true);
+
+        game.musicaPrincipal.play();
+        if (Preferencias.getMusic()){
+        	game.musicaPrincipal.setVolume((float) 1);
+        }else{
+        	game.musicaPrincipal.setVolume((float) 0);
+        }
+
     }
 
     

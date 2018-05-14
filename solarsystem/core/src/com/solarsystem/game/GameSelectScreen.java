@@ -15,58 +15,86 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.solarsystem.game.actor.FondoActor;
-import com.solarsystem.game.actor.PuntuacionActor;
 import com.solarsystem.game.util.Format;
 import com.solarsystem.game.util.Preferencias;
 
-public class GameOverScreen extends AbstractScreen{
+public class GameSelectScreen extends AbstractScreen{
 	
 	private final class InputTouchToStartListener extends InputListener {
 		@Override
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
-			game.setScreen(game.gameplayScreen);
-			musicaGameOver.stop();
-
+			game.setScreen(game.startScreen);
+			
 			game.lanzamiento.play();
+			return true;
+		}
+	}
+
+	private final class InputMusicListener extends InputListener {
+		@Override
+		public boolean touchDown(InputEvent event, float x, float y,
+				int pointer, int button) {
+			
+			if (musica){
+				Preferencias.setMusic(false);
+				musica = Preferencias.getMusic();
+				
+				
+			}else{
+				Preferencias.setMusic(true);
+				musica = Preferencias.getMusic();
+			}
+			
+			
+
 			return true;
 		}
 	}
 	
 	private Stage stage;
 	private FondoActor fondo;
-	private Image gameover;
+	private Image setting;
 	private Image retry;
-	private PuntuacionActor mayorPuntuacion;
+	private Image on;
+	private Image off;
+	private Boolean musica;
 	
-    private Music musicaGameOver;	
 
     private BitmapFont fontBotoes;
     private Label lbPuntuacion;
 
     
-	public GameOverScreen(final Solarsystem game) {
+	public GameSelectScreen(final Solarsystem game) {
 		super(game);
 		stage = new Stage(new ScreenViewport());
-		gameover = new Image(new Texture("gameover.png"));
-		retry = new Image(new Texture("retry.png"));
+		setting = new Image(new Texture("setting2.png"));
+		retry = new Image(new Texture("save.png"));
 		fondo = new FondoActor();
 		stage.addActor(fondo);
-		mayorPuntuacion = new PuntuacionActor(new BitmapFont());
-		
+
 
 		
-		gameover.setPosition(stage.getWidth()/2 - gameover.getWidth()/2,
-				stage.getHeight()/2 + 100);
 		retry.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
-				stage.getHeight()/2 - 150);
+				50);
+		setting.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
+				stage.getHeight()-setting.getHeight()-30);
+
+
+
 	
+	
+		
 		retry.addListener(new InputTouchToStartListener());
 		
-		stage.addActor(gameover);
+
+
+		
 		stage.addActor(retry);
-		stage.addActor(mayorPuntuacion);
+
+		stage.addActor(setting);
 	}
+	
     private void initLabels() {
     	if(lbPuntuacion != null){
     		stage.getActors().removeValue(lbPuntuacion, false);
@@ -76,7 +104,6 @@ public class GameOverScreen extends AbstractScreen{
         labelStyle.font = fontBotoes;
         lbPuntuacion = new Label("High Score: " + Format.format(Preferencias.getMayorPuntuacion()), labelStyle);
         lbPuntuacion.setPosition(stage.getWidth()/2-lbPuntuacion.getWidth()/2, 200);
-        stage.addActor(lbPuntuacion);
     }
     private void initFonts() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/roboto.ttf"));
@@ -91,7 +118,6 @@ public class GameOverScreen extends AbstractScreen{
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
-		mayorPuntuacion.setPuntuacion(Preferencias.getMayorPuntuacion());
 
 
         initFonts();
@@ -100,7 +126,7 @@ public class GameOverScreen extends AbstractScreen{
   //      atualizarBotones();
   
 		
-		initSons();
+	//	initSons();
 	}
 	
 	@Override
@@ -110,12 +136,53 @@ public class GameOverScreen extends AbstractScreen{
 	
 	@Override
 	public void render(float delta) {
+		musica =Preferencias.getMusic();
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		
 		stage.act();
 		stage.draw();
+
+
+
+		if (!musica){
+
+			off = new Image(new Texture("off.png"));
+			off.setPosition(stage.getWidth() - off.getWidth() - 100,
+					stage.getHeight()/2-off.getHeight());
+			
+			off.addListener(new InputMusicListener());
+			
+			stage.addActor(off);
+			
+
+        	game.musicaPrincipal.setVolume((float) 0);
+		    
+			if (stage.getActors().contains(on, false)){
+				stage.getActors().removeValue(on, false);
+			}
+			
+		}else{
+
+			on = new Image(new Texture("on.png"));
+			on.setPosition(stage.getWidth() - on.getWidth() - 100,
+					stage.getHeight()/2-on.getHeight());
+		
+			on.addListener(new InputMusicListener());
+			
+			stage.addActor(on);
+
+
+        	game.musicaPrincipal.setVolume((float) 1);
+			if (stage.getActors().contains(off, false)){
+				stage.getActors().removeValue(off, false);
+				
+			}
+			
+		}	
+
 	}
 	
 	@Override
@@ -129,23 +196,7 @@ public class GameOverScreen extends AbstractScreen{
 		stage.getViewport().update(width, height, true);
 	}
 	
-	private void initSons() {
-	        musicaGameOver = Gdx.audio.newMusic(Gdx.files.internal("sounds/gameover.mp3"));
-	        musicaGameOver.setLooping(false);
-	        musicaGameOver.play();
-	        if (Preferencias.getMusic()){
-	        	musicaGameOver.setVolume((float) 1);
-	            }else{
-	            	musicaGameOver.setVolume((float) 0);
-	            }
-	}
+
 	
 
-//    private void atualizarBotones() {
-// 
-//
-//        lbPuntuacion.setPosition(stage.getWidth()/3 - mayorPuntuacion.getWidth()/2,
-//				stage.getHeight()/2 - 350);
-//
-//    }
 }

@@ -2,16 +2,22 @@ package com.solarsystem.game.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.solarsystem.game.Solarsystem;
 
-/**
- * Created by Douglas on 28/07/2015.
- */
 public class Preferencias {
 
     private static Preferences prefs;
 
-    public static int getMayorPuntuacion(){
+    public static boolean getMusic() {
+        return getPrefs().getBoolean("musica");
+	}
+
+	public static void setMusic(boolean music) {
+        getPrefs().putBoolean("musica", music);
+        getPrefs().flush();
+		
+	}
+
+	public static int getMayorPuntuacion(){
         return getPrefs().getInteger("mayor_puntuacion");
     }
 
