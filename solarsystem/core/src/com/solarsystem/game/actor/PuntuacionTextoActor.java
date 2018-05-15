@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class PuntuacionTextoActor extends Actor{
 	
-	private String texto = "Puntuación:";
+	private String texto = "Score:";
 	private BitmapFont font;
 
 	public PuntuacionTextoActor(BitmapFont font) {

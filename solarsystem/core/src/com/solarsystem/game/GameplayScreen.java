@@ -415,7 +415,7 @@ public class GameplayScreen extends AbstractScreen{
 		pause = new Image(new Texture("shadedLight14.png"));
 		pause.setPosition(stage.getWidth()-pause.getWidth()-20, 
 				stage.getHeight()-pause.getTop()-20);
-		stage.addActor(pause);
+//		stage.addActor(pause);
 //		pause.addListener(new InputPauseListener());
 		
 		ufo = new UfoActor();
@@ -427,9 +427,9 @@ public class GameplayScreen extends AbstractScreen{
 			nave.addListener(new InputDesktopAndroidListener());
 		}
 		
-		puntuacion.setPosition(puntuacion.getWidth() + 140, stage.getHeight() - 20);
+		puntuacion.setPosition(puntuacion.getWidth() + 120, stage.getHeight() - 20);
 		puntuacion.setPuntuacion(0);
-		puntuacionTexto.setPosition(puntuacion.getX() - puntuacionTexto.getWidth() - 120, 
+		puntuacionTexto.setPosition(puntuacion.getX() - puntuacionTexto.getWidth() - 100, 
 				stage.getHeight() - 30);
 		energia.setPosition(energia.getWidth() + 120, stage.getHeight() - 60);
 		energiaTexto.setPosition(energia.getX() - energiaTexto.getWidth() - 100,
@@ -1348,6 +1348,7 @@ public class GameplayScreen extends AbstractScreen{
 				nave.remove();
 				stage.addActor(boom);
 				timerGameOver = 0.4f;
+
 				if (puntuacion.getPuntuacion() > Preferencias.getMayorPuntuacion()){
 					Preferencias.setMayorPuntuacion(puntuacion.getPuntuacion());					
 				}

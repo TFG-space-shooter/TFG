@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class EnergiaTextoActor extends Actor{
 	
-	private String texto = "Energía:";
+	private String texto = "Energy:";
 	private BitmapFont font;
 
 	public EnergiaTextoActor(BitmapFont font) {
