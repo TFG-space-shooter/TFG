@@ -28,7 +28,9 @@ public class GameOverScreen extends AbstractScreen{
 			game.setScreen(game.gameplayScreen);
 			musicaGameOver.stop();
 
-			game.lanzamiento.play();
+			if(Preferencias.getSoundEffects()){	
+				game.lanzamiento.play();
+			}
 			return true;
 		}
 	}

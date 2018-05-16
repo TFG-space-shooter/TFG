@@ -29,7 +29,9 @@ public class StartScreen extends AbstractScreen{
 			game.setScreen(game.gameplayScreen);
 			game.musicaPrincipal.stop();
 
-			game.lanzamiento.play();
+			if(Preferencias.getSoundEffects()){
+				game.lanzamiento.play();
+			}
 			return true;
 		}
 	}
@@ -40,7 +42,9 @@ public class StartScreen extends AbstractScreen{
 				int pointer, int button) {
 			game.setScreen(game.gameselectScreen);
 
-			game.lanzamiento.play();
+			if(Preferencias.getSoundEffects()){
+				game.lanzamiento.play();
+			}
 			return true;
 		}
 	}
@@ -149,13 +153,19 @@ public class StartScreen extends AbstractScreen{
 	}
 	
     private void initSons() {
+    	
+
+        if (Preferencias.getMusic()){
         game.musicaPrincipal.setLooping(true);
 
         game.musicaPrincipal.play();
-        if (Preferencias.getMusic()){
         	game.musicaPrincipal.setVolume((float) 1);
         }else{
         	game.musicaPrincipal.setVolume((float) 0);
+
+            game.musicaPrincipal.setLooping(true);
+
+            game.musicaPrincipal.play();
         }
 
     }

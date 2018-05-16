@@ -8,27 +8,37 @@ public class Preferencias {
     private static Preferences prefs;
 
     public static boolean getMusic() {
-        return getPrefs().getBoolean("musica");
-	}
+    	return getPrefs().getBoolean("musica");
+    }
 
-	public static void setMusic(boolean music) {
-        getPrefs().putBoolean("musica", music);
-        getPrefs().flush();
-		
-	}
+    public static void setMusic(boolean music) {
+    	getPrefs().putBoolean("musica", music);
+    	getPrefs().flush();
 
-	public static int getMayorPuntuacion(){
-        return getPrefs().getInteger("mayor_puntuacion");
+    }
+
+    public static boolean getSoundEffects() {
+    	return getPrefs().getBoolean("soundEffects");
+    }
+
+    public static void setSoundEffects(boolean soundEffects) {
+    	getPrefs().putBoolean("soundEffects", soundEffects);
+    	getPrefs().flush();
+
+    }
+
+    public static int getMayorPuntuacion(){
+    	return getPrefs().getInteger("mayor_puntuacion");
     }
 
     public static void setMayorPuntuacion(int puntuacion){
-        getPrefs().putInteger("mayor_puntuacion", puntuacion);
-        getPrefs().flush();
+    	getPrefs().putInteger("mayor_puntuacion", puntuacion);
+    	getPrefs().flush();
     }
 
     private static Preferences getPrefs() {
-        if (prefs == null) {
-            prefs = Gdx.app.getPreferences("Solarsystem");
+    	if (prefs == null) {
+    		prefs = Gdx.app.getPreferences("Solarsystem");
         }
         return prefs;
     }

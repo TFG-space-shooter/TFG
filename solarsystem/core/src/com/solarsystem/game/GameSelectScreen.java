@@ -19,14 +19,16 @@ import com.solarsystem.game.util.Format;
 import com.solarsystem.game.util.Preferencias;
 
 public class GameSelectScreen extends AbstractScreen{
-	
+
 	private final class InputTouchToStartListener extends InputListener {
 		@Override
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
 			game.setScreen(game.startScreen);
-			
-			game.lanzamiento.play();
+
+			if(Preferencias.getSoundEffects()){
+				game.lanzamiento.play();
+			}
 			return true;
 		}
 	}
@@ -51,14 +53,37 @@ public class GameSelectScreen extends AbstractScreen{
 			return true;
 		}
 	}
-	
+
+	private final class InputEffectListener extends InputListener {
+		@Override
+		public boolean touchDown(InputEvent event, float x, float y,
+				int pointer, int button) {
+			
+			if (efectos){
+				Preferencias.setSoundEffects(false);
+				efectos = Preferencias.getSoundEffects();
+				
+				
+			}else{
+				Preferencias.setSoundEffects(true);
+				efectos = Preferencias.getSoundEffects();
+			}
+			
+			
+
+			return true;
+		}
+	}
 	private Stage stage;
 	private FondoActor fondo;
 	private Image setting;
 	private Image retry;
-	private Image on;
-	private Image off;
+	private Image onMusic;
+	private Image offMusic;
+	private Image onEffect;
+	private Image offEffect;
 	private Boolean musica;
+	private Boolean efectos;
 	
 
     private BitmapFont fontBotoes;
@@ -137,6 +162,7 @@ public class GameSelectScreen extends AbstractScreen{
 	@Override
 	public void render(float delta) {
 		musica =Preferencias.getMusic();
+		efectos =Preferencias.getSoundEffects();
 		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -149,35 +175,67 @@ public class GameSelectScreen extends AbstractScreen{
 
 		if (!musica){
 
-			off = new Image(new Texture("off.png"));
-			off.setPosition(stage.getWidth() - off.getWidth() - 100,
-					stage.getHeight()/2-off.getHeight());
+			offMusic = new Image(new Texture("off.png"));
+			offMusic.setPosition(stage.getWidth() - offMusic.getWidth() - 100,
+					stage.getHeight()/2-offMusic.getHeight());
 			
-			off.addListener(new InputMusicListener());
+			offMusic.addListener(new InputMusicListener());
 			
-			stage.addActor(off);
+			stage.addActor(offMusic);
 			
 
         	game.musicaPrincipal.setVolume((float) 0);
 		    
-			if (stage.getActors().contains(on, false)){
-				stage.getActors().removeValue(on, false);
+			if (stage.getActors().contains(onMusic, false)){
+				stage.getActors().removeValue(onMusic, false);
 			}
 			
 		}else{
 
-			on = new Image(new Texture("on.png"));
-			on.setPosition(stage.getWidth() - on.getWidth() - 100,
-					stage.getHeight()/2-on.getHeight());
+			onMusic = new Image(new Texture("on.png"));
+			onMusic.setPosition(stage.getWidth() - onMusic.getWidth() - 100,
+					stage.getHeight()/2-onMusic.getHeight());
 		
-			on.addListener(new InputMusicListener());
+			onMusic.addListener(new InputMusicListener());
 			
-			stage.addActor(on);
+			stage.addActor(onMusic);
 
 
         	game.musicaPrincipal.setVolume((float) 1);
-			if (stage.getActors().contains(off, false)){
-				stage.getActors().removeValue(off, false);
+			if (stage.getActors().contains(offMusic, false)){
+				stage.getActors().removeValue(offMusic, false);
+				
+			}
+			
+		}	
+		
+		if (!efectos){
+
+			offEffect = new Image(new Texture("off.png"));
+			offEffect.setPosition(stage.getWidth() - offEffect.getWidth() - 100,
+					stage.getHeight()/2-offEffect.getHeight()+100);
+			
+			offEffect.addListener(new InputEffectListener());
+			
+			stage.addActor(offEffect);
+			
+		    
+			if (stage.getActors().contains(onEffect, false)){
+				stage.getActors().removeValue(onEffect, false);
+			}
+			
+		}else{
+
+			onEffect = new Image(new Texture("on.png"));
+			onEffect.setPosition(stage.getWidth() - onEffect.getWidth() - 100,
+					stage.getHeight()/2-onEffect.getHeight()+100);
+		
+			onEffect.addListener(new InputEffectListener());
+			
+			stage.addActor(onEffect);
+
+			if (stage.getActors().contains(offEffect, false)){
+				stage.getActors().removeValue(offEffect, false);
 				
 			}
 			

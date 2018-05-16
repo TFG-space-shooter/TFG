@@ -877,23 +877,34 @@ public class GameplayScreen extends AbstractScreen{
 												}
 												if(timerEnemigoStage6 < 0){
 													spawnEnemigosStage6();
-													game.lanzamiento.play();
+													if(Preferencias.getSoundEffects()){
+														game.lanzamiento.play();
+													}
+
 												}
 												if(timerEnemigoStage62 < 0){
 													spawnEnemigosStage62();
-													game.lanzamiento.play();
+													if(Preferencias.getSoundEffects()){
+														game.lanzamiento.play();
+													}
 												}
 												if(timerEnemigoStage63 < 0){
 													spawnEnemigosStage63();
-													game.lanzamiento.play();
+													if(Preferencias.getSoundEffects()){
+														game.lanzamiento.play();
+													}
 												}
 												if(timerEnemigoStage64 < 0){
 													spawnEnemigosStage64();
-													game.lanzamiento.play();
+													if(Preferencias.getSoundEffects()){
+														game.lanzamiento.play();
+													}
 												}
 												if(timerEnemigoStage65 < 0){
 													spawnEnemigosStage65();
-													game.lanzamiento.play();
+													if(Preferencias.getSoundEffects()){
+														game.lanzamiento.play();
+													}
 												}
 
 											
@@ -1228,8 +1239,10 @@ public class GameplayScreen extends AbstractScreen{
 				
 				enemigos.get(i).remove();
 				enemigos.remove(i);
-				
-				game.explosion.play();
+
+				if(Preferencias.getSoundEffects()){
+					game.explosion.play();
+				}
 				game.ufoSound.stop();
 				
 				
@@ -1256,7 +1269,9 @@ public class GameplayScreen extends AbstractScreen{
 				stage.getActors().removeValue(shield, false);
 				shield = new ShieldActor(new Texture("shield1.png"), 1);
 				stage.addActor(shield);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){
+					game.hitSound.play();
+				}
 			}else if(stage.getActors().contains(shield, false)&&
 					enemigo.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==1){
@@ -1267,7 +1282,9 @@ public class GameplayScreen extends AbstractScreen{
 						enemigo.getY()+enemigo.getHeight()/2-boom.getHeight()/2);
 				stage.addActor(boom);
 				stage.getActors().removeValue(shield, false);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){
+					game.hitSound.play();
+				}
 				dropShield = true;
 			}
 			for(int j = 0; j < lasers.size(); j++){
@@ -1276,15 +1293,18 @@ public class GameplayScreen extends AbstractScreen{
 					// Colisión enemigo-láser
 					lasers.get(j).remove();
 					lasers.remove(j);
+					if(Preferencias.getSoundEffects()){
 						game.explosionSound.play();
-						enemigo.setContador(enemigo.getContador()+1);
-						if(enemigo.getContador()==4){
-							Random random = new Random();
-						    int index = random.nextInt(booleans.size());
-						    Boolean m = booleans.get(index);
-						    if(m){
-						    	if(energia.getEnergia()==0 && drop){
-						    		dropMunicion(enemigo, municion1, 1);
+					}
+
+					enemigo.setContador(enemigo.getContador()+1);
+					if(enemigo.getContador()==4){
+						Random random = new Random();
+						int index = random.nextInt(booleans.size());
+						Boolean m = booleans.get(index);
+						if(m){
+							if(energia.getEnergia()==0 && drop){
+								dropMunicion(enemigo, municion1, 1);
 						    	}else if(energia.getEnergia()==1 && drop){
 						    		dropMunicion(enemigo, municion2, 2);
 						    	}else if(energia.getEnergia()==2 && drop){
@@ -1327,11 +1347,11 @@ public class GameplayScreen extends AbstractScreen{
 								timerEnemigoBlue = 10;
 								timerStage2 = 5;
 							}
-						}
 					}
 				}
 			}
-		
+		}
+
 		for(int k = 0; k < laserEnemigos.size(); k++){
 			laserEnemigo = laserEnemigos.get(k);
 			if(laserEnemigo.getBb().overlaps(nave.getBb())&&
@@ -1339,7 +1359,9 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión nave-láser enemigo
 				laserEnemigos.get(k).remove();
 				laserEnemigos.remove(k);
-				game.explosion.play();
+				if(Preferencias.getSoundEffects()){
+					game.explosion.play();
+				}
 				game.ufoSound.stop();
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -1360,14 +1382,18 @@ public class GameplayScreen extends AbstractScreen{
 				stage.getActors().removeValue(shield, false);
 				shield = new ShieldActor(new Texture("shield1.png"), 1);
 				stage.addActor(shield);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){
+					game.hitSound.play();
+				}
 			}else if(stage.getActors().contains(shield, false)&&
 					laserEnemigo.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==1){
 				laserEnemigos.get(k).remove();
 				laserEnemigos.remove(k);
 				stage.getActors().removeValue(shield, false);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){
+					game.hitSound.play();
+				}
 				dropShield = true;
 			}
 		}
@@ -1379,7 +1405,9 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión nave-láser enemigo
 				laserJefes.get(k).remove();
 				laserJefes.remove(k);
-				game.explosion.play();
+				if(Preferencias.getSoundEffects()){
+					game.explosion.play();
+				}
 				game.ufoSound.stop();
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -1399,14 +1427,19 @@ public class GameplayScreen extends AbstractScreen{
 				stage.getActors().removeValue(shield, false);
 				shield = new ShieldActor(new Texture("shield1.png"), 1);
 				stage.addActor(shield);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){
+					game.hitSound.play();
+				}
+			
 			}else if(stage.getActors().contains(shield, false)&&  jefeVivo &&
 					laserJefe.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==1){
 				laserJefes.get(k).remove();
 				laserJefes.remove(k);
 				stage.getActors().removeValue(shield, false);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){
+					game.hitSound.play();
+				}
 				dropShield = true;
 			}
 		}
@@ -1419,7 +1452,10 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión nave-meteorito
 				meteoritos.get(k).remove();
 				meteoritos.remove(k);
-				game.explosion.play();
+				if(Preferencias.getSoundEffects()){
+					game.explosion.play();
+				}
+				
 				game.ufoSound.stop();
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -1443,7 +1479,10 @@ public class GameplayScreen extends AbstractScreen{
 				stage.getActors().removeValue(shield, false);
 				shield = new ShieldActor(new Texture("shield1.png"), 1);
 				stage.addActor(shield);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){
+					game.hitSound.play();
+				}
+				
 			}else if(stage.getActors().contains(shield, false)&& jefeVivo &&
 					meteorito.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==1){
@@ -1454,14 +1493,18 @@ public class GameplayScreen extends AbstractScreen{
 						meteorito.getY()+meteorito.getHeight()/2-boom.getHeight()/2);
 				stage.addActor(boom);
 				stage.getActors().removeValue(shield, false);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){
+					game.hitSound.play();
+				}
 				dropShield = true;
 			}
 			for(int j = 0; j < lasers.size(); j++){
 				if(meteorito.getBb().overlaps(lasers.get(j).getBb())){
 					lasers.get(j).remove();
 					lasers.remove(j);
-					game.explosionSound.play();
+					if(Preferencias.getSoundEffects()){
+						game.explosionSound.play();
+					}					
 					meteorito.setContador(meteorito.getContador()+1);
 					if(meteorito.getWidth()>=89&&meteorito.getContador()==40){
 						this.rompeMeteoritoGrande(meteorito);
@@ -1505,7 +1548,9 @@ public class GameplayScreen extends AbstractScreen{
 						lasers.remove(j);
 						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+500);
 						game.ufoSound.stop();
-						game.explosionSound.play();
+						if(Preferencias.getSoundEffects()){
+							game.explosionSound.play();
+						}	
 					}
 				}
 			}
@@ -1517,7 +1562,9 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión nave-láser ufo
 				laserUfos.get(k).remove();
 				laserUfos.remove(k);
-				game.explosion.play();
+				if(Preferencias.getSoundEffects()){
+					game.explosion.play();
+				}	
 				game.ufoSound.stop();
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -1537,14 +1584,18 @@ public class GameplayScreen extends AbstractScreen{
 				stage.getActors().removeValue(shield, false);
 				shield = new ShieldActor(new Texture("shield1.png"), 1);
 				stage.addActor(shield);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){
+					game.hitSound.play();
+				}	
 			}else if(stage.getActors().contains(shield, false)&&
 					laserUfo.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==1){
 				laserUfos.get(k).remove();
 				laserUfos.remove(k);
 				stage.getActors().removeValue(shield, false);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){
+					game.hitSound.play();
+				}	
 				dropShield = true;
 			}
 		}
@@ -1582,7 +1633,9 @@ public class GameplayScreen extends AbstractScreen{
 //					disparo4 = true;
 //					energia.setEnergia(3);
 //				}
-				game.pillSound.play();
+				if(Preferencias.getSoundEffects()){	
+					game.pillSound.play();
+				}
 			}
 		}
 		
@@ -1594,7 +1647,9 @@ public class GameplayScreen extends AbstractScreen{
 				escudos.remove(k);
 				shield = new ShieldActor(new Texture("shield2.png"), 2);
 				stage.addActor(shield);
-				game.pillSound.play();
+				if(Preferencias.getSoundEffects()){	
+					game.pillSound.play();
+				}
 			}
 		}
 		
@@ -1606,7 +1661,9 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión enemigo-nave
 				enemigosBlue.get(i).remove();
 				enemigosBlue.remove(i);
-				game.explosion.play();
+				if(Preferencias.getSoundEffects()){	
+					game.explosion.play();
+				}
 				game.ufoSound.stop();
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -1630,7 +1687,9 @@ public class GameplayScreen extends AbstractScreen{
 				stage.getActors().removeValue(shield, false);
 				shield = new ShieldActor(new Texture("shield1.png"), 1);
 				stage.addActor(shield);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){	
+					game.hitSound.play();
+				}
 			}else if(stage.getActors().contains(shield, false)&&
 					enemigoBlue.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==1){
@@ -1641,7 +1700,9 @@ public class GameplayScreen extends AbstractScreen{
 						enemigoBlue.getY()+enemigoBlue.getHeight()/2-boom.getHeight()/2);
 				stage.addActor(boom);
 				stage.getActors().removeValue(shield, false);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){	
+					game.hitSound.play();
+				}
 				dropShield = true;
 			
 	
@@ -1652,7 +1713,9 @@ public class GameplayScreen extends AbstractScreen{
 						// Colisión enemigo-láser
 						lasers.get(j).remove();
 						lasers.remove(j);
-						game.explosionSound.play();
+						if(Preferencias.getSoundEffects()){	
+							game.explosionSound.play();
+						}
 						enemigoBlue.setContador(enemigoBlue.getContador()+1);
 						if(enemigoBlue.getContador()==8){
 							Random random = new Random();
@@ -1714,7 +1777,9 @@ public class GameplayScreen extends AbstractScreen{
 				// Colisión enemigo-nave
 				enemigosGreen.get(i).remove();
 				enemigosGreen.remove(i);
-				game.explosion.play();
+				if(Preferencias.getSoundEffects()){	
+					game.explosion.play();
+				}
 				game.ufoSound.stop();
 				BoomActor boom = new BoomActor();
 				boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -1738,7 +1803,9 @@ public class GameplayScreen extends AbstractScreen{
 				stage.getActors().removeValue(shield, false);
 				shield = new ShieldActor(new Texture("shield1.png"), 1);
 				stage.addActor(shield);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){	
+					game.hitSound.play();
+				}
 			}else if(stage.getActors().contains(shield, false)&&
 					enemigoGreen.getBb().overlaps(nave.getBb())&&
 					shield.getTipo()==1){
@@ -1749,7 +1816,9 @@ public class GameplayScreen extends AbstractScreen{
 						enemigoGreen.getY()+enemigoGreen.getHeight()/2-boom.getHeight()/2);
 				stage.addActor(boom);
 				stage.getActors().removeValue(shield, false);
-				game.hitSound.play();
+				if(Preferencias.getSoundEffects()){	
+					game.hitSound.play();
+				}
 				dropShield = true;
 			
 	
@@ -1761,7 +1830,9 @@ public class GameplayScreen extends AbstractScreen{
 						// Colisión enemigo-láser
 						lasers.get(j).remove();
 						lasers.remove(j);
-						game.explosionSound.play();
+						if(Preferencias.getSoundEffects()){	
+							game.explosionSound.play();
+						}
 						enemigoGreen.setContador(enemigoGreen.getContador()+1);
 						if(enemigoGreen.getContador()==10){
 							Random random = new Random();
@@ -1840,7 +1911,9 @@ public class GameplayScreen extends AbstractScreen{
 					// Colisión enemigo-nave
 					enemigosYellow.get(i).remove();
 					enemigosYellow.remove(i);
-					game.explosion.play();
+					if(Preferencias.getSoundEffects()){	
+						game.explosion.play();
+					}
 					game.ufoSound.stop();
 					BoomActor boom = new BoomActor();
 					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -1864,7 +1937,11 @@ public class GameplayScreen extends AbstractScreen{
 					stage.getActors().removeValue(shield, false);
 					shield = new ShieldActor(new Texture("shield1.png"), 1);
 					stage.addActor(shield);
-					game.hitSound.play();
+
+					if(Preferencias.getSoundEffects()){	
+						game.hitSound.play();
+					}
+					
 				}else if(stage.getActors().contains(shield, false)&&
 						enemigoYellow.getBb().overlaps(nave.getBb())&&
 						shield.getTipo()==1){
@@ -1875,7 +1952,10 @@ public class GameplayScreen extends AbstractScreen{
 							enemigoYellow.getY()+enemigoYellow.getHeight()/2-boom.getHeight()/2);
 					stage.addActor(boom);
 					stage.getActors().removeValue(shield, false);
-					game.hitSound.play();
+
+					if(Preferencias.getSoundEffects()){	
+						game.hitSound.play();
+					}
 					dropShield = true;
 				
 		
@@ -1887,7 +1967,10 @@ public class GameplayScreen extends AbstractScreen{
 							// Colisión enemigo-láser
 							lasers.get(j).remove();
 							lasers.remove(j);
-							game.explosionSound.play();
+
+							if(Preferencias.getSoundEffects()){	
+								game.explosionSound.play();
+							}
 							enemigoYellow.setContador(enemigoYellow.getContador()+1);
 							if(enemigoYellow.getContador()==15){
 								Random random = new Random();
@@ -1939,7 +2022,9 @@ public class GameplayScreen extends AbstractScreen{
 					// Colisión enemigo-nave
 					enemigosRed.get(i).remove();
 					enemigosRed.remove(i);
-					game.explosion.play();
+					if(Preferencias.getSoundEffects()){	
+						game.explosion.play();
+					}
 					game.ufoSound.stop();
 					BoomActor boom = new BoomActor();
 					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -1963,7 +2048,10 @@ public class GameplayScreen extends AbstractScreen{
 					stage.getActors().removeValue(shield, false);
 					shield = new ShieldActor(new Texture("shield1.png"), 1);
 					stage.addActor(shield);
-					game.hitSound.play();
+					if(Preferencias.getSoundEffects()){	
+						game.hitSound.play();
+					}
+					
 				}else if(stage.getActors().contains(shield, false)&&
 						enemigoRed.getBb().overlaps(nave.getBb())&&
 						shield.getTipo()==1){
@@ -1974,7 +2062,9 @@ public class GameplayScreen extends AbstractScreen{
 							enemigoRed.getY()+enemigoRed.getHeight()/2-boom.getHeight()/2);
 					stage.addActor(boom);
 					stage.getActors().removeValue(shield, false);
-					game.hitSound.play();
+					if(Preferencias.getSoundEffects()){	
+						game.hitSound.play();
+					}
 					dropShield = true;
 				
 
@@ -1986,7 +2076,9 @@ public class GameplayScreen extends AbstractScreen{
 							// Colisión enemigo-láser
 							lasers.get(j).remove();
 							lasers.remove(j);
-							game.explosionSound.play();
+							if(Preferencias.getSoundEffects()){	
+								game.explosionSound.play();
+							}
 							enemigoRed.setContador(enemigoRed.getContador()+1);
 							if(enemigoRed.getContador()==10){
 								Random random = new Random();
@@ -2074,7 +2166,9 @@ public class GameplayScreen extends AbstractScreen{
 					// Colisión enemigo-nave
 					enemigosStage6.get(i).remove();
 					enemigosStage6.remove(i);
-					game.explosion.play();
+					if(Preferencias.getSoundEffects()){	
+						game.explosion.play();
+					}
 					game.ufoSound.stop();
 					BoomActor boom = new BoomActor();
 					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -2098,7 +2192,10 @@ public class GameplayScreen extends AbstractScreen{
 					stage.getActors().removeValue(shield, false);
 					shield = new ShieldActor(new Texture("shield1.png"), 1);
 					stage.addActor(shield);
-					game.hitSound.play();
+					if(Preferencias.getSoundEffects()){	
+						game.hitSound.play();
+					}
+					
 				}else if(stage.getActors().contains(shield, false)&&
 						enemigoStage6.getBb().overlaps(nave.getBb())&&
 						shield.getTipo()==1){
@@ -2109,7 +2206,9 @@ public class GameplayScreen extends AbstractScreen{
 							enemigoStage6.getY()+enemigoStage6.getHeight()/2-boom.getHeight()/2);
 					stage.addActor(boom);
 					stage.getActors().removeValue(shield, false);
-					game.hitSound.play();
+					if(Preferencias.getSoundEffects()){	
+						game.hitSound.play();
+					}
 					dropShield = true;
 				
 
@@ -2163,8 +2262,10 @@ public class GameplayScreen extends AbstractScreen{
 					
 					enemigosStage7.get(i).remove();
 					enemigosStage7.remove(i);
+					if(Preferencias.getSoundEffects()){	
+						game.explosion.play();
+					}
 					
-					game.explosion.play();
 					game.ufoSound.stop();
 					
 					
@@ -2191,7 +2292,10 @@ public class GameplayScreen extends AbstractScreen{
 					stage.getActors().removeValue(shield, false);
 					shield = new ShieldActor(new Texture("shield1.png"), 1);
 					stage.addActor(shield);
-					game.hitSound.play();
+					if(Preferencias.getSoundEffects()){	
+						game.hitSound.play();
+					}
+					
 				}else if(stage.getActors().contains(shield, false)&&
 						enemigoStage7.getBb().overlaps(nave.getBb())&&
 						shield.getTipo()==1){
@@ -2202,7 +2306,9 @@ public class GameplayScreen extends AbstractScreen{
 							enemigoStage7.getY()+enemigoStage7.getHeight()/2-boom.getHeight()/2);
 					stage.addActor(boom);
 					stage.getActors().removeValue(shield, false);
-					game.hitSound.play();
+					if(Preferencias.getSoundEffects()){	
+						game.hitSound.play();
+					}
 					dropShield = true;
 				}
 					for(int j = 0; j < lasers.size(); j++){
@@ -2211,7 +2317,10 @@ public class GameplayScreen extends AbstractScreen{
 							// Colisión enemigoStage7-láser
 							lasers.get(j).remove();
 							lasers.remove(j);
-							game.explosionSound.play();
+							if(Preferencias.getSoundEffects()){	
+								game.explosionSound.play();
+							}
+							
 							enemigoStage7.setContador(enemigoStage7.getContador()+1);
 							if(enemigoStage7.getContador()==20){
 								Random random = new Random();
@@ -2265,7 +2374,10 @@ public class GameplayScreen extends AbstractScreen{
 					if(laser.getBb().overlaps(jefe.getBb())){
 						lasers.get(j).remove();
 						lasers.remove(j);
-						game.explosionSound.play();
+						if(Preferencias.getSoundEffects()){	
+							game.explosionSound.play();
+						}
+						
 						jefe.setContador(jefe.getContador()+1);
 						barraJefe.setHealth(barraJefe.getHealth()-0.001f);
 						if(jefe.getContador()>=1000){
@@ -2281,7 +2393,9 @@ public class GameplayScreen extends AbstractScreen{
 									stage.addActor(boom);
 									explosionJefe--;
 									pos += boom.getHeight() + 10;
-									game.explosion.play();
+									if(Preferencias.getSoundEffects()){	
+										game.explosion.play();
+									}
 								}
 								
 							}
@@ -2325,8 +2439,9 @@ public class GameplayScreen extends AbstractScreen{
 				if(jefe.getBb().overlaps(nave.getBb())&&  jefeVivo &&
 						!stage.getActors().contains(shield, false)){
 					// Colisión enemigo-nave
-
-					game.explosion.play();
+					if(Preferencias.getSoundEffects()){	
+						game.explosion.play();
+					}
 
 					BoomActor boom = new BoomActor();
 					boom.setPosition(nave.getX()+nave.getWidth()/2-boom.getWidth()/2,
@@ -2345,12 +2460,17 @@ public class GameplayScreen extends AbstractScreen{
 					stage.getActors().removeValue(shield, false);
 					shield = new ShieldActor(new Texture("shield1.png"), 1);
 					stage.addActor(shield);
-					game.hitSound.play();
+					if(Preferencias.getSoundEffects()){	
+						game.hitSound.play();
+					}
+					
 				}else if(stage.getActors().contains(shield, false)&&  jefeVivo &&
 						jefe.getBb().overlaps(nave.getBb())&&
 						shield.getTipo()==1){
 					stage.getActors().removeValue(shield, false);
-					game.hitSound.play();
+					if(Preferencias.getSoundEffects()){	
+						game.hitSound.play();
+					}
 					dropShield = true;
 				}
 			}
@@ -3755,7 +3875,9 @@ public class GameplayScreen extends AbstractScreen{
 			laserJefe2.addAction(Actions.forever(
 					Actions.moveBy(-0.5f, -350 * Gdx.graphics.getDeltaTime())));
 			timerDispararJefe = 0.1f;
-			game.laserSound.play();
+			if(Preferencias.getSoundEffects()){	
+				game.laserSound.play();
+			}
 		}
 	}
 	
@@ -3980,7 +4102,9 @@ public class GameplayScreen extends AbstractScreen{
 					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), 350 * Gdx.graphics.getDeltaTime())));
 			
 			timerDispararJefe2 = 10000;
-			game.laserSound.play();
+			if(Preferencias.getSoundEffects()){	
+				game.laserSound.play();
+			}
 		}
 	}
 	
@@ -4045,7 +4169,9 @@ public class GameplayScreen extends AbstractScreen{
 					Actions.moveBy(-250 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
 			
 			timerDispararJefe3 = 1;
-			game.laserSound.play();
+			if(Preferencias.getSoundEffects()){	
+				game.laserSound.play();
+			}
 		}
 	}
 	
@@ -4270,7 +4396,9 @@ public class GameplayScreen extends AbstractScreen{
 		laserEnemigo.addAction(Actions.forever(
 				Actions.moveBy(0, -350 * Gdx.graphics.getDeltaTime())));
 		timerEnemigo = (float) (0.5 + Math.random());
-		game.laserSound.play();
+		if(Preferencias.getSoundEffects()){	
+			game.laserSound.play();
+		}
 	}
 	
 	private void dispararLaserEnemigoBlue(){
@@ -4287,7 +4415,9 @@ public class GameplayScreen extends AbstractScreen{
 		laserEnemigo.addAction(Actions.forever(
 				Actions.moveBy(0, -550 * Gdx.graphics.getDeltaTime())));
 		timerEnemigoBlue = (float) (0.5 + Math.random());
-		game.laserSound.play();
+		if(Preferencias.getSoundEffects()){	
+			game.laserSound.play();
+		}
 	}
 
 	private void dispararLaserEnemigoYellow(){
@@ -4304,7 +4434,9 @@ public class GameplayScreen extends AbstractScreen{
 		laserEnemigo.addAction(Actions.forever(
 				Actions.moveBy(0, -600 * Gdx.graphics.getDeltaTime())));
 		timerEnemigoYellow = (float) (0.1 + Math.random());
-		game.laserSound.play();
+		if(Preferencias.getSoundEffects()){	
+			game.laserSound.play();
+		}
 	}
 	
 	private void dispararLaserEnemigoRed(){
@@ -4321,7 +4453,9 @@ public class GameplayScreen extends AbstractScreen{
 		laserEnemigo.addAction(Actions.forever(
 				Actions.moveBy(0, -650 * Gdx.graphics.getDeltaTime())));
 		timerEnemigoRed = (float) (0.1 + Math.random());
-		game.laserSound.play();
+		if(Preferencias.getSoundEffects()){	
+			game.laserSound.play();
+		}
 	}
 	
 	private void dispararLaserEnemigoStage7(){
@@ -4338,7 +4472,9 @@ public class GameplayScreen extends AbstractScreen{
 		laserEnemigo.addAction(Actions.forever(
 				Actions.moveBy(0, -700 * Gdx.graphics.getDeltaTime())));
 		timerDisparoEnemigoStage7= (float) (0.1 + Math.random());
-		game.laserSound.play();
+		if(Preferencias.getSoundEffects()){	
+			game.laserSound.play();
+		}
 	}
 	
 	private void dispararLaserUfo(){
@@ -4350,7 +4486,9 @@ public class GameplayScreen extends AbstractScreen{
 		stage.addActor(laserUfo);
 		laserUfos.add(laserUfo);
 		timerLaserUfo = 0.4f;
-		game.laserSound.play();
+		if(Preferencias.getSoundEffects()){	
+			game.laserSound.play();
+		}
 	}
 	
 
