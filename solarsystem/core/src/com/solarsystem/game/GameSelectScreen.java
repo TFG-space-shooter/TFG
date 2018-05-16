@@ -74,6 +74,20 @@ public class GameSelectScreen extends AbstractScreen{
 			return true;
 		}
 	}
+	
+	private final class InputEasyListener extends InputListener {
+		@Override
+		public boolean touchDown(InputEvent event, float x, float y,
+				int pointer, int button) {
+			
+			//TODO Hacer bien
+			easy = !easy;
+
+			return true;
+		}
+
+	}
+	
 	private Stage stage;
 	private FondoActor fondo;
 	private Image setting;
@@ -85,6 +99,19 @@ public class GameSelectScreen extends AbstractScreen{
 	private Boolean musica;
 	private Boolean efectos;
 	
+	private boolean easy;
+	private boolean medium;
+	private boolean hard;
+	private Image easysi;
+	private Image easyno;
+	private Image mediumsi;
+	private Image mediumno;
+	private Image hardsi;
+	private Image hardno;
+	
+	private Label musicText;
+	private Label effectsText;
+	private Label levelText;
 
     private BitmapFont fontBotoes;
     private Label lbPuntuacion;
@@ -106,7 +133,10 @@ public class GameSelectScreen extends AbstractScreen{
 				stage.getHeight()-setting.getHeight()-30);
 
 
-
+		// TODO Quitar esto cuando se haga
+		easy = false;
+		medium = false;
+		hard = false;
 	
 	
 		
@@ -125,10 +155,21 @@ public class GameSelectScreen extends AbstractScreen{
     		stage.getActors().removeValue(lbPuntuacion, false);
     	}
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
         lbPuntuacion = new Label("High Score: " + Format.format(Preferencias.getMayorPuntuacion()), labelStyle);
         lbPuntuacion.setPosition(stage.getWidth()/2-lbPuntuacion.getWidth()/2, 200);
+
+        musicText = new Label("Music", labelStyle);
+        musicText.setPosition(stage.getWidth()-240, stage.getHeight()-435);
+        stage.addActor(musicText);
+        
+        effectsText = new Label("Sound effects", labelStyle);
+        effectsText.setPosition(stage.getWidth()-270, stage.getHeight()-335);
+        stage.addActor(effectsText);
+        
+        levelText = new Label("Game difficulty", labelStyle);
+        levelText.setPosition(150, stage.getHeight()-335);
+        stage.addActor(levelText);
     }
     private void initFonts() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/roboto.ttf"));
@@ -144,12 +185,11 @@ public class GameSelectScreen extends AbstractScreen{
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
 
+		initFonts();
+		initLabels();
 
-        initFonts();
-        initLabels();
+		//      atualizarBotones();
 
-  //      atualizarBotones();
-  
 		
 	//	initSons();
 	}
@@ -161,17 +201,15 @@ public class GameSelectScreen extends AbstractScreen{
 	
 	@Override
 	public void render(float delta) {
-		musica =Preferencias.getMusic();
-		efectos =Preferencias.getSoundEffects();
 		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		
 		stage.act();
-		stage.draw();
 
-
+		musica =Preferencias.getMusic();
+		efectos =Preferencias.getSoundEffects();
 
 		if (!musica){
 
@@ -240,6 +278,41 @@ public class GameSelectScreen extends AbstractScreen{
 			}
 			
 		}	
+		
+		
+		if (!easy){
+
+			easyno = new Image(new Texture("easyno.png"));
+			easyno.setPosition(100, stage.getHeight()/2+100-easyno.getHeight());
+			
+			easyno.addListener(new InputEasyListener());
+			
+			stage.addActor(easyno);
+			
+		    
+			if (stage.getActors().contains(easysi, false)){
+				stage.getActors().removeValue(easysi, false);
+			}
+			
+		}else{
+
+			easysi = new Image(new Texture("easysi.png"));
+			easysi.setPosition(100, stage.getHeight()/2+100-easysi.getHeight());
+		
+			easysi.addListener(new InputEasyListener());
+			
+			stage.addActor(easysi);
+
+			if (stage.getActors().contains(easyno, false)){
+				stage.getActors().removeValue(easyno, false);
+				
+			}
+			
+		}	
+		
+		
+		
+		stage.draw();
 
 	}
 	
