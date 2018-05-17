@@ -44,7 +44,7 @@ import com.solarsystem.game.inputhandler.ControladorVirtual;
 import com.solarsystem.game.util.Format;
 import com.solarsystem.game.util.Preferencias;
 
-public class GameplayScreen extends AbstractScreen{
+public class GameplayScreenEasy extends AbstractScreen{
 
 
 	
@@ -283,7 +283,7 @@ public class GameplayScreen extends AbstractScreen{
 	private boolean dead;
 	private float contadorTextoFinal;
 	
-	public GameplayScreen(Solarsystem game) {
+	public GameplayScreenEasy(Solarsystem game) {
 		super(game);		
 
 	}
@@ -355,14 +355,8 @@ public class GameplayScreen extends AbstractScreen{
 		booleans.add(false);
 		booleans.add(false);
 		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
 		booleans.add(true);
 		
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
 		booleans2.add(false);
 		booleans2.add(false);
 		booleans2.add(false);
@@ -545,7 +539,7 @@ public class GameplayScreen extends AbstractScreen{
 			timerGreen = 8;
 			timerStage3 = 5;
 		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)){
-			greenDead = 39;
+			greenDead = 19;
 			timerGreen = 10000;
 			timerFin = 3;
 			timerFin2 = 0;
@@ -1298,7 +1292,7 @@ public class GameplayScreen extends AbstractScreen{
 					}
 
 					enemigo.setContador(enemigo.getContador()+1);
-					if(enemigo.getContador()==4){
+					if(enemigo.getContador()==2){
 						Random random = new Random();
 						int index = random.nextInt(booleans.size());
 						Boolean m = booleans.get(index);
@@ -1506,7 +1500,7 @@ public class GameplayScreen extends AbstractScreen{
 						game.explosionSound.play();
 					}					
 					meteorito.setContador(meteorito.getContador()+1);
-					if(meteorito.getWidth()>=89&&meteorito.getContador()==40){
+					if(meteorito.getWidth()>=89&&meteorito.getContador()==20){
 						this.rompeMeteoritoGrande(meteorito);
 						meteoritos.get(k).remove();
 						meteoritos.remove(k);
@@ -1515,7 +1509,7 @@ public class GameplayScreen extends AbstractScreen{
 								meteorito.getY()+meteorito.getHeight()/2-boom.getHeight()/2);
 						stage.addActor(boom);
 						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+500);
-					}else if(meteorito.getWidth()==43&&meteorito.getContador()==20){
+					}else if(meteorito.getWidth()==43&&meteorito.getContador()==10){
 						meteoritos.get(k).remove();
 						meteoritos.remove(k);
 						BoomActor boom = new BoomActor();
@@ -1523,7 +1517,7 @@ public class GameplayScreen extends AbstractScreen{
 								meteorito.getY()+meteorito.getHeight()/2-boom.getHeight()/2);
 						stage.addActor(boom);
 						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+250);
-					}else if(meteorito.getWidth()==29&&meteorito.getContador()==10){
+					}else if(meteorito.getWidth()==29&&meteorito.getContador()==5){
 						meteoritos.get(k).remove();
 						meteoritos.remove(k);
 						BoomActor boom = new BoomActor();
@@ -1717,7 +1711,7 @@ public class GameplayScreen extends AbstractScreen{
 							game.explosionSound.play();
 						}
 						enemigoBlue.setContador(enemigoBlue.getContador()+1);
-						if(enemigoBlue.getContador()==8){
+						if(enemigoBlue.getContador()==4){
 							Random random = new Random();
 						    int index = random.nextInt(booleans.size());
 						    Boolean m = booleans.get(index);
@@ -1834,7 +1828,7 @@ public class GameplayScreen extends AbstractScreen{
 							game.explosionSound.play();
 						}
 						enemigoGreen.setContador(enemigoGreen.getContador()+1);
-						if(enemigoGreen.getContador()==10){
+						if(enemigoGreen.getContador()==5){
 							Random random = new Random();
 						    int index = random.nextInt(booleans.size());
 						    Boolean m = booleans.get(index);
@@ -1870,7 +1864,7 @@ public class GameplayScreen extends AbstractScreen{
 							stage.addActor(boom);
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 							greenDead++;
-							if(greenDead == 39 ){
+							if(greenDead == 19 ){
 								timerGreen = 10000;
 								for(int g = 0; g<enemigosGreen.size(); g++){
 									BoomActor boomGreen = new BoomActor();
@@ -1972,7 +1966,7 @@ public class GameplayScreen extends AbstractScreen{
 								game.explosionSound.play();
 							}
 							enemigoYellow.setContador(enemigoYellow.getContador()+1);
-							if(enemigoYellow.getContador()==15){
+							if(enemigoYellow.getContador()==7){
 								Random random = new Random();
 							    int index = random.nextInt(booleans.size());
 							    Boolean m = booleans.get(index);
@@ -2080,7 +2074,7 @@ public class GameplayScreen extends AbstractScreen{
 								game.explosionSound.play();
 							}
 							enemigoRed.setContador(enemigoRed.getContador()+1);
-							if(enemigoRed.getContador()==10){
+							if(enemigoRed.getContador()==5){
 								Random random = new Random();
 							    int index = random.nextInt(booleans.size());
 							    Boolean m = booleans.get(index);
@@ -2116,7 +2110,7 @@ public class GameplayScreen extends AbstractScreen{
 								stage.addActor(boom);
 								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 								redDead++;
-								if(redDead == 39 ){
+								if(redDead == 19 ){
 									for(int g = 0; g<enemigosRed.size(); g++){
 										BoomActor boomRed = new BoomActor();
 										boomRed.setPosition(enemigosRed.get(g).getX()+
@@ -2322,7 +2316,7 @@ public class GameplayScreen extends AbstractScreen{
 							}
 							
 							enemigoStage7.setContador(enemigoStage7.getContador()+1);
-							if(enemigoStage7.getContador()==20){
+							if(enemigoStage7.getContador()==10){
 								Random random = new Random();
 							    int index = random.nextInt(booleans.size());
 							    Boolean m = booleans.get(index);
@@ -2380,7 +2374,7 @@ public class GameplayScreen extends AbstractScreen{
 						
 						jefe.setContador(jefe.getContador()+1);
 						barraJefe.setHealth(barraJefe.getHealth()-0.001f);
-						if(jefe.getContador()>=1000){
+						if(jefe.getContador()>=500){
 
 							contadorExplosionFinal = 1;
 							if(contadorExplosionFinal > 0){
@@ -2963,16 +2957,16 @@ public class GameplayScreen extends AbstractScreen{
 	    stage.addActor(e);
 	    
 	    List<Integer> velocidades = new ArrayList<Integer>();
+	    velocidades.add(-1);
+	    velocidades.add(-2);
 	    velocidades.add(-3);
 	    velocidades.add(-4);
-	    velocidades.add(-5);
-	    velocidades.add(-6);
 	    Random random2 = new Random();
 	    int index2 = random2.nextInt(velocidades.size());
 	    Integer i = velocidades.get(index2);
 	    e.addAction(Actions.forever(Actions.moveBy(0, i)));
 	    
-	    timerGreen = 0.8f;
+	    timerGreen = 1.6f;
 		
 	}
 	
@@ -3228,10 +3222,10 @@ public class GameplayScreen extends AbstractScreen{
 	    stage.addActor(e);
 	    
 	    List<Integer> velocidades = new ArrayList<Integer>();
+	    velocidades.add(-1);
+	    velocidades.add(-2);
 	    velocidades.add(-3);
 	    velocidades.add(-4);
-	    velocidades.add(-5);
-	    velocidades.add(-6);
 	    Random random2 = new Random();
 	    int index2 = random2.nextInt(velocidades.size());
 	    Integer i = velocidades.get(index2);
@@ -3846,8 +3840,8 @@ public class GameplayScreen extends AbstractScreen{
 		
 		
 		jefe.addAction(Actions.sequence(Actions.moveTo(stage.getWidth()/2-jefe.getWidth()/2, 
-				stage.getHeight()-100-jefe.getHeight(), 5),  Actions.delay(2), Actions.moveTo(50, stage.getHeight()-100-jefe.getHeight(), 1.5f),  Actions.forever(
-						Actions.sequence(Actions.delay(0.2f),Actions.moveTo(stage.getWidth()-jefe.getWidth()-50, stage.getHeight()-100-jefe.getHeight(), 3),Actions.delay(0.2f), Actions.moveTo(50, stage.getHeight()-100-jefe.getHeight(), 3)))));
+				stage.getHeight()-100-jefe.getHeight(), 6),  Actions.delay(2), Actions.moveTo(50, stage.getHeight()-100-jefe.getHeight(), 2),  Actions.forever(
+						Actions.sequence(Actions.delay(0.1f),Actions.moveTo(stage.getWidth()-jefe.getWidth()-50, stage.getHeight()-100-jefe.getHeight(), 5),Actions.delay(0.3f), Actions.moveTo(50, stage.getHeight()-100-jefe.getHeight(), 5)))));
 	
 		barraJefe = new BarraActor();
 		barraJefe.setPosition(30, stage.getHeight()-100);
@@ -3871,9 +3865,9 @@ public class GameplayScreen extends AbstractScreen{
 			laserJefes.add(laserJefe1);
 			laserJefes.add(laserJefe2);
 			laserJefe1.addAction(Actions.forever(
-					Actions.moveBy(0.5f, -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(0.5f, -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe2.addAction(Actions.forever(
-					Actions.moveBy(-0.5f, -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(-0.5f, -175 * Gdx.graphics.getDeltaTime())));
 			timerDispararJefe = 0.1f;
 			if(Preferencias.getSoundEffects()){	
 				game.laserSound.play();
@@ -4069,37 +4063,37 @@ public class GameplayScreen extends AbstractScreen{
 			laserJefes.add(laserJefe16);
 			
 			laserJefe1.addAction(Actions.forever(
-					Actions.moveBy(0, 350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(0, 175 * Gdx.graphics.getDeltaTime())));
 			laserJefe2.addAction(Actions.forever(
-					Actions.moveBy(0, 350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(0, 175 * Gdx.graphics.getDeltaTime())));
 			laserJefe3.addAction(Actions.forever(
-					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), 350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(175 * Gdx.graphics.getDeltaTime(), 175 * Gdx.graphics.getDeltaTime())));
 			laserJefe4.addAction(Actions.forever(
-					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), 350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(175 * Gdx.graphics.getDeltaTime(), 175 * Gdx.graphics.getDeltaTime())));
 			laserJefe5.addAction(Actions.forever(
-					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), 0)));
+					Actions.moveBy(175 * Gdx.graphics.getDeltaTime(), 0)));
 			laserJefe6.addAction(Actions.forever(
-					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), 0)));
+					Actions.moveBy(175 * Gdx.graphics.getDeltaTime(), 0)));
 			laserJefe7.addAction(Actions.forever(
-					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(175 * Gdx.graphics.getDeltaTime(), -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe8.addAction(Actions.forever(
-					Actions.moveBy(350 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(175 * Gdx.graphics.getDeltaTime(), -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe9.addAction(Actions.forever(
-					Actions.moveBy(0, -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(0, -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe10.addAction(Actions.forever(
-					Actions.moveBy(0, -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(0, -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe11.addAction(Actions.forever(
-					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(-175 * Gdx.graphics.getDeltaTime(), -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe12.addAction(Actions.forever(
-					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(-175 * Gdx.graphics.getDeltaTime(), -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe13.addAction(Actions.forever(
-					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), 0)));
+					Actions.moveBy(-175 * Gdx.graphics.getDeltaTime(), 0)));
 			laserJefe14.addAction(Actions.forever(
-					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), 0)));
+					Actions.moveBy(-175 * Gdx.graphics.getDeltaTime(), 0)));
 			laserJefe15.addAction(Actions.forever(
-					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), 350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(-175 * Gdx.graphics.getDeltaTime(), 175 * Gdx.graphics.getDeltaTime())));
 			laserJefe16.addAction(Actions.forever(
-					Actions.moveBy(-350 * Gdx.graphics.getDeltaTime(), 350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(-175 * Gdx.graphics.getDeltaTime(), 175 * Gdx.graphics.getDeltaTime())));
 			
 			timerDispararJefe2 = 10000;
 			if(Preferencias.getSoundEffects()){	
@@ -4156,17 +4150,17 @@ public class GameplayScreen extends AbstractScreen{
 			laserJefes.add(laserJefe6);
 			
 			laserJefe1.addAction(Actions.forever(
-					Actions.moveBy(0, -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(0, -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe2.addAction(Actions.forever(
-					Actions.moveBy(0, -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(0, -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe3.addAction(Actions.forever(
-					Actions.moveBy(250 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(250 * Gdx.graphics.getDeltaTime(), -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe4.addAction(Actions.forever(
-					Actions.moveBy(250 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(250 * Gdx.graphics.getDeltaTime(), -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe5.addAction(Actions.forever(
-					Actions.moveBy(-250 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(-250 * Gdx.graphics.getDeltaTime(), -175 * Gdx.graphics.getDeltaTime())));
 			laserJefe6.addAction(Actions.forever(
-					Actions.moveBy(-250 * Gdx.graphics.getDeltaTime(), -350 * Gdx.graphics.getDeltaTime())));
+					Actions.moveBy(-250 * Gdx.graphics.getDeltaTime(), -175 * Gdx.graphics.getDeltaTime())));
 			
 			timerDispararJefe3 = 1;
 			if(Preferencias.getSoundEffects()){	
@@ -4394,7 +4388,7 @@ public class GameplayScreen extends AbstractScreen{
 		stage.addActor(laserEnemigo);
 		laserEnemigos.add(laserEnemigo);
 		laserEnemigo.addAction(Actions.forever(
-				Actions.moveBy(0, -350 * Gdx.graphics.getDeltaTime())));
+				Actions.moveBy(0, -175 * Gdx.graphics.getDeltaTime())));
 		timerEnemigo = (float) (0.5 + Math.random());
 		if(Preferencias.getSoundEffects()){	
 			game.laserSound.play();
@@ -4413,7 +4407,7 @@ public class GameplayScreen extends AbstractScreen{
 		stage.addActor(laserEnemigo);
 		laserEnemigos.add(laserEnemigo);
 		laserEnemigo.addAction(Actions.forever(
-				Actions.moveBy(0, -550 * Gdx.graphics.getDeltaTime())));
+				Actions.moveBy(0, -275 * Gdx.graphics.getDeltaTime())));
 		timerEnemigoBlue = (float) (0.5 + Math.random());
 		if(Preferencias.getSoundEffects()){	
 			game.laserSound.play();
@@ -4432,7 +4426,7 @@ public class GameplayScreen extends AbstractScreen{
 		stage.addActor(laserEnemigo);
 		laserEnemigos.add(laserEnemigo);
 		laserEnemigo.addAction(Actions.forever(
-				Actions.moveBy(0, -600 * Gdx.graphics.getDeltaTime())));
+				Actions.moveBy(0, -300 * Gdx.graphics.getDeltaTime())));
 		timerEnemigoYellow = (float) (0.1 + Math.random());
 		if(Preferencias.getSoundEffects()){	
 			game.laserSound.play();
@@ -4451,7 +4445,7 @@ public class GameplayScreen extends AbstractScreen{
 		stage.addActor(laserEnemigo);
 		laserEnemigos.add(laserEnemigo);
 		laserEnemigo.addAction(Actions.forever(
-				Actions.moveBy(0, -650 * Gdx.graphics.getDeltaTime())));
+				Actions.moveBy(0, -375 * Gdx.graphics.getDeltaTime())));
 		timerEnemigoRed = (float) (0.1 + Math.random());
 		if(Preferencias.getSoundEffects()){	
 			game.laserSound.play();
@@ -4470,7 +4464,7 @@ public class GameplayScreen extends AbstractScreen{
 		stage.addActor(laserEnemigo);
 		laserEnemigos.add(laserEnemigo);
 		laserEnemigo.addAction(Actions.forever(
-				Actions.moveBy(0, -700 * Gdx.graphics.getDeltaTime())));
+				Actions.moveBy(0, -175 * Gdx.graphics.getDeltaTime())));
 		timerDisparoEnemigoStage7= (float) (0.1 + Math.random());
 		if(Preferencias.getSoundEffects()){	
 			game.laserSound.play();
@@ -4485,7 +4479,7 @@ public class GameplayScreen extends AbstractScreen{
 		laserUfo.getBb().setY(laserUfo.getY());
 		stage.addActor(laserUfo);
 		laserUfos.add(laserUfo);
-		timerLaserUfo = 0.4f;
+		timerLaserUfo = 0.8f;
 		if(Preferencias.getSoundEffects()){	
 			game.laserSound.play();
 		}
@@ -4554,7 +4548,7 @@ public class GameplayScreen extends AbstractScreen{
 		stage.addActor(meteorito);
 		meteoritos.add(meteorito);
 		meteorito.addAction(Actions.forever(Actions.parallel(
-				Actions.moveBy(vx*delta, -100*delta),Actions.rotateBy(rx))));
+				Actions.moveBy(vx*delta, -50*delta),Actions.rotateBy(rx))));
 
 		timerMeteor = (float) (5 + Math.random());
 	}

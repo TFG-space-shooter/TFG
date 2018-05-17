@@ -18,8 +18,10 @@ public class Solarsystem extends Game {
 	public AssetManager getManager(){
 		return manager;
 	}
-	
-	public GameplayScreen gameplayScreen;
+
+	public GameplayScreenEasy gameplayScreenEasy;
+	public GameplayScreenMedium gameplayScreenMedium;
+	public GameplayScreenHard gameplayScreenHard;
 	public GameOverScreen gameoverScreen;
 	public GameSelectScreen gameselectScreen;
 	public StartScreen startScreen;
@@ -60,8 +62,10 @@ public class Solarsystem extends Game {
 		
 
         musicaPrincipal = Gdx.audio.newMusic(Gdx.files.internal("sounds/xeon6.ogg"));
-		
-		gameplayScreen = new GameplayScreen(this);
+
+		gameplayScreenEasy = new GameplayScreenEasy(this);
+		gameplayScreenMedium = new GameplayScreenMedium(this);
+		gameplayScreenHard = new GameplayScreenHard(this);
 		gameoverScreen = new GameOverScreen(this);
 		gameselectScreen = new GameSelectScreen(this);
 		startScreen = new StartScreen(this);

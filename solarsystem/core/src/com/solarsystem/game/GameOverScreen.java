@@ -25,7 +25,17 @@ public class GameOverScreen extends AbstractScreen{
 		@Override
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
-			game.setScreen(game.gameplayScreen);
+
+			if(Preferencias.getEasy()){
+				game.setScreen(game.gameplayScreenEasy);
+			}
+			if(Preferencias.getMedium()){
+				game.setScreen(game.gameplayScreenMedium);
+			}
+			if(Preferencias.getHard()){
+				game.setScreen(game.gameplayScreenHard);
+			}
+
 			musicaGameOver.stop();
 
 			if(Preferencias.getSoundEffects()){	

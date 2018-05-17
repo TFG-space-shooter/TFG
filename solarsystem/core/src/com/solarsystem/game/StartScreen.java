@@ -27,7 +27,22 @@ public class StartScreen extends AbstractScreen{
 		@Override
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
-			game.setScreen(game.gameplayScreen);
+			if(!Preferencias.getEasy() & !Preferencias.getMedium() & !Preferencias.getHard()){
+				Preferencias.setEasy(true);
+
+				game.setScreen(game.gameplayScreenEasy);
+
+			}else{
+				if(Preferencias.getEasy()){
+					game.setScreen(game.gameplayScreenEasy);
+				}
+				if(Preferencias.getMedium()){
+					game.setScreen(game.gameplayScreenMedium);
+				}
+				if(Preferencias.getHard()){
+					game.setScreen(game.gameplayScreenHard);
+				}
+			}
 			game.musicaPrincipal.stop();
 
 			if(Preferencias.getSoundEffects()){
