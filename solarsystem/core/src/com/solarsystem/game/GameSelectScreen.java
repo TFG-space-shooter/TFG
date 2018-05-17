@@ -1,7 +1,6 @@
 package com.solarsystem.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -80,9 +79,50 @@ public class GameSelectScreen extends AbstractScreen{
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
 			
-			//TODO Hacer bien
-			easy = !easy;
+				Preferencias.setEasy(true);
+				easy = Preferencias.getEasy();
+				Preferencias.setMedium(false);
+				medium = Preferencias.getMedium();
+				Preferencias.setHard(false);
+				hard = Preferencias.getHard();
+							
+			return true;
+		}
 
+	}	
+	
+	private final class InputMediumListener extends InputListener {
+		@Override
+		public boolean touchDown(InputEvent event, float x, float y,
+				int pointer, int button) {
+			
+				Preferencias.setEasy(false);
+				easy = Preferencias.getEasy();
+				Preferencias.setMedium(true);
+				medium = Preferencias.getMedium();
+				Preferencias.setHard(false);
+				hard = Preferencias.getHard();
+				
+			
+			return true;
+		}
+
+	}
+	
+	
+	private final class InputHardListener extends InputListener {
+		@Override
+		public boolean touchDown(InputEvent event, float x, float y,
+				int pointer, int button) {
+			
+				Preferencias.setEasy(false);
+				easy = Preferencias.getEasy();
+				Preferencias.setMedium(false);
+				medium = Preferencias.getMedium();
+				Preferencias.setHard(true);
+				hard = Preferencias.getHard();
+				
+			
 			return true;
 		}
 
@@ -98,10 +138,23 @@ public class GameSelectScreen extends AbstractScreen{
 	private Image offEffect;
 	private Boolean musica;
 	private Boolean efectos;
+	private Boolean musicaOnPintado;
+	private Boolean musicaOffPintado;
+	private Boolean efectoOnPintado;
+	private Boolean efectoOffPintado;
+
+	private Boolean easyOffPintado;
+	private Boolean easyOnPintado;
+	private Boolean mediumOffPintado;
+	private Boolean mediumOnPintado;
+	private Boolean hardOffPintado;
+	private Boolean hardOnPintado;
+	
 	
 	private boolean easy;
 	private boolean medium;
 	private boolean hard;
+	
 	private Image easysi;
 	private Image easyno;
 	private Image mediumsi;
@@ -125,6 +178,17 @@ public class GameSelectScreen extends AbstractScreen{
 		fondo = new FondoActor();
 		stage.addActor(fondo);
 
+		musicaOffPintado = false;
+		musicaOnPintado = false;
+		efectoOffPintado = false;
+		efectoOnPintado = false;
+		easyOffPintado = false;;
+		easyOnPintado = false;;
+		mediumOffPintado = false;;
+		mediumOnPintado = false;;
+		hardOffPintado = false;;
+		hardOnPintado = false;;
+
 
 		
 		retry.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
@@ -133,10 +197,6 @@ public class GameSelectScreen extends AbstractScreen{
 				stage.getHeight()-setting.getHeight()-30);
 
 
-		// TODO Quitar esto cuando se haga
-		easy = false;
-		medium = false;
-		hard = false;
 	
 	
 		
@@ -148,6 +208,8 @@ public class GameSelectScreen extends AbstractScreen{
 		stage.addActor(retry);
 
 		stage.addActor(setting);
+		
+
 	}
 	
     private void initLabels() {
@@ -160,21 +222,21 @@ public class GameSelectScreen extends AbstractScreen{
         lbPuntuacion.setPosition(stage.getWidth()/2-lbPuntuacion.getWidth()/2, 200);
 
         musicText = new Label("Music", labelStyle);
-        musicText.setPosition(stage.getWidth()-240, stage.getHeight()-435);
+        musicText.setPosition(stage.getWidth()/2-musicText.getWidth()/2, stage.getHeight()-250);
         stage.addActor(musicText);
         
         effectsText = new Label("Sound effects", labelStyle);
-        effectsText.setPosition(stage.getWidth()-270, stage.getHeight()-335);
+        effectsText.setPosition(stage.getWidth()/2-effectsText.getWidth()/2, stage.getHeight()-400);
         stage.addActor(effectsText);
         
         levelText = new Label("Game difficulty", labelStyle);
-        levelText.setPosition(150, stage.getHeight()-335);
+        levelText.setPosition(stage.getWidth()/2-levelText.getWidth()/2, stage.getHeight()-600);
         stage.addActor(levelText);
     }
     private void initFonts() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/roboto.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        params.size = MathUtils.roundPositive(32 * Gdx.graphics.getDensity());
+        params.size = MathUtils.roundPositive(18 * Gdx.graphics.getDensity());
         params.color = Color.WHITE;
         fontBotoes = generator.generateFont(params);
 
@@ -210,13 +272,36 @@ public class GameSelectScreen extends AbstractScreen{
 
 		musica =Preferencias.getMusic();
 		efectos =Preferencias.getSoundEffects();
+		if(!easy & !medium & !hard){
+			Preferencias.setEasy(true);
+			easy = Preferencias.getEasy();
+		}else{
+			if(easy){
+				Preferencias.setMedium(false);
+				medium = Preferencias.getMedium();
+				Preferencias.setHard(false);
+				hard = Preferencias.getHard();
+			}
+			if(medium){
+				Preferencias.setEasy(false);
+				easy = Preferencias.getEasy();
+				Preferencias.setHard(false);
+				hard = Preferencias.getHard();
+			}
+			if(hard){
+				Preferencias.setEasy(false);
+				easy = Preferencias.getEasy();
+				Preferencias.setMedium(false);
+				medium = Preferencias.getMedium();
+			}
+		}
+	
 
-		if (!musica){
+		if (!musica & !musicaOffPintado){
 
 			offMusic = new Image(new Texture("off.png"));
-			offMusic.setPosition(stage.getWidth() - offMusic.getWidth() - 100,
-					stage.getHeight()/2-offMusic.getHeight());
-			
+			offMusic.setPosition(stage.getWidth()/2 - offMusic.getWidth()/2,
+					stage.getHeight()-300);
 			offMusic.addListener(new InputMusicListener());
 			
 			stage.addActor(offMusic);
@@ -227,12 +312,15 @@ public class GameSelectScreen extends AbstractScreen{
 			if (stage.getActors().contains(onMusic, false)){
 				stage.getActors().removeValue(onMusic, false);
 			}
+			musicaOffPintado = true;
+			musicaOnPintado = false;
 			
-		}else{
+		}
+		if(musica & !musicaOnPintado){
 
 			onMusic = new Image(new Texture("on.png"));
-			onMusic.setPosition(stage.getWidth() - onMusic.getWidth() - 100,
-					stage.getHeight()/2-onMusic.getHeight());
+			onMusic.setPosition(stage.getWidth()/2 - onMusic.getWidth()/2,
+					stage.getHeight()-300);
 		
 			onMusic.addListener(new InputMusicListener());
 			
@@ -244,14 +332,16 @@ public class GameSelectScreen extends AbstractScreen{
 				stage.getActors().removeValue(offMusic, false);
 				
 			}
+			musicaOffPintado = false;
+			musicaOnPintado = true;
 			
 		}	
 		
-		if (!efectos){
+		if (!efectos & !efectoOffPintado){
 
 			offEffect = new Image(new Texture("off.png"));
-			offEffect.setPosition(stage.getWidth() - offEffect.getWidth() - 100,
-					stage.getHeight()/2-offEffect.getHeight()+100);
+			offEffect.setPosition(stage.getWidth()/2 - offEffect.getWidth()/2,
+					stage.getHeight()-450);
 			
 			offEffect.addListener(new InputEffectListener());
 			
@@ -261,12 +351,14 @@ public class GameSelectScreen extends AbstractScreen{
 			if (stage.getActors().contains(onEffect, false)){
 				stage.getActors().removeValue(onEffect, false);
 			}
-			
-		}else{
+			efectoOffPintado = true;
+			efectoOnPintado = false;
+		}
+		if (efectos & !efectoOnPintado){
 
 			onEffect = new Image(new Texture("on.png"));
-			onEffect.setPosition(stage.getWidth() - onEffect.getWidth() - 100,
-					stage.getHeight()/2-onEffect.getHeight()+100);
+			onEffect.setPosition(stage.getWidth()/2 - onEffect.getWidth()/2,
+					stage.getHeight()-450);
 		
 			onEffect.addListener(new InputEffectListener());
 			
@@ -276,14 +368,18 @@ public class GameSelectScreen extends AbstractScreen{
 				stage.getActors().removeValue(offEffect, false);
 				
 			}
+
+			efectoOffPintado = false;
+			efectoOnPintado = true;
 			
 		}	
 		
 		
-		if (!easy){
+		if (!easy & !easyOffPintado){
 
 			easyno = new Image(new Texture("easyno.png"));
-			easyno.setPosition(100, stage.getHeight()/2+100-easyno.getHeight());
+			easyno.setPosition(stage.getWidth()/2 - easyno.getWidth()/2,
+					stage.getHeight()-650);
 			
 			easyno.addListener(new InputEasyListener());
 			
@@ -293,25 +389,94 @@ public class GameSelectScreen extends AbstractScreen{
 			if (stage.getActors().contains(easysi, false)){
 				stage.getActors().removeValue(easysi, false);
 			}
-			
-		}else{
+			easyOffPintado = true;
+			easyOnPintado = false;
+		}
+		if (easy & !easyOnPintado){
 
 			easysi = new Image(new Texture("easysi.png"));
-			easysi.setPosition(100, stage.getHeight()/2+100-easysi.getHeight());
+			easysi.setPosition(stage.getWidth()/2 - easysi.getWidth()/2,
+					stage.getHeight()-650);
 		
-			easysi.addListener(new InputEasyListener());
 			
 			stage.addActor(easysi);
 
 			if (stage.getActors().contains(easyno, false)){
 				stage.getActors().removeValue(easyno, false);
-				
-			}
-			
+							}
+
+			easyOffPintado = false;
+			easyOnPintado = true;
 		}	
 		
+		if (!medium & !mediumOffPintado){
+
+			mediumno = new Image(new Texture("mediumno.png"));
+			mediumno.setPosition(stage.getWidth()/2 - mediumno.getWidth()/2,
+					stage.getHeight()-700);
+			
+			mediumno.addListener(new InputMediumListener());
+			
+			stage.addActor(mediumno);
+			
+		    
+			if (stage.getActors().contains(mediumsi, false)){
+				stage.getActors().removeValue(mediumsi, false);
+			}
+			mediumOffPintado = true;
+			mediumOnPintado = false;
+		}
+		if (medium & !mediumOnPintado){
+
+			mediumsi = new Image(new Texture("mediumsi.png"));
+			mediumsi.setPosition(stage.getWidth()/2 - mediumsi.getWidth()/2,
+					stage.getHeight()-700);
 		
+			
+			stage.addActor(mediumsi);
+
+			if (stage.getActors().contains(mediumno, false)){
+				stage.getActors().removeValue(mediumno, false);
+				
+			}
+			mediumOffPintado = false;
+			mediumOnPintado = true;
+		}		
+
+		if (!hard & !hardOffPintado){
+
+			hardno = new Image(new Texture("hardno.png"));
+			hardno.setPosition(stage.getWidth()/2 - hardno.getWidth()/2,
+					stage.getHeight()-750);
+			
+			hardno.addListener(new InputHardListener());
+			
+			stage.addActor(hardno);
+			
+		    
+			if (stage.getActors().contains(hardsi, false)){
+				stage.getActors().removeValue(hardsi, false);
+			}
+			hardOffPintado = true;
+			hardOnPintado = false;
+		}
+		if (hard & !hardOnPintado){
+
+			hardsi = new Image(new Texture("hardsi.png"));
+			hardsi.setPosition(stage.getWidth()/2 - hardsi.getWidth()/2,
+					stage.getHeight()-750);
 		
+			
+			stage.addActor(hardsi);
+
+			if (stage.getActors().contains(hardno, false)){
+				stage.getActors().removeValue(hardno, false);
+				
+			}
+
+			hardOffPintado = false;
+			hardOnPintado = true;
+		}		
 		stage.draw();
 
 	}

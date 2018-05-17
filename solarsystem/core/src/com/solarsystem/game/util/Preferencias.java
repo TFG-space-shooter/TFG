@@ -7,6 +7,36 @@ public class Preferencias {
 
     private static Preferences prefs;
 
+    public static boolean getEasy() {
+    	return getPrefs().getBoolean("easy");
+    }
+
+    public static void setEasy(boolean easy) {
+    	getPrefs().putBoolean("easy", easy);
+    	getPrefs().flush();
+
+    }
+    
+    public static boolean getMedium() {
+    	return getPrefs().getBoolean("medium");
+    }
+
+    public static void setMedium(boolean medium) {
+    	getPrefs().putBoolean("medium", medium);
+    	getPrefs().flush();
+
+    }
+  
+    
+    public static boolean getHard() {
+    	return getPrefs().getBoolean("hard");
+    }
+
+    public static void setHard(boolean hard) {
+    	getPrefs().putBoolean("hard", hard);
+    	getPrefs().flush();
+
+    }
     public static boolean getMusic() {
     	return getPrefs().getBoolean("musica");
     }

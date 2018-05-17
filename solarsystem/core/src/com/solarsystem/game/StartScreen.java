@@ -22,6 +22,7 @@ import com.solarsystem.game.util.Preferencias;
 
 public class StartScreen extends AbstractScreen{
 	
+	
 	private final class InputTouchToStartListener extends InputListener {
 		@Override
 		public boolean touchDown(InputEvent event, float x, float y,
@@ -49,7 +50,7 @@ public class StartScreen extends AbstractScreen{
 		}
 	}
 
-
+	
 	private Stage stage;
 	private FondoActor fondo;
 	private Image solarsystem;
@@ -88,6 +89,8 @@ public class StartScreen extends AbstractScreen{
 		stage.addActor(solarsystem);
 		stage.addActor(start);
 		stage.addActor(select);
+		
+
 	}
 	   
     private void initLabels() {
