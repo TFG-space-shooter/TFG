@@ -354,16 +354,10 @@ public class GameplayScreenMedium extends AbstractScreen{
 		booleans.add(false);
 		booleans.add(false);
 		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
-		booleans.add(false);
+		booleans.add(true);
 		booleans.add(true);
 		
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
-		booleans2.add(false);
+		booleans2.add(true);
 		booleans2.add(false);
 		booleans2.add(false);
 		booleans2.add(false);
@@ -4499,8 +4493,11 @@ public class GameplayScreenMedium extends AbstractScreen{
 		ufo.getBb().setX(ufo.getX());
 		ufo.getBb().setY(ufo.getY());
 		stage.addActor(ufo);
-//		ufos.add(ufo);
+//		ufos.add(ufo);	
+		if(Preferencias.getSoundEffects()){	
+
 		game.ufoSound.loop();
+	}
 		timerUfo = (float) (20 + Math.random());
 	}
 	
