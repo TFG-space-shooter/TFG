@@ -3106,86 +3106,86 @@ public class GameplayScreenEasy extends AbstractScreen{
 		enemigosYellow.add(enemigoYellow20);		
 
 		
-		enemigoYellow1.addAction(Actions.sequence(Actions.moveBy(720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1)))));
+		enemigoYellow1.addAction(Actions.sequence(Actions.moveBy(720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.5f)))));
 
-		enemigoYellow2.addAction(Actions.sequence(Actions.delay(0.25f), Actions.moveBy(720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1)))));
+		enemigoYellow2.addAction(Actions.sequence(Actions.delay(0.25f), Actions.moveBy(720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.5f)))));
 	
-		enemigoYellow3.addAction(Actions.sequence(Actions.delay(0.50f), Actions.moveBy(720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1)))));
+		enemigoYellow3.addAction(Actions.sequence(Actions.delay(0.50f), Actions.moveBy(720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.5f)))));
 	
-		enemigoYellow4.addAction(Actions.sequence(Actions.delay(0.75f), Actions.moveBy(720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1)))));
+		enemigoYellow4.addAction(Actions.sequence(Actions.delay(0.75f), Actions.moveBy(720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.5f)))));
 
-		enemigoYellow5.addAction(Actions.sequence(Actions.delay(1), Actions.moveBy(720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1)))));
+		enemigoYellow5.addAction(Actions.sequence(Actions.delay(1.5f), Actions.moveBy(720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.5f)))));
 
-		enemigoYellow6.addAction(Actions.sequence(Actions.delay(6), Actions.moveBy(-720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1)))));
+		enemigoYellow6.addAction(Actions.sequence(Actions.delay(6), Actions.moveBy(-720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1.5f)))));
 
-		enemigoYellow7.addAction(Actions.sequence(Actions.delay(6.25f), Actions.moveBy(-720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1)))));
+		enemigoYellow7.addAction(Actions.sequence(Actions.delay(6.25f), Actions.moveBy(-720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1.5f)))));
 
-		enemigoYellow8.addAction(Actions.sequence(Actions.delay(6.5f), Actions.moveBy(-720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1)))));
+		enemigoYellow8.addAction(Actions.sequence(Actions.delay(6.5f), Actions.moveBy(-720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1.5f)))));
 
-		enemigoYellow9.addAction(Actions.sequence(Actions.delay(6.75f), Actions.moveBy(-720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1)))));
+		enemigoYellow9.addAction(Actions.sequence(Actions.delay(6.75f), Actions.moveBy(-720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1.5f)))));
 
-		enemigoYellow10.addAction(Actions.sequence(Actions.delay(7), Actions.moveBy(-720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1)))));
+		enemigoYellow10.addAction(Actions.sequence(Actions.delay(7), Actions.moveBy(-720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1.5f)))));
 
-		enemigoYellow11.addAction(Actions.sequence(Actions.delay(12), Actions.moveBy(720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1)))));
+		enemigoYellow11.addAction(Actions.sequence(Actions.delay(12), Actions.moveBy(720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.5f)))));
 
-		enemigoYellow12.addAction(Actions.sequence(Actions.delay(12.25f), Actions.moveBy(720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1)))));
+		enemigoYellow12.addAction(Actions.sequence(Actions.delay(12.25f), Actions.moveBy(720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.5f)))));
 	
-		enemigoYellow13.addAction(Actions.sequence(Actions.delay(12.50f), Actions.moveBy(720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1)))));
+		enemigoYellow13.addAction(Actions.sequence(Actions.delay(12.50f), Actions.moveBy(720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.5f)))));
 	
-		enemigoYellow14.addAction(Actions.sequence(Actions.delay(12.75f), Actions.moveBy(720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1)))));
+		enemigoYellow14.addAction(Actions.sequence(Actions.delay(12.75f), Actions.moveBy(720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.5f)))));
 
-		enemigoYellow15.addAction(Actions.sequence(Actions.delay(13), Actions.moveBy(720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1)))));
+		enemigoYellow15.addAction(Actions.sequence(Actions.delay(13), Actions.moveBy(720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,1.5f)))));
 			
 
-		enemigoYellow16.addAction(Actions.sequence(Actions.delay(18), Actions.moveBy(-720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1)))));
+		enemigoYellow16.addAction(Actions.sequence(Actions.delay(18), Actions.moveBy(-720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1.5f)))));
 
-		enemigoYellow17.addAction(Actions.sequence(Actions.delay(18.25f), Actions.moveBy(-720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1)))));
+		enemigoYellow17.addAction(Actions.sequence(Actions.delay(18.25f), Actions.moveBy(-720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1.5f)))));
 
-		enemigoYellow18.addAction(Actions.sequence(Actions.delay(18.5f), Actions.moveBy(-720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1)))));
+		enemigoYellow18.addAction(Actions.sequence(Actions.delay(18.5f), Actions.moveBy(-720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1.5f)))));
 
-		enemigoYellow19.addAction(Actions.sequence(Actions.delay(18.75f), Actions.moveBy(-720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1)))));
+		enemigoYellow19.addAction(Actions.sequence(Actions.delay(18.75f), Actions.moveBy(-720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1.5f)))));
 
-		enemigoYellow20.addAction(Actions.sequence(Actions.delay(19), Actions.moveBy(-720,0,1),
-				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1),
-				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1)))));
+		enemigoYellow20.addAction(Actions.sequence(Actions.delay(19), Actions.moveBy(-720,0,1.5f),
+				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627, 0, 1.5f),
+				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627,0,1.5f)))));
 
 		timerYellow = 10000;
 	}
@@ -3248,7 +3248,7 @@ public class GameplayScreenEasy extends AbstractScreen{
 		enemigoStage62.getBb().setX(enemigoStage62.getX());
 		enemigoStage62.getBb().setY(enemigoStage62.getY());
 	
-		enemigoStage63.setPosition(enemigoStage62.getX()+enemigoStage62.getWidth()+nave.getWidth()+20, stage.getHeight()+enemigoStage63.getHeight());
+		enemigoStage63.setPosition(enemigoStage62.getX()+enemigoStage62.getWidth()+nave.getWidth()+40, stage.getHeight()+enemigoStage63.getHeight());
 		enemigoStage63.getBb().setX(enemigoStage63.getX());
 		enemigoStage63.getBb().setY(enemigoStage63.getY());
 
@@ -3279,17 +3279,17 @@ public class GameplayScreenEasy extends AbstractScreen{
 		enemigosStage6.add(enemigoStage66);
 			
 			enemigoStage61.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage62.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage63.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage64.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage65.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage66.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 								
 			timerEnemigoStage6 = 10000;
 			
@@ -3343,17 +3343,17 @@ public class GameplayScreenEasy extends AbstractScreen{
 		enemigosStage6.add(enemigoStage66);
 			
 			enemigoStage61.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage62.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage63.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage64.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage65.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage66.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 								
 			timerEnemigoStage62 = 10000;
 			
@@ -3373,7 +3373,7 @@ public class GameplayScreenEasy extends AbstractScreen{
 		enemigoStage61.getBb().setX(enemigoStage61.getX());
 			enemigoStage61.getBb().setY(enemigoStage61.getY());
 			
-		enemigoStage62.setPosition(enemigoStage61.getWidth()+10+nave.getWidth()+20, stage.getHeight()+enemigoStage62.getHeight());
+		enemigoStage62.setPosition(enemigoStage61.getWidth()+10+nave.getWidth()+40, stage.getHeight()+enemigoStage62.getHeight());
 		enemigoStage62.getBb().setX(enemigoStage62.getX());
 		enemigoStage62.getBb().setY(enemigoStage62.getY());
 	
@@ -3408,17 +3408,17 @@ public class GameplayScreenEasy extends AbstractScreen{
 		enemigosStage6.add(enemigoStage66);
 			
 			enemigoStage61.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage62.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage63.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage64.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage65.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage66.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 								
 			timerEnemigoStage63 = 10000;
 			
@@ -3449,7 +3449,7 @@ public class GameplayScreenEasy extends AbstractScreen{
 		enemigoStage64.getBb().setX(enemigoStage64.getX());
 		enemigoStage64.getBb().setY(enemigoStage64.getY());
 
-		enemigoStage65.setPosition(enemigoStage64.getX()+enemigoStage64.getWidth()+20+nave.getWidth()+20, stage.getHeight()+enemigoStage65.getHeight());
+		enemigoStage65.setPosition(enemigoStage64.getX()+enemigoStage64.getWidth()+20+nave.getWidth()+40, stage.getHeight()+enemigoStage65.getHeight());
 		enemigoStage65.getBb().setX(enemigoStage65.getX());
 		enemigoStage65.getBb().setY(enemigoStage65.getY());
 
@@ -3472,17 +3472,17 @@ public class GameplayScreenEasy extends AbstractScreen{
 		enemigosStage6.add(enemigoStage66);
 			
 			enemigoStage61.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage62.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage63.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage64.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage65.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage66.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 								
 			timerEnemigoStage64 = 10000;
 			
@@ -3505,7 +3505,7 @@ public class GameplayScreenEasy extends AbstractScreen{
 		enemigoStage62.getBb().setX(enemigoStage62.getX());
 		enemigoStage62.getBb().setY(enemigoStage62.getY());
 	
-		enemigoStage63.setPosition(enemigoStage62.getX()+enemigoStage62.getWidth()+20+nave.getWidth()+20, stage.getHeight()+enemigoStage63.getHeight());
+		enemigoStage63.setPosition(enemigoStage62.getX()+enemigoStage62.getWidth()+20+nave.getWidth()+40, stage.getHeight()+enemigoStage63.getHeight());
 		enemigoStage63.getBb().setX(enemigoStage63.getX());
 		enemigoStage63.getBb().setY(enemigoStage63.getY());
 
@@ -3536,17 +3536,17 @@ public class GameplayScreenEasy extends AbstractScreen{
 		enemigosStage6.add(enemigoStage66);
 			
 			enemigoStage61.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage62.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage63.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage64.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage65.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 			enemigoStage66.addAction(Actions.sequence(Actions.moveBy(0, -250, 1), Actions.delay(1), 
-					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 0.5f))))));
+					Actions.forever(Actions.sequence((Actions.moveBy(0, -600, 1))))));
 								
 			timerEnemigoStage65 = 10000;
 			
