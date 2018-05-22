@@ -543,7 +543,7 @@ public class GameplayScreenHard extends AbstractScreen{
 			timerGreen = 8;
 			timerStage3 = 5;
 		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)){
-			greenDead = 79;
+			greenDead = 59;
 			timerGreen = 10000;
 			timerFin = 3;
 			timerFin2 = 0;
@@ -568,7 +568,7 @@ public class GameplayScreenHard extends AbstractScreen{
 			timerRed = 8;
 			timerEnemigoRed = 7;
 			
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)|Gdx.input.isKeyPressed(Input.Keys.VOLUME_DOWN)){
+		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)){
 			for(int i = 0; i<enemigos.size(); i++){
 				enemigos.get(i).setContador(4);
 				enemigos.get(i).remove();
@@ -641,7 +641,7 @@ public class GameplayScreenHard extends AbstractScreen{
 			timerYellow = 10000; 
 			timerFase4 = 10000;
 			
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_7)|Gdx.input.isKeyPressed(Input.Keys.VOLUME_UP)){
+		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_7)){
 			for(int i = 0; i<enemigos.size(); i++){
 				enemigos.get(i).setContador(4);
 				enemigos.get(i).remove();
@@ -1868,7 +1868,7 @@ public class GameplayScreenHard extends AbstractScreen{
 							stage.addActor(boom);
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 							greenDead++;
-							if(greenDead == 79 ){
+							if(greenDead == 59 ){
 								timerGreen = 10000;
 								for(int g = 0; g<enemigosGreen.size(); g++){
 									BoomActor boomGreen = new BoomActor();
@@ -2114,7 +2114,7 @@ public class GameplayScreenHard extends AbstractScreen{
 								stage.addActor(boom);
 								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 								redDead++;
-								if(redDead == 79 ){
+								if(redDead == 59 ){
 									for(int g = 0; g<enemigosRed.size(); g++){
 										BoomActor boomRed = new BoomActor();
 										boomRed.setPosition(enemigosRed.get(g).getX()+
@@ -3132,7 +3132,7 @@ public class GameplayScreenHard extends AbstractScreen{
 				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 0.5f),
 				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,0.5f)))));
 
-		enemigoYellow5.addAction(Actions.sequence(Actions.delay(0.5f), Actions.moveBy(720,0,0.5f),
+		enemigoYellow5.addAction(Actions.sequence(Actions.delay(1), Actions.moveBy(720,0,0.5f),
 				Actions.forever(Actions.sequence(Actions.moveBy(0, -100, 0.2f), Actions.moveBy(-627, 0, 0.5f),
 				Actions.moveBy(0, -100, 0.2f), Actions.moveBy(627,0,0.5f)))));
 

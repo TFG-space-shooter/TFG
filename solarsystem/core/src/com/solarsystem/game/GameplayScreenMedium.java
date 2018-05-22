@@ -3230,7 +3230,7 @@ public class GameplayScreenMedium extends AbstractScreen{
 	    int index2 = random2.nextInt(velocidades.size());
 	    Integer i = velocidades.get(index2);
 	    
-	    e.addAction(Actions.sequence(Actions.moveTo(nave.getRight()/2, nave.getTop()/2, 3),
+	    e.addAction(Actions.sequence(Actions.moveTo(nave.getRight()/2, nave.getTop()/2, 3.5f),
 	    		Actions.forever(Actions.moveBy(0, i))));
 	    
 	    timerRed = 1;
@@ -3722,106 +3722,106 @@ public class GameplayScreenMedium extends AbstractScreen{
 		//Negros
 		
 		enemigoStage71.addAction(Actions.sequence(Actions.moveTo( 
-				stage.getWidth()-enemigoStage71.getWidth()-50,100,1), Actions.moveTo( 
-						stage.getWidth()-enemigoStage71.getWidth()-50,stage.getHeight()-enemigoStage71.getHeight()-100,1), Actions.moveTo( 
-								50,stage.getHeight()-enemigoStage71.getHeight()-100,1),Actions.delay(9),Actions.forever(
-										Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				stage.getWidth()-enemigoStage71.getWidth()-50,100,1.5f), Actions.moveTo( 
+						stage.getWidth()-enemigoStage71.getWidth()-50,stage.getHeight()-enemigoStage71.getHeight()-100,1.5f), Actions.moveTo( 
+								50,stage.getHeight()-enemigoStage71.getHeight()-100,1),Actions.delay(8.5f),Actions.forever(
+										Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 		
 		enemigoStage72.addAction(Actions.sequence(Actions.delay(0.2f),Actions.moveTo( 
-				stage.getWidth()-enemigoStage72.getWidth()-50,100,1), Actions.moveTo( 
-						stage.getWidth()-enemigoStage72.getWidth()-50,stage.getHeight()-enemigoStage72.getHeight()-100,1), Actions.moveTo( 
-								50 + enemigoStage71.getWidth() + 20,stage.getHeight()-enemigoStage72.getHeight()-100,0.8f),Actions.delay(9),Actions.forever(
-										Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				stage.getWidth()-enemigoStage72.getWidth()-50,100,1.5f), Actions.moveTo( 
+						stage.getWidth()-enemigoStage72.getWidth()-50,stage.getHeight()-enemigoStage72.getHeight()-100,1.5f), Actions.moveTo( 
+								50 + enemigoStage71.getWidth() + 20,stage.getHeight()-enemigoStage72.getHeight()-100,0.8f),Actions.delay(8.5f),Actions.forever(
+										Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 		
 		enemigoStage73.addAction(Actions.sequence(Actions.delay(0.4f),Actions.moveTo( 
-				stage.getWidth()-enemigoStage73.getWidth()-50,100,1), Actions.moveTo( 
-						stage.getWidth()-enemigoStage73.getWidth()-50,stage.getHeight()-enemigoStage73.getHeight()-100,1), Actions.moveTo( 
-								50 + enemigoStage71.getWidth() + enemigoStage72.getWidth() + 40,stage.getHeight()-enemigoStage73.getHeight()-100,0.6f),Actions.delay(9),Actions.forever(
-										Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))  ) );
+				stage.getWidth()-enemigoStage73.getWidth()-50,100,1.5f), Actions.moveTo( 
+						stage.getWidth()-enemigoStage73.getWidth()-50,stage.getHeight()-enemigoStage73.getHeight()-100,1.5f), Actions.moveTo( 
+								50 + enemigoStage71.getWidth() + enemigoStage72.getWidth() + 40,stage.getHeight()-enemigoStage73.getHeight()-100,0.6f),Actions.delay(8.5f),Actions.forever(
+										Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))  ) );
 		
 		enemigoStage74.addAction(Actions.sequence(Actions.delay(0.6f),Actions.moveTo( 
-				stage.getWidth()-enemigoStage74.getWidth()-50,100,1), Actions.moveTo( 
-						stage.getWidth()-enemigoStage74.getWidth()-50,stage.getHeight()-enemigoStage74.getHeight()-100,1), Actions.moveTo( 
-								50 + enemigoStage71.getWidth() + enemigoStage72.getWidth() + enemigoStage73.getWidth() + 60,stage.getHeight()-enemigoStage73.getHeight()-100,0.4f),Actions.delay(9),Actions.forever(
-										Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))  ) );
+				stage.getWidth()-enemigoStage74.getWidth()-50,100,1.5f), Actions.moveTo( 
+						stage.getWidth()-enemigoStage74.getWidth()-50,stage.getHeight()-enemigoStage74.getHeight()-100,1.5f), Actions.moveTo( 
+								50 + enemigoStage71.getWidth() + enemigoStage72.getWidth() + enemigoStage73.getWidth() + 60,stage.getHeight()-enemigoStage73.getHeight()-100,0.4f),Actions.delay(8.5f),Actions.forever(
+										Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))  ) );
 
 		enemigoStage75.addAction(Actions.sequence(Actions.delay(0.8f),Actions.moveTo( 
-				stage.getWidth()-enemigoStage75.getWidth()-50,100,1), Actions.moveTo( 
-						stage.getWidth()-enemigoStage75.getWidth()-50,stage.getHeight()-enemigoStage75.getHeight()-100,1), Actions.moveTo( 
-								50 + enemigoStage71.getWidth() + enemigoStage72.getWidth() + enemigoStage73.getWidth()  + enemigoStage74.getWidth() + 80,stage.getHeight()-enemigoStage73.getHeight()-100,0.2f),Actions.delay(9),Actions.forever(
-										Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))  ) );
+				stage.getWidth()-enemigoStage75.getWidth()-50,100,1.5f), Actions.moveTo( 
+						stage.getWidth()-enemigoStage75.getWidth()-50,stage.getHeight()-enemigoStage75.getHeight()-100,1.5f), Actions.moveTo( 
+								50 + enemigoStage71.getWidth() + enemigoStage72.getWidth() + enemigoStage73.getWidth()  + enemigoStage74.getWidth() + 80,stage.getHeight()-enemigoStage73.getHeight()-100,0.2f),Actions.delay(8.5f),Actions.forever(
+										Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))  ) );
 		
 		
 		//Azules
 		
 		enemigoStage76.addAction(Actions.sequence(Actions.delay(3),Actions.moveTo(
-				50,100,1), Actions.moveTo(50,stage.getHeight()-enemigoStage76.getHeight()-200,1),
-				Actions.moveTo(stage.getWidth()-enemigoStage76.getWidth()-50, stage.getHeight()-enemigoStage76.getHeight()-200,1),Actions.delay(6),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				50,100,1.5f), Actions.moveTo(50,stage.getHeight()-enemigoStage76.getHeight()-200,1.5f),
+				Actions.moveTo(stage.getWidth()-enemigoStage76.getWidth()-50, stage.getHeight()-enemigoStage76.getHeight()-200,1),Actions.delay(5.5f),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 
 		enemigoStage77.addAction(Actions.sequence(Actions.delay(3.2f),Actions.moveTo(
-				50,100,1), Actions.moveTo(50,stage.getHeight()-enemigoStage77.getHeight()-200,1),
-				Actions.moveTo(stage.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-70, stage.getHeight()-enemigoStage77.getHeight()-200,0.8f),Actions.delay(6),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				50,100,1.5f), Actions.moveTo(50,stage.getHeight()-enemigoStage77.getHeight()-200,1.5f),
+				Actions.moveTo(stage.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-70, stage.getHeight()-enemigoStage77.getHeight()-200,0.8f),Actions.delay(5.5f),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 
 		enemigoStage78.addAction(Actions.sequence(Actions.delay(3.4f),Actions.moveTo(
-				50,100,1), Actions.moveTo(50,stage.getHeight()-enemigoStage78.getHeight()-200,1),
-				Actions.moveTo(stage.getWidth()-enemigoStage78.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-90, stage.getHeight()-enemigoStage78.getHeight()-200,0.6f),Actions.delay(6),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				50,100,1.5f), Actions.moveTo(50,stage.getHeight()-enemigoStage78.getHeight()-200,1.5f),
+				Actions.moveTo(stage.getWidth()-enemigoStage78.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-90, stage.getHeight()-enemigoStage78.getHeight()-200,0.6f),Actions.delay(5.5f),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 
 		enemigoStage79.addAction(Actions.sequence(Actions.delay(3.6f),Actions.moveTo(
-				50,100,1), Actions.moveTo(50,stage.getHeight()-enemigoStage79.getHeight()-200,1),
-				Actions.moveTo(stage.getWidth()-enemigoStage79.getWidth()-enemigoStage78.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-110, stage.getHeight()-enemigoStage79.getHeight()-200,0.4f),Actions.delay(6),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				50,100,1.5f), Actions.moveTo(50,stage.getHeight()-enemigoStage79.getHeight()-200,1.5f),
+				Actions.moveTo(stage.getWidth()-enemigoStage79.getWidth()-enemigoStage78.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-110, stage.getHeight()-enemigoStage79.getHeight()-200,0.4f),Actions.delay(5.5f),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 
 		enemigoStage80.addAction(Actions.sequence(Actions.delay(3.8f),Actions.moveTo(
-				50,100,1), Actions.moveTo(50,stage.getHeight()-enemigoStage80.getHeight()-200,1),
-				Actions.moveTo(stage.getWidth()-enemigoStage80.getWidth()-enemigoStage79.getWidth()-enemigoStage78.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-130, stage.getHeight()-enemigoStage80.getHeight()-200,0.2f),Actions.delay(6),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				50,100,1.5f), Actions.moveTo(50,stage.getHeight()-enemigoStage80.getHeight()-200,1.5f),
+				Actions.moveTo(stage.getWidth()-enemigoStage80.getWidth()-enemigoStage79.getWidth()-enemigoStage78.getWidth()-enemigoStage77.getWidth()-enemigoStage76.getWidth()-130, stage.getHeight()-enemigoStage80.getHeight()-200,0.2f),Actions.delay(5.5f),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 	
 		//Verdes
 		
 		enemigoStage81.addAction(Actions.sequence(Actions.delay(6),Actions.moveTo(
-				stage.getWidth()-enemigoStage81.getWidth()-50,stage.getHeight()-385,1), Actions.moveTo(50,stage.getHeight()-385,1),Actions.delay(4),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				stage.getWidth()-enemigoStage81.getWidth()-50,stage.getHeight()-385,1.5f), Actions.moveTo(50,stage.getHeight()-385,1),Actions.delay(4),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 
 		enemigoStage82.addAction(Actions.sequence(Actions.delay(6.2f),Actions.moveTo(
-				stage.getWidth()-enemigoStage82.getWidth()-50,stage.getHeight()-385,1), Actions.moveTo(50 + enemigoStage81.getWidth() + 20,stage.getHeight()-385,0.8f),Actions.delay(4),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				stage.getWidth()-enemigoStage82.getWidth()-50,stage.getHeight()-385,1.5f), Actions.moveTo(50 + enemigoStage81.getWidth() + 20,stage.getHeight()-385,0.8f),Actions.delay(4),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 
 		enemigoStage83.addAction(Actions.sequence(Actions.delay(6.4f),Actions.moveTo(
-				stage.getWidth()-enemigoStage83.getWidth()-50,stage.getHeight()-385,1), Actions.moveTo(50 + enemigoStage81.getWidth() + enemigoStage82.getWidth() + 40,stage.getHeight()-385,0.6f),Actions.delay(4),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				stage.getWidth()-enemigoStage83.getWidth()-50,stage.getHeight()-385,1.5f), Actions.moveTo(50 + enemigoStage81.getWidth() + enemigoStage82.getWidth() + 40,stage.getHeight()-385,0.6f),Actions.delay(4),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 
 		enemigoStage84.addAction(Actions.sequence(Actions.delay(6.6f),Actions.moveTo(
-				stage.getWidth()-enemigoStage84.getWidth()-50,stage.getHeight()-385,1), Actions.moveTo(50 + enemigoStage81.getWidth() + enemigoStage82.getWidth() + enemigoStage83.getWidth() + 60,stage.getHeight()-385,0.4f),Actions.delay(4),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				stage.getWidth()-enemigoStage84.getWidth()-50,stage.getHeight()-385,1.5f), Actions.moveTo(50 + enemigoStage81.getWidth() + enemigoStage82.getWidth() + enemigoStage83.getWidth() + 60,stage.getHeight()-385,0.4f),Actions.delay(4),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 
 		enemigoStage85.addAction(Actions.sequence(Actions.delay(6.8f),Actions.moveTo(
-				stage.getWidth()-enemigoStage85.getWidth()-50,stage.getHeight()-385,1), Actions.moveTo(50 + enemigoStage81.getWidth() + enemigoStage82.getWidth() + enemigoStage83.getWidth() + enemigoStage84.getWidth() + 80,stage.getHeight()-385,0.2f),Actions.delay(4),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				stage.getWidth()-enemigoStage85.getWidth()-50,stage.getHeight()-385,1.5f), Actions.moveTo(50 + enemigoStage81.getWidth() + enemigoStage82.getWidth() + enemigoStage83.getWidth() + enemigoStage84.getWidth() + 80,stage.getHeight()-385,0.2f),Actions.delay(4),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 
 		//Amarillos
 		
 		enemigoStage86.addAction(Actions.sequence(Actions.delay(8.6f),Actions.moveTo(
-				50,stage.getHeight()-485,1), Actions.moveTo(stage.getWidth()-enemigoStage86.getWidth()-50, stage.getHeight()-485,1),Actions.delay(1.5f),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				50,stage.getHeight()-485,1.5f), Actions.moveTo(stage.getWidth()-enemigoStage86.getWidth()-50, stage.getHeight()-485,1),Actions.delay(1.5f),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 	
 		enemigoStage87.addAction(Actions.sequence(Actions.delay(8.8f),Actions.moveTo(
-				50,stage.getHeight()-485,1), Actions.moveTo(stage.getWidth()-enemigoStage86.getWidth()-enemigoStage87.getWidth()-70, stage.getHeight()-485,0.8f),Actions.delay(1.5f),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				50,stage.getHeight()-485,1.5f), Actions.moveTo(stage.getWidth()-enemigoStage86.getWidth()-enemigoStage87.getWidth()-70, stage.getHeight()-485,0.8f),Actions.delay(1.5f),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 		
 		enemigoStage88.addAction(Actions.sequence(Actions.delay(9f),Actions.moveTo(
-				50,stage.getHeight()-485,1), Actions.moveTo(stage.getWidth()-enemigoStage86.getWidth()-enemigoStage87.getWidth()-enemigoStage88.getWidth()-90, stage.getHeight()-485,0.6f),Actions.delay(1.5f),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				50,stage.getHeight()-485,1.5f), Actions.moveTo(stage.getWidth()-enemigoStage86.getWidth()-enemigoStage87.getWidth()-enemigoStage88.getWidth()-90, stage.getHeight()-485,0.6f),Actions.delay(1.5f),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 	
 		enemigoStage89.addAction(Actions.sequence(Actions.delay(9.2f),Actions.moveTo(
-				50,stage.getHeight()-485,1), Actions.moveTo(stage.getWidth()-enemigoStage86.getWidth()-enemigoStage87.getWidth()-enemigoStage88.getWidth()-enemigoStage89.getWidth()-110, stage.getHeight()-485,0.4f),Actions.delay(1.5f),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				50,stage.getHeight()-485,1.5f), Actions.moveTo(stage.getWidth()-enemigoStage86.getWidth()-enemigoStage87.getWidth()-enemigoStage88.getWidth()-enemigoStage89.getWidth()-110, stage.getHeight()-485,0.4f),Actions.delay(1.5f),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 
 		enemigoStage90.addAction(Actions.sequence(Actions.delay(9.4f),Actions.moveTo(
-				50,stage.getHeight()-485,1), Actions.moveTo(stage.getWidth()-enemigoStage86.getWidth()-enemigoStage87.getWidth()-enemigoStage88.getWidth()-enemigoStage89.getWidth()-enemigoStage89.getWidth()-130, stage.getHeight()-485,0.2f),Actions.delay(1.5f),Actions.forever(
-						Actions.sequence(Actions.moveBy(-50, 0, 0.4f),Actions.delay(0.2f),Actions.moveBy(50, 0, 0.4f),Actions.delay(0.2f)))));
+				50,stage.getHeight()-485,1.5f), Actions.moveTo(stage.getWidth()-enemigoStage86.getWidth()-enemigoStage87.getWidth()-enemigoStage88.getWidth()-enemigoStage89.getWidth()-enemigoStage89.getWidth()-130, stage.getHeight()-485,0.2f),Actions.delay(1.5f),Actions.forever(
+						Actions.sequence(Actions.moveBy(-50, 0, 0.6f),Actions.delay(0.4f),Actions.moveBy(50, 0, 0.6f),Actions.delay(0.4f)))));
 	
 	
 		

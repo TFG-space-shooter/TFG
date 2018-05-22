@@ -45,11 +45,26 @@ public class GameOverScreen extends AbstractScreen{
 		}
 	}
 	
+
+	private final class InputTouchToSelectListener extends InputListener {
+		@Override
+		public boolean touchDown(InputEvent event, float x, float y,
+				int pointer, int button) {
+			game.setScreen(game.gameselectScreen);
+
+			if(Preferencias.getSoundEffects()){
+				game.lanzamiento.play();
+			}
+			return true;
+		}
+	}
+	
 	private Stage stage;
 	private FondoActor fondo;
 	private Image gameover;
 	private Image retry;
 	private PuntuacionActor mayorPuntuacion;
+	private Image select;
 	
     private Music musicaGameOver;	
 
@@ -64,6 +79,7 @@ public class GameOverScreen extends AbstractScreen{
 		retry = new Image(new Texture("retry.png"));
 		fondo = new FondoActor();
 		stage.addActor(fondo);
+		select = new Image(new Texture("setting.png"));
 		mayorPuntuacion = new PuntuacionActor(new BitmapFont());
 		
 
@@ -72,12 +88,18 @@ public class GameOverScreen extends AbstractScreen{
 				stage.getHeight()/2 + 100);
 		retry.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
 				stage.getHeight()/2 - 150);
+
+		select.setPosition(stage.getWidth()/2 - select.getWidth()/2,
+				stage.getHeight()/2-100);
+
 	
 		retry.addListener(new InputTouchToStartListener());
-		
+		select.addListener(new InputTouchToSelectListener());
+	
 		stage.addActor(gameover);
 		stage.addActor(retry);
 		stage.addActor(mayorPuntuacion);
+		stage.addActor(select);
 	}
     private void initLabels() {
     	if(lbPuntuacion != null){
