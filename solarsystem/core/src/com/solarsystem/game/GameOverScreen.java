@@ -50,10 +50,17 @@ public class GameOverScreen extends AbstractScreen{
 		@Override
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
-			game.setScreen(game.gameselectScreen);
+			game.setScreen(game.startScreen);
 
 			if(Preferencias.getSoundEffects()){
 				game.lanzamiento.play();
+			}
+			if(Preferencias.getMusic()){
+				game.musicaPrincipal.play();
+				game.musicaPrincipal.setVolume(1);
+			}else{
+				game.musicaPrincipal.play();
+				game.musicaPrincipal.setVolume(0);	
 			}
 			return true;
 		}
@@ -79,7 +86,7 @@ public class GameOverScreen extends AbstractScreen{
 		retry = new Image(new Texture("retry.png"));
 		fondo = new FondoActor();
 		stage.addActor(fondo);
-		select = new Image(new Texture("setting.png"));
+		select = new Image(new Texture("main.png"));
 		mayorPuntuacion = new PuntuacionActor(new BitmapFont());
 		
 
@@ -87,7 +94,7 @@ public class GameOverScreen extends AbstractScreen{
 		gameover.setPosition(stage.getWidth()/2 - gameover.getWidth()/2,
 				stage.getHeight()/2 + 100);
 		retry.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
-				stage.getHeight()/2 - 150);
+				stage.getHeight()/2 - 200);
 
 		select.setPosition(stage.getWidth()/2 - select.getWidth()/2,
 				stage.getHeight()/2-100);
