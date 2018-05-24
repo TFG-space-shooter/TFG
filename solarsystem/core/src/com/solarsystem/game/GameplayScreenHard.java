@@ -2377,7 +2377,7 @@ public class GameplayScreenHard extends AbstractScreen{
 						}
 						
 						jefe.setContador(jefe.getContador()+1);
-						barraJefe.setHealth(barraJefe.getHealth()-0.001f);
+						barraJefe.setHealth(barraJefe.getHealth()-0.0005f);
 						if(jefe.getContador()>=2000){
 
 							contadorExplosionFinal = 1;

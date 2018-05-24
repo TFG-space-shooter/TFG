@@ -2367,7 +2367,7 @@ public class GameplayScreenEasy extends AbstractScreen{
 						}
 						
 						jefe.setContador(jefe.getContador()+1);
-						barraJefe.setHealth(barraJefe.getHealth()-0.001f);
+						barraJefe.setHealth(barraJefe.getHealth()-0.002f);
 						if(jefe.getContador()>=500){
 
 							contadorExplosionFinal = 1;
