@@ -1190,7 +1190,7 @@ public class GameplayScreenHard extends AbstractScreen{
 			if(enemigosStage6.get(i).getY() < -enemigosStage6.get(i).getHeight()){
 				enemigosStage6.get(i).remove();
 				enemigosStage6.remove(i);
-				puntuacion.setPuntuacion(puntuacion.getPuntuacion()+200);
+				puntuacion.setPuntuacion(puntuacion.getPuntuacion()+400);
 			}
 		}
 		
@@ -1329,7 +1329,7 @@ public class GameplayScreenHard extends AbstractScreen{
 							boom.setPosition(enemigo.getX()+enemigo.getWidth()/2-boom.getWidth()/2,
 									enemigo.getY()+enemigo.getHeight()/2-boom.getHeight()/2);
 							stage.addActor(boom);
-							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
+							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+400);
 							if(enemigos.isEmpty()){
 								stage.getActors().removeValue(ufo, false);
 								clear = new Image(new Texture("clear.png"));
@@ -1512,7 +1512,7 @@ public class GameplayScreenHard extends AbstractScreen{
 						boom.setPosition(meteorito.getX()+meteorito.getWidth()/2-boom.getWidth()/2,
 								meteorito.getY()+meteorito.getHeight()/2-boom.getHeight()/2);
 						stage.addActor(boom);
-						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+500);
+						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+2000);
 					}else if(meteorito.getWidth()==43&&meteorito.getContador()==40){
 						meteoritos.get(k).remove();
 						meteoritos.remove(k);
@@ -1520,7 +1520,7 @@ public class GameplayScreenHard extends AbstractScreen{
 						boom.setPosition(meteorito.getX()+meteorito.getWidth()/2-boom.getWidth()/2,
 								meteorito.getY()+meteorito.getHeight()/2-boom.getHeight()/2);
 						stage.addActor(boom);
-						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+250);
+						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+1000);
 					}else if(meteorito.getWidth()==29&&meteorito.getContador()==20){
 						meteoritos.get(k).remove();
 						meteoritos.remove(k);
@@ -1528,7 +1528,7 @@ public class GameplayScreenHard extends AbstractScreen{
 						boom.setPosition(meteorito.getX()+meteorito.getWidth()/2-boom.getWidth()/2,
 								meteorito.getY()+meteorito.getHeight()/2-boom.getHeight()/2);
 						stage.addActor(boom);
-						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
+						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+400);
 					}
 				}
 			}
@@ -1544,7 +1544,7 @@ public class GameplayScreenHard extends AbstractScreen{
 						//					ufos.remove(k);
 						lasers.get(j).remove();
 						lasers.remove(j);
-						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+500);
+						puntuacion.setPuntuacion(puntuacion.getPuntuacion()+2000);
 						game.ufoSound.stop();
 						if(Preferencias.getSoundEffects()){
 							game.explosionSound.play();
@@ -1715,7 +1715,7 @@ public class GameplayScreenHard extends AbstractScreen{
 							game.explosionSound.play();
 						}
 						enemigoBlue.setContador(enemigoBlue.getContador()+1);
-						if(enemigoBlue.getContador()==16){
+						if(enemigoBlue.getContador()==12){
 							Random random = new Random();
 						    int index = random.nextInt(booleans.size());
 						    Boolean m = booleans.get(index);
@@ -1749,7 +1749,7 @@ public class GameplayScreenHard extends AbstractScreen{
 									enemigoBlue.getWidth()/2-boom.getWidth()/2,
 									enemigoBlue.getY()+enemigoBlue.getHeight()/2-boom.getHeight()/2);
 							stage.addActor(boom);
-							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
+							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+400);
 							if(enemigosBlue.isEmpty()){
 								stage.getActors().removeValue(ufo, false);
 								clear = new Image(new Texture("clear.png"));
@@ -1832,7 +1832,7 @@ public class GameplayScreenHard extends AbstractScreen{
 							game.explosionSound.play();
 						}
 						enemigoGreen.setContador(enemigoGreen.getContador()+1);
-						if(enemigoGreen.getContador()==20){
+						if(enemigoGreen.getContador()==13){
 							Random random = new Random();
 						    int index = random.nextInt(booleans.size());
 						    Boolean m = booleans.get(index);
@@ -1866,9 +1866,9 @@ public class GameplayScreenHard extends AbstractScreen{
 									enemigoGreen.getWidth()/2-boom.getWidth()/2,
 									enemigoGreen.getY()+enemigoGreen.getHeight()/2-boom.getHeight()/2);
 							stage.addActor(boom);
-							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
+							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+400);
 							greenDead++;
-							if(greenDead == 59 ){
+							if(greenDead == 60 ){
 								timerGreen = 10000;
 								for(int g = 0; g<enemigosGreen.size(); g++){
 									BoomActor boomGreen = new BoomActor();
@@ -1970,7 +1970,7 @@ public class GameplayScreenHard extends AbstractScreen{
 								game.explosionSound.play();
 							}
 							enemigoYellow.setContador(enemigoYellow.getContador()+1);
-							if(enemigoYellow.getContador()==30){
+							if(enemigoYellow.getContador()==20){
 								Random random = new Random();
 							    int index = random.nextInt(booleans.size());
 							    Boolean m = booleans.get(index);
@@ -2004,7 +2004,7 @@ public class GameplayScreenHard extends AbstractScreen{
 										enemigoYellow.getWidth()/2-boom.getWidth()/2,
 										enemigoYellow.getY()+enemigoYellow.getHeight()/2-boom.getHeight()/2);
 								stage.addActor(boom);
-								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
+								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+400);
 								
 							}
 							
@@ -2078,7 +2078,7 @@ public class GameplayScreenHard extends AbstractScreen{
 								game.explosionSound.play();
 							}
 							enemigoRed.setContador(enemigoRed.getContador()+1);
-							if(enemigoRed.getContador()==20){
+							if(enemigoRed.getContador()==15){
 								Random random = new Random();
 							    int index = random.nextInt(booleans.size());
 							    Boolean m = booleans.get(index);
@@ -2112,9 +2112,9 @@ public class GameplayScreenHard extends AbstractScreen{
 										enemigoRed.getWidth()/2-boom.getWidth()/2,
 										enemigoRed.getY()+enemigoRed.getHeight()/2-boom.getHeight()/2);
 								stage.addActor(boom);
-								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
+								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+400);
 								redDead++;
-								if(redDead == 59 ){
+								if(redDead == 60 ){
 									for(int g = 0; g<enemigosRed.size(); g++){
 										BoomActor boomRed = new BoomActor();
 										boomRed.setPosition(enemigosRed.get(g).getX()+
@@ -2320,7 +2320,7 @@ public class GameplayScreenHard extends AbstractScreen{
 							}
 							
 							enemigoStage7.setContador(enemigoStage7.getContador()+1);
-							if(enemigoStage7.getContador()==40){
+							if(enemigoStage7.getContador()==25){
 								Random random = new Random();
 							    int index = random.nextInt(booleans.size());
 							    Boolean m = booleans.get(index);
@@ -2354,7 +2354,7 @@ public class GameplayScreenHard extends AbstractScreen{
 								boom.setPosition(enemigoStage7.getX()+enemigoStage7.getWidth()/2-boom.getWidth()/2,
 										enemigoStage7.getY()+enemigoStage7.getHeight()/2-boom.getHeight()/2);
 								stage.addActor(boom);
-								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
+								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+400);
 		
 							}
 							
@@ -2404,7 +2404,7 @@ public class GameplayScreenHard extends AbstractScreen{
 							jefe.addAction(Actions.forever(Actions.moveBy(0, 0)));
 							if(contador10000<1){
 
-								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+10000);
+								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+40000);
 								contador10000 =10000;
 
 								initSonsFinal();

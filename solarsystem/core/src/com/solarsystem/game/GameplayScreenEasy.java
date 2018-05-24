@@ -1180,7 +1180,7 @@ public class GameplayScreenEasy extends AbstractScreen{
 			if(enemigosStage6.get(i).getY() < -enemigosStage6.get(i).getHeight()){
 				enemigosStage6.get(i).remove();
 				enemigosStage6.remove(i);
-				puntuacion.setPuntuacion(puntuacion.getPuntuacion()+200);
+				puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 			}
 		}
 		
@@ -1822,7 +1822,7 @@ public class GameplayScreenEasy extends AbstractScreen{
 							game.explosionSound.play();
 						}
 						enemigoGreen.setContador(enemigoGreen.getContador()+1);
-						if(enemigoGreen.getContador()==5){
+						if(enemigoGreen.getContador()==7){
 							Random random = new Random();
 						    int index = random.nextInt(booleans.size());
 						    Boolean m = booleans.get(index);
@@ -1858,7 +1858,7 @@ public class GameplayScreenEasy extends AbstractScreen{
 							stage.addActor(boom);
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 							greenDead++;
-							if(greenDead == 19 ){
+							if(greenDead == 20 ){
 								timerGreen = 10000;
 								for(int g = 0; g<enemigosGreen.size(); g++){
 									BoomActor boomGreen = new BoomActor();
@@ -1960,7 +1960,7 @@ public class GameplayScreenEasy extends AbstractScreen{
 								game.explosionSound.play();
 							}
 							enemigoYellow.setContador(enemigoYellow.getContador()+1);
-							if(enemigoYellow.getContador()==7){
+							if(enemigoYellow.getContador()==10){
 								Random random = new Random();
 							    int index = random.nextInt(booleans.size());
 							    Boolean m = booleans.get(index);
@@ -2104,7 +2104,7 @@ public class GameplayScreenEasy extends AbstractScreen{
 								stage.addActor(boom);
 								puntuacion.setPuntuacion(puntuacion.getPuntuacion()+100);
 								redDead++;
-								if(redDead == 19 ){
+								if(redDead == 20 ){
 									for(int g = 0; g<enemigosRed.size(); g++){
 										BoomActor boomRed = new BoomActor();
 										boomRed.setPosition(enemigosRed.get(g).getX()+
@@ -2310,7 +2310,7 @@ public class GameplayScreenEasy extends AbstractScreen{
 							}
 							
 							enemigoStage7.setContador(enemigoStage7.getContador()+1);
-							if(enemigoStage7.getContador()==10){
+							if(enemigoStage7.getContador()==15){
 								Random random = new Random();
 							    int index = random.nextInt(booleans.size());
 							    Boolean m = booleans.get(index);
@@ -4707,7 +4707,7 @@ public class GameplayScreenEasy extends AbstractScreen{
         labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
         
-        creditos = new Label("UNIVERSIDAD DE SEVILLA\n   ETSII Reina Mercedes\n\n\n\nTrabajo de Fin de Grado\n    Departamento LSI\n\n   '' SOLAR SYSTEM ''\n\n\n\n\n Alumnos:\n Aurora Gómez Medina\n Jorge Ramos Rivas", labelStyle);
+        creditos = new Label("UNIVERSIDAD DE SEVILLA\n   ETSII Reina Mercedes\n\n\n\nTrabajo de Fin de Grado\n    Departamento LSI\n\n   '' SOLAR SYSTEM ''\n\n\n\n\n Alumnos:\n Aurora Gómez Medina\n Jorge Ramos Rivas \n\n\n Tutor:\n Juan Manuel Cordero Valle", labelStyle);
         creditos.setPosition(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight());
 
 //        creditos.setPosition(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight()/2-creditos.getHeight()/2);
