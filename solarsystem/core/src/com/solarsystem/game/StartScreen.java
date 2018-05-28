@@ -77,6 +77,7 @@ public class StartScreen extends AbstractScreen{
 
     private BitmapFont fontBotoes;
     private Label lbPuntuacion;
+   
 
 
 	public StartScreen(Solarsystem game) {
@@ -84,8 +85,13 @@ public class StartScreen extends AbstractScreen{
 		initSons();
 		stage = new Stage(new ScreenViewport());
 		solarsystem = new Image(new Texture("solarsystem2.png"));
+		if(Preferencias.getEspañol()){
 		start = new Image(new Texture("retry.png"));
 		select = new Image(new Texture("setting.png"));
+		}else{
+		start = new Image(new Texture("retry.png"));
+		select = new Image(new Texture("setting.png"));
+		}
 		fondo = new FondoActor();
 		stage.addActor(fondo);
 
@@ -113,8 +119,19 @@ public class StartScreen extends AbstractScreen{
         labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
         String prueba = Format.format(Preferencias.getMayorPuntuacion());
-        
-        lbPuntuacion = new Label("High Score: " + prueba, labelStyle);
+        if(Preferencias.getEspañol()){
+    		if (stage.getActors().contains(lbPuntuacion, false)){
+    			stage.getActors().removeValue(lbPuntuacion, false); 			
+    		}
+        lbPuntuacion = new Label("Máxima Puntuación: " + prueba, labelStyle);
+
+        }else{
+    		if (stage.getActors().contains(lbPuntuacion, false)){
+    			stage.getActors().removeValue(lbPuntuacion, false); 			
+    		}
+            lbPuntuacion = new Label("High Score: " + prueba, labelStyle);
+        	
+        }
         lbPuntuacion.setPosition(stage.getWidth()/2-lbPuntuacion.getWidth()/2, 150);
         stage.addActor(lbPuntuacion);
     }

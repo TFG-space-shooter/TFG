@@ -125,8 +125,28 @@ public class GameSelectScreen extends AbstractScreen{
 			
 			return true;
 		}
-
+		
 	}
+
+	private final class InputIdiomaListener extends InputListener {
+		@Override
+		public boolean touchDown(InputEvent event, float x, float y,
+				int pointer, int button) {
+
+			if(Preferencias.getEspañol()){
+				Preferencias.setEspañol(false);
+
+				game.setScreen(game.gameselectScreen);
+			}else{
+				Preferencias.setEspañol(true);		
+
+				game.setScreen(game.gameselectScreen);
+			}
+							
+			return true;
+		}
+
+	}	
 	
 	private Stage stage;
 	private FondoActor fondo;
@@ -150,6 +170,9 @@ public class GameSelectScreen extends AbstractScreen{
 	private Boolean hardOffPintado;
 	private Boolean hardOnPintado;
 	
+	private Image español;
+	private Image ingles;
+	
 	
 	private boolean easy;
 	private boolean medium;
@@ -165,6 +188,7 @@ public class GameSelectScreen extends AbstractScreen{
 	private Label musicText;
 	private Label effectsText;
 	private Label levelText;
+	private Label languageText;
 
     private BitmapFont fontBotoes;
     private Label lbPuntuacion;
@@ -218,20 +242,72 @@ public class GameSelectScreen extends AbstractScreen{
     	}
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
-        lbPuntuacion = new Label("High Score: " + Format.format(Preferencias.getMayorPuntuacion()), labelStyle);
-        lbPuntuacion.setPosition(stage.getWidth()/2-lbPuntuacion.getWidth()/2, 200);
+      
+        if(Preferencias.getEspañol()){
+    		if (stage.getActors().contains(musicText, false)){
+    			stage.getActors().removeValue(musicText, false); 	
+    		}
+        	musicText = new Label("Música", labelStyle);
+        }else{
 
-        musicText = new Label("Music", labelStyle);
-        musicText.setPosition(stage.getWidth()/2-musicText.getWidth()/2, stage.getHeight()-250);
+    		if (stage.getActors().contains(musicText, false)){
+    			stage.getActors().removeValue(musicText, false); 	
+    		}
+            musicText = new Label("Music", labelStyle);
+        }
+        musicText.setPosition(stage.getWidth()/2-musicText.getWidth()/2, stage.getHeight()-150);
         stage.addActor(musicText);
         
-        effectsText = new Label("Sound effects", labelStyle);
-        effectsText.setPosition(stage.getWidth()/2-effectsText.getWidth()/2, stage.getHeight()-400);
+
+        if(Preferencias.getEspañol()){
+
+    		if (stage.getActors().contains(effectsText, false)){
+    			stage.getActors().removeValue(effectsText, false); 	
+    		}
+        	effectsText = new Label("Efectos de sonido", labelStyle);
+        }else{
+
+    		if (stage.getActors().contains(effectsText, false)){
+    			stage.getActors().removeValue(effectsText, false); 	
+    		}
+        	effectsText = new Label("Sound effects", labelStyle);
+        }
+        effectsText.setPosition(stage.getWidth()/2-effectsText.getWidth()/2, stage.getHeight()-300);
         stage.addActor(effectsText);
         
-        levelText = new Label("Game difficulty", labelStyle);
+
+        if(Preferencias.getEspañol()){
+
+    		if (stage.getActors().contains(levelText, false)){
+    			stage.getActors().removeValue(levelText, false); 	
+    		}
+        	levelText = new Label("Dificultad del juego", labelStyle);
+        }else{
+
+    		if (stage.getActors().contains(levelText, false)){
+    			stage.getActors().removeValue(levelText, false); 	
+    		}
+        	levelText = new Label("Game difficulty", labelStyle);        	
+        }
         levelText.setPosition(stage.getWidth()/2-levelText.getWidth()/2, stage.getHeight()-600);
         stage.addActor(levelText);
+        
+        if(Preferencias.getEspañol()){
+
+    		if (stage.getActors().contains(languageText, false)){
+    			stage.getActors().removeValue(languageText, false); 
+    		}
+        	languageText = new Label("Idioma", labelStyle);
+        }else{
+
+    		if (stage.getActors().contains(languageText, false)){
+    			stage.getActors().removeValue(languageText, false); 	
+    		}
+        	languageText = new Label("Language", labelStyle);        	
+        }
+        languageText.setPosition(stage.getWidth()/2-languageText.getWidth()/2, stage.getHeight()-450);
+        stage.addActor(languageText);
+        
     }
     private void initFonts() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/roboto.ttf"));
@@ -301,7 +377,7 @@ public class GameSelectScreen extends AbstractScreen{
 
 			offMusic = new Image(new Texture("off.png"));
 			offMusic.setPosition(stage.getWidth()/2 - offMusic.getWidth()/2,
-					stage.getHeight()-300);
+					stage.getHeight()-200);
 			offMusic.addListener(new InputMusicListener());
 			
 			stage.addActor(offMusic);
@@ -320,7 +396,7 @@ public class GameSelectScreen extends AbstractScreen{
 
 			onMusic = new Image(new Texture("on.png"));
 			onMusic.setPosition(stage.getWidth()/2 - onMusic.getWidth()/2,
-					stage.getHeight()-300);
+					stage.getHeight()-200);
 		
 			onMusic.addListener(new InputMusicListener());
 			
@@ -341,7 +417,7 @@ public class GameSelectScreen extends AbstractScreen{
 
 			offEffect = new Image(new Texture("off.png"));
 			offEffect.setPosition(stage.getWidth()/2 - offEffect.getWidth()/2,
-					stage.getHeight()-450);
+					stage.getHeight()-350);
 			
 			offEffect.addListener(new InputEffectListener());
 			
@@ -358,7 +434,7 @@ public class GameSelectScreen extends AbstractScreen{
 
 			onEffect = new Image(new Texture("on.png"));
 			onEffect.setPosition(stage.getWidth()/2 - onEffect.getWidth()/2,
-					stage.getHeight()-450);
+					stage.getHeight()-350);
 		
 			onEffect.addListener(new InputEffectListener());
 			
@@ -477,6 +553,27 @@ public class GameSelectScreen extends AbstractScreen{
 			hardOffPintado = false;
 			hardOnPintado = true;
 		}		
+		
+		if (Preferencias.getEspañol()){
+
+			español = new Image(new Texture("español.png"));
+			
+			español.setPosition(stage.getWidth()/2 - español.getWidth()/2,
+					stage.getHeight()-500);		
+			español.addListener(new InputIdiomaListener());
+			
+			stage.addActor(español);
+		
+		}else{
+
+			ingles = new Image(new Texture("ingles.png"));
+			
+			ingles.setPosition(stage.getWidth()/2 - ingles.getWidth()/2,
+					stage.getHeight()-500);		
+			ingles.addListener(new InputIdiomaListener());
+			
+			stage.addActor(ingles);
+		}
 		stage.draw();
 
 	}
