@@ -85,19 +85,41 @@ public class StartScreen extends AbstractScreen{
 		initSons();
 		stage = new Stage(new ScreenViewport());
 		solarsystem = new Image(new Texture("solarsystem2.png"));
-		if(Preferencias.getEspañol()){
-		start = new Image(new Texture("retry.png"));
-		select = new Image(new Texture("setting.png"));
-		}else{
-		start = new Image(new Texture("retry.png"));
-		select = new Image(new Texture("setting.png"));
-		}
+
 		fondo = new FondoActor();
 		stage.addActor(fondo);
 
 		mayorPuntuacion = new PuntuacionActor(new BitmapFont());	
 		solarsystem.setPosition(stage.getWidth()/2 - solarsystem.getWidth()/2,
 				stage.getHeight()/2 + 200);
+		
+		stage.addActor(solarsystem);
+		
+
+	}
+	   
+    private void initLabels() {
+    	
+		if(Preferencias.getEspanol()){
+	    		if (stage.getActors().contains(start, false)){
+	    			stage.getActors().removeValue(start, false); 	
+	    		}
+	    		if (stage.getActors().contains(select, false)){
+	    			stage.getActors().removeValue(select, false); 	
+	    		}	    		
+		start = new Image(new Texture("retry_es.png"));
+		select = new Image(new Texture("setting_es.png"));
+		}else{
+    		if (stage.getActors().contains(start, false)){
+    			stage.getActors().removeValue(start, false); 	
+    		}
+    		if (stage.getActors().contains(select, false)){
+    			stage.getActors().removeValue(select, false); 	
+    		}	
+		start = new Image(new Texture("retry.png"));
+		select = new Image(new Texture("setting.png"));
+		}
+
 		start.setPosition(stage.getWidth()/2 - start.getWidth()/2,
 				stage.getHeight()/2 - 200);	
 		
@@ -106,20 +128,17 @@ public class StartScreen extends AbstractScreen{
 
 		start.addListener(new InputTouchToStartListener());
 		select.addListener(new InputTouchToSelectListener());
-		
-		stage.addActor(solarsystem);
+	
 		stage.addActor(start);
 		stage.addActor(select);
 		
-
-	}
-	   
-    private void initLabels() {
+    	
+    	
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
         String prueba = Format.format(Preferencias.getMayorPuntuacion());
-        if(Preferencias.getEspañol()){
+        if(Preferencias.getEspanol()){
     		if (stage.getActors().contains(lbPuntuacion, false)){
     			stage.getActors().removeValue(lbPuntuacion, false); 			
     		}

@@ -133,12 +133,12 @@ public class GameSelectScreen extends AbstractScreen{
 		public boolean touchDown(InputEvent event, float x, float y,
 				int pointer, int button) {
 
-			if(Preferencias.getEspañol()){
-				Preferencias.setEspañol(false);
+			if(Preferencias.getEspanol()){
+				Preferencias.setEspanol(false);
 
 				game.setScreen(game.gameselectScreen);
 			}else{
-				Preferencias.setEspañol(true);		
+				Preferencias.setEspanol(true);		
 
 				game.setScreen(game.gameselectScreen);
 			}
@@ -170,7 +170,7 @@ public class GameSelectScreen extends AbstractScreen{
 	private Boolean hardOffPintado;
 	private Boolean hardOnPintado;
 	
-	private Image español;
+	private Image espanol;
 	private Image ingles;
 	
 	
@@ -197,8 +197,7 @@ public class GameSelectScreen extends AbstractScreen{
 	public GameSelectScreen(final Solarsystem game) {
 		super(game);
 		stage = new Stage(new ScreenViewport());
-		setting = new Image(new Texture("setting2.png"));
-		retry = new Image(new Texture("save.png"));
+
 		fondo = new FondoActor();
 		stage.addActor(fondo);
 
@@ -211,39 +210,53 @@ public class GameSelectScreen extends AbstractScreen{
 		mediumOffPintado = false;;
 		mediumOnPintado = false;;
 		hardOffPintado = false;;
-		hardOnPintado = false;;
+		hardOnPintado = false;		
 
-
-		
+	}
+	
+    private void initLabels() {
+		if (Preferencias.getEspanol()){
+    		if (stage.getActors().contains(setting, false)){
+    			stage.getActors().removeValue(setting, false); 	
+    		}
+    	retry = new Image(new Texture("save_es.png"));
+		}else{
+    		if (stage.getActors().contains(setting, false)){
+    			stage.getActors().removeValue(setting, false); 	
+    		}		
+        	retry = new Image(new Texture("save.png"));
+		}
 		retry.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
 				50);
+	
+		retry.addListener(new InputTouchToStartListener());
+		
+		stage.addActor(retry);
+		
+		if (Preferencias.getEspanol()){
+    		if (stage.getActors().contains(setting, false)){
+    			stage.getActors().removeValue(setting, false); 	
+    		}
+			setting = new Image(new Texture("setting2_es.png"));
+		}else{
+			if (stage.getActors().contains(setting, false)){
+    			stage.getActors().removeValue(setting, false); 	
+    		}
+			setting = new Image(new Texture("setting2.png"));
+			
+		}
 		setting.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
 				stage.getHeight()-setting.getHeight()-30);
 
 
 	
-	
-		
-		retry.addListener(new InputTouchToStartListener());
-		
-
-
-		
-		stage.addActor(retry);
-
 		stage.addActor(setting);
 		
-
-	}
-	
-    private void initLabels() {
-    	if(lbPuntuacion != null){
-    		stage.getActors().removeValue(lbPuntuacion, false);
-    	}
+		
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
       
-        if(Preferencias.getEspañol()){
+        if(Preferencias.getEspanol()){
     		if (stage.getActors().contains(musicText, false)){
     			stage.getActors().removeValue(musicText, false); 	
     		}
@@ -259,7 +272,7 @@ public class GameSelectScreen extends AbstractScreen{
         stage.addActor(musicText);
         
 
-        if(Preferencias.getEspañol()){
+        if(Preferencias.getEspanol()){
 
     		if (stage.getActors().contains(effectsText, false)){
     			stage.getActors().removeValue(effectsText, false); 	
@@ -276,7 +289,7 @@ public class GameSelectScreen extends AbstractScreen{
         stage.addActor(effectsText);
         
 
-        if(Preferencias.getEspañol()){
+        if(Preferencias.getEspanol()){
 
     		if (stage.getActors().contains(levelText, false)){
     			stage.getActors().removeValue(levelText, false); 	
@@ -292,7 +305,7 @@ public class GameSelectScreen extends AbstractScreen{
         levelText.setPosition(stage.getWidth()/2-levelText.getWidth()/2, stage.getHeight()-600);
         stage.addActor(levelText);
         
-        if(Preferencias.getEspañol()){
+        if(Preferencias.getEspanol()){
 
     		if (stage.getActors().contains(languageText, false)){
     			stage.getActors().removeValue(languageText, false); 
@@ -451,9 +464,19 @@ public class GameSelectScreen extends AbstractScreen{
 		}	
 		
 		
-		if (!easy & !easyOffPintado){
-
-			easyno = new Image(new Texture("easyno.png"));
+		if (!easy){
+			if(Preferencias.getEspanol()){
+				if (stage.getActors().contains(easyno, false)){
+					stage.getActors().removeValue(easyno, false);
+				}
+				easyno = new Image(new Texture("easyno_es.png"));
+			}else{
+				if (stage.getActors().contains(easyno, false)){
+					stage.getActors().removeValue(easyno, false);
+				}
+				easyno = new Image(new Texture("easyno.png"));
+			}
+			
 			easyno.setPosition(stage.getWidth()/2 - easyno.getWidth()/2,
 					stage.getHeight()-650);
 			
@@ -465,12 +488,21 @@ public class GameSelectScreen extends AbstractScreen{
 			if (stage.getActors().contains(easysi, false)){
 				stage.getActors().removeValue(easysi, false);
 			}
-			easyOffPintado = true;
-			easyOnPintado = false;
+//			easyOffPintado = true;
+//			easyOnPintado = false;
 		}
-		if (easy & !easyOnPintado){
-
-			easysi = new Image(new Texture("easysi.png"));
+		if (easy){
+			if(Preferencias.getEspanol()){
+				if (stage.getActors().contains(easysi, false)){
+					stage.getActors().removeValue(easysi, false);
+				}
+				easysi = new Image(new Texture("easysi_es.png"));
+			}else{
+				if (stage.getActors().contains(easysi, false)){
+					stage.getActors().removeValue(easysi, false);
+				}
+				easysi = new Image(new Texture("easysi.png"));
+			}
 			easysi.setPosition(stage.getWidth()/2 - easysi.getWidth()/2,
 					stage.getHeight()-650);
 		
@@ -485,9 +517,18 @@ public class GameSelectScreen extends AbstractScreen{
 			easyOnPintado = true;
 		}	
 		
-		if (!medium & !mediumOffPintado){
-
-			mediumno = new Image(new Texture("mediumno.png"));
+		if (!medium){
+			if(Preferencias.getEspanol()){
+				if (stage.getActors().contains(mediumno, false)){
+					stage.getActors().removeValue(mediumno, false);
+				}
+				mediumno = new Image(new Texture("mediumno_es.png"));
+			}else{
+				if (stage.getActors().contains(mediumno, false)){
+					stage.getActors().removeValue(mediumno, false);
+				}
+				mediumno = new Image(new Texture("mediumno.png"));
+			}
 			mediumno.setPosition(stage.getWidth()/2 - mediumno.getWidth()/2,
 					stage.getHeight()-700);
 			
@@ -502,9 +543,18 @@ public class GameSelectScreen extends AbstractScreen{
 			mediumOffPintado = true;
 			mediumOnPintado = false;
 		}
-		if (medium & !mediumOnPintado){
-
-			mediumsi = new Image(new Texture("mediumsi.png"));
+		if (medium){
+			if(Preferencias.getEspanol()){
+				if (stage.getActors().contains(mediumsi, false)){
+					stage.getActors().removeValue(mediumsi, false);
+				}
+				mediumsi = new Image(new Texture("mediumsi_es.png"));
+			}else{
+				if (stage.getActors().contains(mediumsi, false)){
+					stage.getActors().removeValue(mediumsi, false);
+				}
+				mediumsi = new Image(new Texture("mediumsi.png"));
+			}
 			mediumsi.setPosition(stage.getWidth()/2 - mediumsi.getWidth()/2,
 					stage.getHeight()-700);
 		
@@ -515,13 +565,22 @@ public class GameSelectScreen extends AbstractScreen{
 				stage.getActors().removeValue(mediumno, false);
 				
 			}
-			mediumOffPintado = false;
-			mediumOnPintado = true;
+//			mediumOffPintado = false;
+//			mediumOnPintado = true;
 		}		
 
-		if (!hard & !hardOffPintado){
-
-			hardno = new Image(new Texture("hardno.png"));
+		if (!hard){
+			if(Preferencias.getEspanol()){
+				if (stage.getActors().contains(hardno, false)){
+					stage.getActors().removeValue(hardno, false);
+				}
+				hardno = new Image(new Texture("hardno_es.png"));
+			}else{
+				if (stage.getActors().contains(hardno, false)){
+					stage.getActors().removeValue(hardno, false);
+				}
+				hardno = new Image(new Texture("hardno.png"));
+			}
 			hardno.setPosition(stage.getWidth()/2 - hardno.getWidth()/2,
 					stage.getHeight()-750);
 			
@@ -536,9 +595,18 @@ public class GameSelectScreen extends AbstractScreen{
 			hardOffPintado = true;
 			hardOnPintado = false;
 		}
-		if (hard & !hardOnPintado){
-
-			hardsi = new Image(new Texture("hardsi.png"));
+		if (hard){
+			if(Preferencias.getEspanol()){
+				if (stage.getActors().contains(hardsi, false)){
+					stage.getActors().removeValue(hardsi, false);
+				}
+				hardsi = new Image(new Texture("hardsi_es.png"));
+			}else{
+				if (stage.getActors().contains(hardsi, false)){
+					stage.getActors().removeValue(hardsi, false);
+				}
+				hardsi = new Image(new Texture("hardsi.png"));
+			}
 			hardsi.setPosition(stage.getWidth()/2 - hardsi.getWidth()/2,
 					stage.getHeight()-750);
 		
@@ -550,19 +618,19 @@ public class GameSelectScreen extends AbstractScreen{
 				
 			}
 
-			hardOffPintado = false;
-			hardOnPintado = true;
+//			hardOffPintado = false;
+//			hardOnPintado = true;
 		}		
 		
-		if (Preferencias.getEspañol()){
+		if (Preferencias.getEspanol()){
 
-			español = new Image(new Texture("español.png"));
+			espanol = new Image(new Texture("espanol.png"));
 			
-			español.setPosition(stage.getWidth()/2 - español.getWidth()/2,
+			espanol.setPosition(stage.getWidth()/2 - espanol.getWidth()/2,
 					stage.getHeight()-500);		
-			español.addListener(new InputIdiomaListener());
+			espanol.addListener(new InputIdiomaListener());
 			
-			stage.addActor(español);
+			stage.addActor(espanol);
 		
 		}else{
 

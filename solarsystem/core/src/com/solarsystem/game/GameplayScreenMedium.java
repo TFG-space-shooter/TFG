@@ -396,7 +396,11 @@ public class GameplayScreenMedium extends AbstractScreen{
 //		planeta1.addAction(Actions.forever(Actions.parallel(Actions.moveBy(0, -3),
 //				Actions.rotateBy(1))));
 		
-		stage1 = new Image(new Texture("stage1.png"));
+		if(Preferencias.getEspanol()){
+			stage1 = new Image(new Texture("stage1_es.png"));
+		}else{
+			stage1 = new Image(new Texture("stage1.png"));
+		}
 		stage1.setPosition(stage.getWidth()/2 - stage1.getWidth()/2,
 				stage.getHeight()/2 - stage1.getHeight()/2);
 		stage.addActor(stage1);
@@ -421,12 +425,12 @@ public class GameplayScreenMedium extends AbstractScreen{
 			nave.addListener(new InputDesktopAndroidListener());
 		}
 		
-		puntuacion.setPosition(puntuacion.getWidth() + 120, stage.getHeight() - 20);
+		puntuacion.setPosition(puntuacion.getWidth() + 150, stage.getHeight() - 20);
 		puntuacion.setPuntuacion(0);
-		puntuacionTexto.setPosition(puntuacion.getX() - puntuacionTexto.getWidth() - 100, 
+		puntuacionTexto.setPosition(puntuacion.getX() - puntuacionTexto.getWidth() - 120, 
 				stage.getHeight() - 30);
-		energia.setPosition(energia.getWidth() + 120, stage.getHeight() - 60);
-		energiaTexto.setPosition(energia.getX() - energiaTexto.getWidth() - 100,
+		energia.setPosition(energia.getWidth() + 150, stage.getHeight() - 60);
+		energiaTexto.setPosition(energia.getX() - energiaTexto.getWidth() - 120,
 				stage.getHeight() - 60);
 		energia.setEnergia(0);
 		stage.addActor(puntuacion);
@@ -817,10 +821,7 @@ public class GameplayScreenMedium extends AbstractScreen{
 							timerFase4 -= delta;
 							if(timerFase4<0){
 								stage.getActors().removeValue(ufo, false);
-								clear = new Image(new Texture("clear.png"));
-								clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-										stage.getHeight()/2 - clear.getHeight()/2);
-								stage.addActor(clear);
+								clear();
 								timerFin = 3;
 								timerFin2 = 0;
 								timerFin3 = 0;
@@ -1328,10 +1329,7 @@ public class GameplayScreenMedium extends AbstractScreen{
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+200);
 							if(enemigos.isEmpty()){
 								stage.getActors().removeValue(ufo, false);
-								clear = new Image(new Texture("clear.png"));
-								clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-										stage.getHeight()/2 - clear.getHeight()/2);
-								stage.addActor(clear);
+								clear();
 								timerFin = 3;
 								timerUfo = 10000;
 								timerBlue = 8;
@@ -1748,10 +1746,7 @@ public class GameplayScreenMedium extends AbstractScreen{
 							puntuacion.setPuntuacion(puntuacion.getPuntuacion()+200);
 							if(enemigosBlue.isEmpty()){
 								stage.getActors().removeValue(ufo, false);
-								clear = new Image(new Texture("clear.png"));
-								clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-										stage.getHeight()/2 - clear.getHeight()/2);
-								stage.addActor(clear);
+								clear();
 								timerFin = 3;
 								timerFin2 = 0;
 								timerUfo = 10000;
@@ -1877,10 +1872,7 @@ public class GameplayScreenMedium extends AbstractScreen{
 									stage.addActor(boomGreen);
 								}
 								stage.getActors().removeValue(ufo, false);
-								clear = new Image(new Texture("clear.png"));
-								clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-										stage.getHeight()/2 - clear.getHeight()/2);
-								stage.addActor(clear);
+								clear();
 								timerFin = 3;
 								timerFin2 = 0;
 								timerFin3 = 0;
@@ -2122,10 +2114,7 @@ public class GameplayScreenMedium extends AbstractScreen{
 										stage.addActor(boomRed);
 									}
 									stage.getActors().removeValue(ufo, false);
-									clear = new Image(new Texture("clear.png"));
-									clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-											stage.getHeight()/2 - clear.getHeight()/2);
-									stage.addActor(clear);
+									clear();
 									timerFin = 3;
 									timerFin2 = 0;
 									timerFin3 = 0;
@@ -2216,10 +2205,7 @@ public class GameplayScreenMedium extends AbstractScreen{
 			
 			if(contadorFinFase7<0){
 				stage.getActors().removeValue(ufo, false);
-				clear = new Image(new Texture("clear.png"));
-				clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
-						stage.getHeight()/2 - clear.getHeight()/2);
-				stage.addActor(clear);
+				clear();
 				timerFin = 3;
 				timerFin2 = 0;
 				timerFin3 = 0;
@@ -4583,7 +4569,11 @@ public class GameplayScreenMedium extends AbstractScreen{
 	
 	
 	private void stage2(){
-		stage2 = new Image(new Texture("stage2.png"));
+		if(Preferencias.getEspanol()){
+			stage2 = new Image(new Texture("stage2_es.png"));
+		}else{
+			stage2 = new Image(new Texture("stage2.png"));
+		}	
 		stage2.setPosition(stage.getWidth()/2 - stage2.getWidth()/2,
 				stage.getHeight()/2 - stage2.getHeight()/2);
 		stage.addActor(stage2);
@@ -4591,8 +4581,12 @@ public class GameplayScreenMedium extends AbstractScreen{
 		stage2.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
 	}
 	
-	private void stage3(){
-		stage3 = new Image(new Texture("stage3.png"));
+	private void stage3(){	
+		if(Preferencias.getEspanol()){
+			stage3 = new Image(new Texture("stage3_es.png"));
+		}else{
+			stage3 = new Image(new Texture("stage3.png"));
+		}
 		stage3.setPosition(stage.getWidth()/2 - stage3.getWidth()/2,
 				stage.getHeight()/2 - stage3.getHeight()/2);
 		stage.addActor(stage3);
@@ -4600,7 +4594,11 @@ public class GameplayScreenMedium extends AbstractScreen{
 		stage3.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
 	}
 	private void stage4(){
-		stage4 = new Image(new Texture("stage4.png"));
+		if(Preferencias.getEspanol()){
+			stage4 = new Image(new Texture("stage4_es.png"));
+		}else{
+			stage4 = new Image(new Texture("stage4.png"));
+		}
 		stage4.setPosition(stage.getWidth()/2 - stage4.getWidth()/2,
 				stage.getHeight()/2 - stage4.getHeight()/2);
 		stage.addActor(stage4);
@@ -4609,7 +4607,11 @@ public class GameplayScreenMedium extends AbstractScreen{
 	}
 	
 	private void stage5(){
-		stage5 = new Image(new Texture("stage5.png"));
+		if(Preferencias.getEspanol()){
+			stage5 = new Image(new Texture("stage5_es.png"));
+		}else{
+			stage5 = new Image(new Texture("stage5.png"));
+		}
 		stage5.setPosition(stage.getWidth()/2 - stage5.getWidth()/2,
 				stage.getHeight()/2 - stage5.getHeight()/2);
 		stage.addActor(stage5);
@@ -4618,7 +4620,11 @@ public class GameplayScreenMedium extends AbstractScreen{
 	}
 
 	private void stage6(){
-		stage6 = new Image(new Texture("stage6.png"));
+		if(Preferencias.getEspanol()){
+			stage6 = new Image(new Texture("stage6_es.png"));
+		}else{
+			stage6 = new Image(new Texture("stage6.png"));
+		}
 		stage6.setPosition(stage.getWidth()/2 - stage6.getWidth()/2,
 				stage.getHeight()/2 - stage6.getHeight()/2);
 		stage.addActor(stage6);
@@ -4627,7 +4633,11 @@ public class GameplayScreenMedium extends AbstractScreen{
 	}
 
 	private void stage7(){
-		stage7 = new Image(new Texture("stage7.png"));
+		if(Preferencias.getEspanol()){
+			stage7 = new Image(new Texture("stage7_es.png"));
+		}else{
+			stage7 = new Image(new Texture("stage7.png"));
+		}
 		stage7.setPosition(stage.getWidth()/2 - stage7.getWidth()/2,
 				stage.getHeight()/2 - stage7.getHeight()/2);
 		stage.addActor(stage7);
@@ -4636,7 +4646,11 @@ public class GameplayScreenMedium extends AbstractScreen{
 	}
 
 	private void stage8(){
-		stage8 = new Image(new Texture("stage8.png"));
+		if(Preferencias.getEspanol()){
+			stage8 = new Image(new Texture("stage8_es.png"));
+		}else{
+			stage8 = new Image(new Texture("stage8.png"));
+		}
 		stage8.setPosition(stage.getWidth()/2 - stage8.getWidth()/2,
 				stage.getHeight()/2 - stage8.getHeight()/2);
 		stage.addActor(stage8);
@@ -4644,7 +4658,11 @@ public class GameplayScreenMedium extends AbstractScreen{
 		stage8.addAction(Actions.sequence(Actions.delay(2),Actions.removeActor()));
 	}
 	private void clear(){
-		clear = new Image(new Texture("clear.png"));
+		if(Preferencias.getEspanol()){
+		clear = new Image(new Texture("clear_es.png"));
+		}else{
+			clear = new Image(new Texture("clear.png"));	
+		}
 		clear.setPosition(stage.getWidth()/2 - clear.getWidth()/2,
 				stage.getHeight()/2 - clear.getHeight()/2);
 		stage.addActor(clear);
@@ -4713,7 +4731,12 @@ public class GameplayScreenMedium extends AbstractScreen{
         labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
         
-        creditos = new Label("UNIVERSIDAD DE SEVILLA\n   ETSII Reina Mercedes\n\n\n\nTrabajo de Fin de Grado\n    Departamento LSI\n\n   '' SOLAR SYSTEM ''\n\n\n\n\n Alumnos:\n Aurora Gómez Medina\n Jorge Ramos Rivas", labelStyle);
+        if(Preferencias.getEspanol()){
+        	creditos = new Label("UNIVERSIDAD DE SEVILLA\n   ETSII Reina Mercedes\n\n\n\nTrabajo de Fin de Grado\n    Departamento LSI\n\n   '' SOLAR SYSTEM ''\n\n\n\n\n Alumnos:\n Aurora Gómez Medina\n Jorge Ramos Rivas \n\n\n Tutor:\n Juan Manuel Cordero Valle", labelStyle);
+        }else{
+          	creditos = new Label("UNIVERSIDAD DE SEVILLA\n   ETSII Reina Mercedes\n\n\n\n Final Degree Project\n    Department LSI\n\n   '' SOLAR SYSTEM ''\n\n\n\n\n Students:\n Aurora Gómez Medina\n Jorge Ramos Rivas \n\n\n Tutor:\n Juan Manuel Cordero Valle", labelStyle);
+          	         	
+        }
         creditos.setPosition(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight());
 
 //        creditos.setPosition(stage.getWidth()/2-creditos.getWidth()/2, stage.getHeight()/2-creditos.getHeight()/2);

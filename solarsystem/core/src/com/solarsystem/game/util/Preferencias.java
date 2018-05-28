@@ -7,12 +7,12 @@ public class Preferencias {
 
     private static Preferences prefs;
 
-    public static boolean getEspañol() {
-    	return getPrefs().getBoolean("español");
+    public static boolean getEspanol() {
+    	return getPrefs().getBoolean("espanol");
     }
 
-    public static void setEspañol(boolean español) {
-    	getPrefs().putBoolean("español", español);
+    public static void setEspanol(boolean espanol) {
+    	getPrefs().putBoolean("espanol", espanol);
     	getPrefs().flush();
 
     }

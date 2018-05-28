@@ -82,41 +82,86 @@ public class GameOverScreen extends AbstractScreen{
 	public GameOverScreen(final Solarsystem game) {
 		super(game);
 		stage = new Stage(new ScreenViewport());
-		gameover = new Image(new Texture("gameover.png"));
-		retry = new Image(new Texture("retry.png"));
 		fondo = new FondoActor();
 		stage.addActor(fondo);
-		select = new Image(new Texture("main.png"));
 		mayorPuntuacion = new PuntuacionActor(new BitmapFont());
 		
 
 		
-		gameover.setPosition(stage.getWidth()/2 - gameover.getWidth()/2,
-				stage.getHeight()/2 + 100);
-		retry.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
-				stage.getHeight()/2 - 200);
 
+		stage.addActor(mayorPuntuacion);
+	}
+    private void initLabels() {
+    	
+		if(Preferencias.getEspanol()){
+	    		if (stage.getActors().contains(select, false)){
+	    			stage.getActors().removeValue(select, false); 	
+	    		}
+	    		if (stage.getActors().contains(retry, false)){
+	    			stage.getActors().removeValue(retry, false); 	
+	    		}
+	    		if (stage.getActors().contains(gameover, false)){
+	    			stage.getActors().removeValue(gameover, false); 	
+	    		}
+	    		
+	    		select = new Image(new Texture("main_es.png"));
+	    		retry = new Image(new Texture("retry_es.png"));
+	    		gameover = new Image(new Texture("gameover_es.png"));
+		}else{
+    		if (stage.getActors().contains(select, false)){
+    			stage.getActors().removeValue(select, false); 	
+    		}
+    		if (stage.getActors().contains(retry, false)){
+    			stage.getActors().removeValue(retry, false); 	
+    		}
+    		if (stage.getActors().contains(gameover, false)){
+    			stage.getActors().removeValue(gameover, false); 	
+    		}   		
+    		select = new Image(new Texture("main.png"));
+    		retry = new Image(new Texture("retry.png"));
+    		gameover = new Image(new Texture("gameover.png"));
+			}
+    	
 		select.setPosition(stage.getWidth()/2 - select.getWidth()/2,
 				stage.getHeight()/2-100);
 
+
+		retry.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
+				stage.getHeight()/2 - 200);
+		gameover.setPosition(stage.getWidth()/2 - gameover.getWidth()/2,
+				stage.getHeight()/2 + 100);
 	
-		retry.addListener(new InputTouchToStartListener());
+
 		select.addListener(new InputTouchToSelectListener());
-	
-		stage.addActor(gameover);
-		stage.addActor(retry);
-		stage.addActor(mayorPuntuacion);
+		retry.addListener(new InputTouchToStartListener());
+
 		stage.addActor(select);
-	}
-    private void initLabels() {
+		stage.addActor(retry);
+		stage.addActor(gameover);    	
+    	
+    	
     	if(lbPuntuacion != null){
     		stage.getActors().removeValue(lbPuntuacion, false);
     	}
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle = new Label.LabelStyle();
         labelStyle.font = fontBotoes;
-        lbPuntuacion = new Label("High Score: " + Format.format(Preferencias.getMayorPuntuacion()), labelStyle);
-        lbPuntuacion.setPosition(stage.getWidth()/2-lbPuntuacion.getWidth()/2, 200);
+        
+        if(Preferencias.getEspanol()){
+    		if (stage.getActors().contains(lbPuntuacion, false)){
+    			stage.getActors().removeValue(lbPuntuacion, false); 			
+    		}
+        lbPuntuacion = new Label("Máxima Puntuación: " +  Format.format(Preferencias.getMayorPuntuacion()), labelStyle);
+
+        }else{
+    		if (stage.getActors().contains(lbPuntuacion, false)){
+    			stage.getActors().removeValue(lbPuntuacion, false); 			
+    		}
+            lbPuntuacion = new Label("High Score: " +  Format.format(Preferencias.getMayorPuntuacion()), labelStyle);
+        	
+        }
+        
+      lbPuntuacion.setPosition(stage.getWidth()/2-lbPuntuacion.getWidth()/2, 200);
         stage.addActor(lbPuntuacion);
     }
     private void initFonts() {
