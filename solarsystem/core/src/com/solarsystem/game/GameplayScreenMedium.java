@@ -515,199 +515,199 @@ public class GameplayScreenMedium extends AbstractScreen{
 		stage.act();
 
 		//Codigo solo para probar el juego
-		if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_1)){
-			for(int i = 0; i<enemigos.size(); i++){
-				enemigos.get(i).setContador(4);
-				enemigos.get(i).remove();
-				enemigos.remove(i);
-			}
-			stage.getActors().removeValue(ufo, false);
-			timerFin = 3;
-			timerUfo = 10000;
-			timerBlue = 8;
-			timerBlue2 = 8.5f;
-			timerBlue3 = 9;
-			timerBlue4 = 9.5f;
-			timerEnemigoBlue = 10;
-			timerStage2 = 5;
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_2)){
-			for(int i = 0; i<enemigosBlue.size(); i++){
-				enemigosBlue.get(i).setContador(8);
-				enemigosBlue.get(i).remove();
-				enemigosBlue.remove(i);
-			}
-			stage.getActors().removeValue(ufo, false);
-			timerFin = 3;
-			timerFin2 = 0;
-			timerUfo = 10000;
-			timerGreen = 8;
-			timerStage3 = 5;
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)){
-			greenDead = 39;
-			timerGreen = 10000;
-			timerFin = 3;
-			timerFin2 = 0;
-			timerFin3 = 0;
-			timerUfo = 10000;
-			timerYellow = 8;
-			timerStage4 = 5;
-			timerEnemigoYellow = 7;
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)){
-			for(int i = 0; i<enemigosYellow.size(); i++){
-				enemigosYellow.get(i).setContador(15);
-				enemigosYellow.get(i).remove();
-				enemigosYellow.remove(i);
-			}
-			timerFin = 3;
-			timerFin2 = 0;
-			timerFin3 = 0;
-			timerFin4 = 0;
-			timerUfo = 10000;
-			timerStage5 = 5;
-			timerFase4 = 10000;
-			timerRed = 8;
-			timerEnemigoRed = 7;
-			
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)|Gdx.input.isKeyPressed(Input.Keys.VOLUME_DOWN)){
-			for(int i = 0; i<enemigos.size(); i++){
-				enemigos.get(i).setContador(4);
-				enemigos.get(i).remove();
-				enemigos.remove(i);
-			}
-
-			timerFin = 3;
-			timerFin2 = 0;	
-			timerFin3 = 0;	
-			timerFin4 = 0;	
-			timerFin5 = 0;	
-			timerStage6 = 5;
-			timerEnemigoStage6 = 7;
-			timerEnemigoStage62 = 11;
-			timerEnemigoStage63 = 14;
-			timerEnemigoStage64 = 16.5f;
-			timerEnemigoStage65 = 18.5f;
-			timerFinStage6 = 25;
-			timerStage7=29;
-			timerClear6 = 23;
-			timerEnemigoStage7 = 32;
-			timerUfo = 10000;
-			
-			timerEnemigoRed = 10000;
-			timerRed = 10000;
-			timerStage5=10000;
-			timerEnemigoRed=10000;
-			timerBlue = 10000;
-			timerBlue2 = 10000;
-			timerBlue3 = 10000;
-			timerBlue4 = 10000;
-			timerGreen = 10000;
-			timerYellow = 10000; 
-			timerFase4 = 10000;
-			
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)){
-			for(int i = 0; i<enemigos.size(); i++){
-				enemigos.get(i).setContador(4);
-				enemigos.get(i).remove();
-				enemigos.remove(i);
-			}
-
-			timerFin = 3;
-			timerFin2 = 0;	
-			timerFin3 = 0;	
-			timerFin4 = 0;	
-			timerFin5 = 0;	
-			timerStage6 = 5;
-			timerEnemigoStage6 = 10000;
-			timerEnemigoStage62 = 10000;
-			timerEnemigoStage63 = 10000;
-			timerEnemigoStage64 = 10000;
-			timerEnemigoStage65 = 10000;
-			timerFinStage6 = 0;
-			timerStage7=0;
-			timerClear6 = 0;
-			timerEnemigoStage7 = 0;
-			
-			timerUfo = 10000;
-			
-			timerEnemigoRed = 10000;
-			timerRed = 10000;
-			timerStage5=10000;
-			timerEnemigoRed=10000;
-			timerBlue = 10000;
-			timerBlue2 = 10000;
-			timerBlue3 = 10000;
-			timerBlue4 = 10000;
-			timerGreen = 10000;
-			timerYellow = 10000; 
-			timerFase4 = 10000;
-			
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_7)|Gdx.input.isKeyPressed(Input.Keys.VOLUME_UP)){
-			for(int i = 0; i<enemigos.size(); i++){
-				enemigos.get(i).setContador(4);
-				enemigos.get(i).remove();
-				enemigos.remove(i);
-			}
-			timerFin = 3;
-			timerFin2 = 0;	
-			timerFin3 = 0;	
-			timerFin4 = 0;	
-			timerFin5 = 0;	
-			timerStage6 = 10000;
-			timerEnemigoStage6 = 10000;
-			timerEnemigoStage62 = 10000;
-			timerEnemigoStage63 = 10000;
-			timerEnemigoStage64 = 10000;
-			timerEnemigoStage65 = 10000;
-			timerFinStage6 = 10000;
-			timerStage7=10000;
-			timerClear6 = 10000;
-			timerEnemigoStage7 = 10000;
-			
-			timerUfo = 10000;
-			
-			timerEnemigoRed = 10000;
-			timerRed = 10000;
-			timerStage5=10000;
-			timerEnemigoRed=10000;
-			timerBlue = 10000;
-			timerBlue2 = 10000;
-			timerBlue3 = 10000;
-			timerBlue4 = 10000;
-			timerGreen = 10000;
-			timerYellow = 10000; 
-			timerFase4 = 10000;
-			
-			timerFin = 3;
-			timerFin2 = 0;
-			timerFin3 = 0;
-			timerFin4 = 0;
-			timerFin5 = 0;
-			timerFin7 = 0;
-			timerStage8=0;
-			timerFinStage6 =10000;
-			timerEnemigoStage7 = 10000;
-			contadorFinFase7 = 10000;
-			timerDisparoEnemigoStage7 = 3;
-			timerJefe = 8;
-			timerDispararJefe = 15;
-			timerDispararJefeStop = 17;
-			
-
-			timerDispararJefe2 = 20;
-			timerDispararJefeStop2 = 22;
-			timerDispararJefe3 = 25;
-			timerDispararJefeStop3 =27;
-			
-			
-			reiniciarDisparo1 = 30;
-			
-			
-		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_9)){
-
-			disparar6();
-			
-			
-		}
+//		if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_1)){
+//			for(int i = 0; i<enemigos.size(); i++){
+//				enemigos.get(i).setContador(4);
+//				enemigos.get(i).remove();
+//				enemigos.remove(i);
+//			}
+//			stage.getActors().removeValue(ufo, false);
+//			timerFin = 3;
+//			timerUfo = 10000;
+//			timerBlue = 8;
+//			timerBlue2 = 8.5f;
+//			timerBlue3 = 9;
+//			timerBlue4 = 9.5f;
+//			timerEnemigoBlue = 10;
+//			timerStage2 = 5;
+//		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_2)){
+//			for(int i = 0; i<enemigosBlue.size(); i++){
+//				enemigosBlue.get(i).setContador(8);
+//				enemigosBlue.get(i).remove();
+//				enemigosBlue.remove(i);
+//			}
+//			stage.getActors().removeValue(ufo, false);
+//			timerFin = 3;
+//			timerFin2 = 0;
+//			timerUfo = 10000;
+//			timerGreen = 8;
+//			timerStage3 = 5;
+//		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)){
+//			greenDead = 39;
+//			timerGreen = 10000;
+//			timerFin = 3;
+//			timerFin2 = 0;
+//			timerFin3 = 0;
+//			timerUfo = 10000;
+//			timerYellow = 8;
+//			timerStage4 = 5;
+//			timerEnemigoYellow = 7;
+//		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)){
+//			for(int i = 0; i<enemigosYellow.size(); i++){
+//				enemigosYellow.get(i).setContador(15);
+//				enemigosYellow.get(i).remove();
+//				enemigosYellow.remove(i);
+//			}
+//			timerFin = 3;
+//			timerFin2 = 0;
+//			timerFin3 = 0;
+//			timerFin4 = 0;
+//			timerUfo = 10000;
+//			timerStage5 = 5;
+//			timerFase4 = 10000;
+//			timerRed = 8;
+//			timerEnemigoRed = 7;
+//			
+//		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)|Gdx.input.isKeyPressed(Input.Keys.VOLUME_DOWN)){
+//			for(int i = 0; i<enemigos.size(); i++){
+//				enemigos.get(i).setContador(4);
+//				enemigos.get(i).remove();
+//				enemigos.remove(i);
+//			}
+//
+//			timerFin = 3;
+//			timerFin2 = 0;	
+//			timerFin3 = 0;	
+//			timerFin4 = 0;	
+//			timerFin5 = 0;	
+//			timerStage6 = 5;
+//			timerEnemigoStage6 = 7;
+//			timerEnemigoStage62 = 11;
+//			timerEnemigoStage63 = 14;
+//			timerEnemigoStage64 = 16.5f;
+//			timerEnemigoStage65 = 18.5f;
+//			timerFinStage6 = 25;
+//			timerStage7=29;
+//			timerClear6 = 23;
+//			timerEnemigoStage7 = 32;
+//			timerUfo = 10000;
+//			
+//			timerEnemigoRed = 10000;
+//			timerRed = 10000;
+//			timerStage5=10000;
+//			timerEnemigoRed=10000;
+//			timerBlue = 10000;
+//			timerBlue2 = 10000;
+//			timerBlue3 = 10000;
+//			timerBlue4 = 10000;
+//			timerGreen = 10000;
+//			timerYellow = 10000; 
+//			timerFase4 = 10000;
+//			
+//		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)){
+//			for(int i = 0; i<enemigos.size(); i++){
+//				enemigos.get(i).setContador(4);
+//				enemigos.get(i).remove();
+//				enemigos.remove(i);
+//			}
+//
+//			timerFin = 3;
+//			timerFin2 = 0;	
+//			timerFin3 = 0;	
+//			timerFin4 = 0;	
+//			timerFin5 = 0;	
+//			timerStage6 = 5;
+//			timerEnemigoStage6 = 10000;
+//			timerEnemigoStage62 = 10000;
+//			timerEnemigoStage63 = 10000;
+//			timerEnemigoStage64 = 10000;
+//			timerEnemigoStage65 = 10000;
+//			timerFinStage6 = 0;
+//			timerStage7=0;
+//			timerClear6 = 0;
+//			timerEnemigoStage7 = 0;
+//			
+//			timerUfo = 10000;
+//			
+//			timerEnemigoRed = 10000;
+//			timerRed = 10000;
+//			timerStage5=10000;
+//			timerEnemigoRed=10000;
+//			timerBlue = 10000;
+//			timerBlue2 = 10000;
+//			timerBlue3 = 10000;
+//			timerBlue4 = 10000;
+//			timerGreen = 10000;
+//			timerYellow = 10000; 
+//			timerFase4 = 10000;
+//			
+//		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_7)|Gdx.input.isKeyPressed(Input.Keys.VOLUME_UP)){
+//			for(int i = 0; i<enemigos.size(); i++){
+//				enemigos.get(i).setContador(4);
+//				enemigos.get(i).remove();
+//				enemigos.remove(i);
+//			}
+//			timerFin = 3;
+//			timerFin2 = 0;	
+//			timerFin3 = 0;	
+//			timerFin4 = 0;	
+//			timerFin5 = 0;	
+//			timerStage6 = 10000;
+//			timerEnemigoStage6 = 10000;
+//			timerEnemigoStage62 = 10000;
+//			timerEnemigoStage63 = 10000;
+//			timerEnemigoStage64 = 10000;
+//			timerEnemigoStage65 = 10000;
+//			timerFinStage6 = 10000;
+//			timerStage7=10000;
+//			timerClear6 = 10000;
+//			timerEnemigoStage7 = 10000;
+//			
+//			timerUfo = 10000;
+//			
+//			timerEnemigoRed = 10000;
+//			timerRed = 10000;
+//			timerStage5=10000;
+//			timerEnemigoRed=10000;
+//			timerBlue = 10000;
+//			timerBlue2 = 10000;
+//			timerBlue3 = 10000;
+//			timerBlue4 = 10000;
+//			timerGreen = 10000;
+//			timerYellow = 10000; 
+//			timerFase4 = 10000;
+//			
+//			timerFin = 3;
+//			timerFin2 = 0;
+//			timerFin3 = 0;
+//			timerFin4 = 0;
+//			timerFin5 = 0;
+//			timerFin7 = 0;
+//			timerStage8=0;
+//			timerFinStage6 =10000;
+//			timerEnemigoStage7 = 10000;
+//			contadorFinFase7 = 10000;
+//			timerDisparoEnemigoStage7 = 3;
+//			timerJefe = 8;
+//			timerDispararJefe = 15;
+//			timerDispararJefeStop = 17;
+//			
+//
+//			timerDispararJefe2 = 20;
+//			timerDispararJefeStop2 = 22;
+//			timerDispararJefe3 = 25;
+//			timerDispararJefeStop3 =27;
+//			
+//			
+//			reiniciarDisparo1 = 30;
+//			
+//			
+//		}if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_9)){
+//
+//			disparar6();
+//			
+//			
+//		}
 		
 		puntuacion.toFront();
 		puntuacionTexto.toFront();
