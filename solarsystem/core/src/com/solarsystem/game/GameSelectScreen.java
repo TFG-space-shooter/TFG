@@ -245,7 +245,7 @@ public class GameSelectScreen extends AbstractScreen{
 			setting = new Image(new Texture("setting2.png"));
 			
 		}
-		setting.setPosition(stage.getWidth()/2 - retry.getWidth()/2,
+		setting.setPosition(stage.getWidth()/2 - setting.getWidth()/2,
 				stage.getHeight()-setting.getHeight()-30);
 
 
