@@ -167,7 +167,7 @@ public class GameOverScreen extends AbstractScreen{
     private void initFonts() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/roboto.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        params.size = MathUtils.roundPositive(32 * Gdx.graphics.getDensity());
+        params.size = MathUtils.roundPositive(25 * Gdx.graphics.getDensity());
         params.color = Color.WHITE;
         fontBotoes = generator.generateFont(params);
 
