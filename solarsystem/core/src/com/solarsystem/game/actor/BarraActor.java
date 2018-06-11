@@ -27,5 +27,13 @@ public class BarraActor extends Actor {
 	public void draw(Batch batch, float parentAlpha) {
 		batch.draw(barra, getX(), getY(), 0, 0, (int) (getWidth()*getHealth()), ((int) getHeight()));
 	}
+	
+	@Override
+	  public void act(float delta) {
+	    super.act(delta);
+	    if(getHealth()<0){
+	      setHealth(0); 
+	    }
+	  }
 
 }
